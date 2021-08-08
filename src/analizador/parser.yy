@@ -13,61 +13,104 @@
 %code requires
 {
    class Driver;
-}
+   class Comando;
+   class Parametro;
+   class Mkdisk;
 
+}
 %{
-   
-   #include <string>
+   using namespace std;
    #include <stdio.h>
-   #include "driver.h"
    #include <iostream>
+   #include <string>
+   #include <vector>
+   
+   #include "driver.h"
 %}
 
 
 /******* TERMINALES ********/
-%token MKDISK"MKDISK" SIZE"SIZE" F"F" PATH"PATH" U"U" BF"BF" FF"FF" WF"WF" K"K" M"M" RUTA"RUTA" GUION"GUION" IGUAL"IGUAL" 
-%token <float> NUM"NUM"
-%token FIN 0 "eof"
+%token GUION"GUION" IGUAL"IGUAL" 
+%token <std::string> NUM"NUM" SIZE"SIZE" F"F" PATH"PATH" U"U" BF"BF" FF"FF" WF"WF" K"K" M"M" RUTA"RUTA" MKDISK"MKDISK"
+
 
 /******* NO TERMINALES ********/
 %start inicio;
+%type <Parametro> parametro
+%type <Comando> nom_com comando
+%type <std::vector<Parametro>> lista_param
+%type <std::string> atributo nom_param
 
 %%
 
-   inicio : lista_comandos {}
+   inicio : lista_comandos "\n" { //printf("Primer nivel del arbol");}
           ;
 
-   lista_comandos : lista_comandos comando  {}
-                  | comando                {}
+   lista_comandos : lista_comandos comando  { //printf("Segundo nivel del arbol\n");}
+                  | comando                { //printf("Segundo nivel del arbol\n");}
                   ;
 
-   comando : lista_param nom_com    {}
-           | nom_com                {}
+   comando : lista_param nom_com    
+               {
+                  //printf("Tercer nivel del arbol\n");
+                  $2.agregarParametros($1);
+                  $$ = $2;
+               }
+           | nom_com                
+               {
+
+                  //printf("Tercer nivel del arbol\n");
+                  $$ = $1;
+               }
            ;
 
-   nom_com : MKDISK     { printf("Se reconocio MKDISK\n");}
+   nom_com : MKDISK     
+               {
+                  //printf("Cuarto nivel del arbol\n");
+                  $$=Mkdisk();
+               }
            ;
    
-   lista_param : lista_param parametro    {}
-               | parametro                {}
+   lista_param : lista_param parametro    
+                  {
+                     //printf("Cuarto nivel del arbol\n");
+                     $$=$1;
+                     $$.push_back($2);
+                  }
+               | parametro                
+                  {  
+                     //printf("Cuarto nivel del arbol\n");
+                     vector<Parametro> params;
+                     params.push_back($1);
+                     $$ = params;
+                  }
                ;
    
-   parametro : GUION nom_param IGUAL atributo {}
+   parametro : GUION nom_param IGUAL atributo 
+               {  
+
+                  //printf("Quinto nivel del arbol\n");
+                  Parametro param;
+                  param.setNombre($2);
+                  param.setValor($4);
+                  printf(param.getNombre().c_str());
+                  $$ = param;
+               }
              ;
 
-   nom_param : SIZE     { printf("Se reconocio SIZE\n"); }
-             | F        { printf("Se reconocio F\n"); }
-             | PATH     { printf("Se reconocio PATH\n"); }
-             | U        { printf("Se reconocio U\n"); }
+   nom_param : SIZE     { $$=$1; }
+             | F        { $$=$1; }
+             | PATH     { $$=$1; }
+             | U        { $$=$1; }
              ;
 
-   atributo : NUM    { printf("Se reconocio NUM\n"); }
-            | BF     { printf("Se reconocio BF\n");}
-            | FF     { printf("Se reconocio FF\n");}
-            | WF     { printf("Se reconocio WF \n");}
-            | K      { printf("Se reconocio K\n");}
-            | M      { printf("Se reconocio M\n");}
-            | RUTA   { printf("Se reconocio RUTA\n");}
+   atributo : NUM    { $$=$1; }
+            | BF     { $$=$1; }
+            | FF     { $$=$1; }
+            | WF     { $$=$1; }
+            | K      { $$=$1; }
+            | M      { $$=$1; }
+            | RUTA   { $$=$1; }
             ;
 
 %%

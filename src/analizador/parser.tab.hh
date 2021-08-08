@@ -47,8 +47,12 @@
 #line 14 "parser.yy"
 
    class Driver;
+   class Comando;
+   class Parametro;
+   class Mkdisk;
 
-#line 52 "parser.tab.hh"
+
+#line 56 "parser.tab.hh"
 
 
 # include <cstdlib> // std::abort
@@ -182,7 +186,7 @@
 #endif
 
 namespace yy {
-#line 186 "parser.tab.hh"
+#line 190 "parser.tab.hh"
 
 
 
@@ -364,8 +368,31 @@ namespace yy {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
+      // comando
+      // nom_com
+      char dummy1[sizeof (Comando)];
+
+      // parametro
+      char dummy2[sizeof (Parametro)];
+
       // "NUM"
-      char dummy1[sizeof (float)];
+      // "SIZE"
+      // "F"
+      // "PATH"
+      // "U"
+      // "BF"
+      // "FF"
+      // "WF"
+      // "K"
+      // "M"
+      // "RUTA"
+      // "MKDISK"
+      // nom_param
+      // atributo
+      char dummy3[sizeof (std::string)];
+
+      // lista_param
+      char dummy4[sizeof (std::vector<Parametro>)];
     };
 
     /// The size of the largest semantic type.
@@ -404,21 +431,20 @@ namespace yy {
     {
       enum yytokentype
       {
-        FIN = 0,
-        MKDISK = 258,
-        SIZE = 259,
-        F = 260,
-        PATH = 261,
-        U = 262,
-        BF = 263,
-        FF = 264,
-        WF = 265,
-        K = 266,
-        M = 267,
-        RUTA = 268,
-        GUION = 269,
-        IGUAL = 270,
-        NUM = 271
+        GUION = 258,
+        IGUAL = 259,
+        NUM = 260,
+        SIZE = 261,
+        F = 262,
+        PATH = 263,
+        U = 264,
+        BF = 265,
+        FF = 266,
+        WF = 267,
+        K = 268,
+        M = 269,
+        RUTA = 270,
+        MKDISK = 271
       };
     };
 
@@ -470,12 +496,45 @@ namespace yy {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, float&& v)
+      basic_symbol (typename Base::kind_type t, Comando&& v)
         : Base (t)
         , value (std::move (v))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const float& v)
+      basic_symbol (typename Base::kind_type t, const Comando& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, Parametro&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const Parametro& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::string&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::string& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::vector<Parametro>&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::vector<Parametro>& v)
         : Base (t)
         , value (v)
       {}
@@ -503,8 +562,34 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 16: // "NUM"
-        value.template destroy< float > ();
+      case 21: // comando
+      case 22: // nom_com
+        value.template destroy< Comando > ();
+        break;
+
+      case 24: // parametro
+        value.template destroy< Parametro > ();
+        break;
+
+      case 5: // "NUM"
+      case 6: // "SIZE"
+      case 7: // "F"
+      case 8: // "PATH"
+      case 9: // "U"
+      case 10: // "BF"
+      case 11: // "FF"
+      case 12: // "WF"
+      case 13: // "K"
+      case 14: // "M"
+      case 15: // "RUTA"
+      case 16: // "MKDISK"
+      case 25: // nom_param
+      case 26: // atributo
+        value.template destroy< std::string > ();
+        break;
+
+      case 23: // lista_param
+        value.template destroy< std::vector<Parametro> > ();
         break;
 
       default:
@@ -580,26 +665,26 @@ switch (yytype)
       symbol_type (int tok)
         : super_type(token_type (tok))
       {
-        YY_ASSERT (tok == token::FIN || tok == token::MKDISK || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::GUION || tok == token::IGUAL);
+        YY_ASSERT (tok == 0 || tok == token::GUION || tok == token::IGUAL || tok == 272);
       }
 #else
       symbol_type (int tok)
         : super_type(token_type (tok))
       {
-        YY_ASSERT (tok == token::FIN || tok == token::MKDISK || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::GUION || tok == token::IGUAL);
+        YY_ASSERT (tok == 0 || tok == token::GUION || tok == token::IGUAL || tok == 272);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, float v)
+      symbol_type (int tok, std::string v)
         : super_type(token_type (tok), std::move (v))
       {
-        YY_ASSERT (tok == token::NUM);
+        YY_ASSERT (tok == token::NUM || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::MKDISK);
       }
 #else
-      symbol_type (int tok, const float& v)
+      symbol_type (int tok, const std::string& v)
         : super_type(token_type (tok), v)
       {
-        YY_ASSERT (tok == token::NUM);
+        YY_ASSERT (tok == token::NUM || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::MKDISK);
       }
 #endif
     };
@@ -641,186 +726,6 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_FIN ()
-      {
-        return symbol_type (token::FIN);
-      }
-#else
-      static
-      symbol_type
-      make_FIN ()
-      {
-        return symbol_type (token::FIN);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_MKDISK ()
-      {
-        return symbol_type (token::MKDISK);
-      }
-#else
-      static
-      symbol_type
-      make_MKDISK ()
-      {
-        return symbol_type (token::MKDISK);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_SIZE ()
-      {
-        return symbol_type (token::SIZE);
-      }
-#else
-      static
-      symbol_type
-      make_SIZE ()
-      {
-        return symbol_type (token::SIZE);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_F ()
-      {
-        return symbol_type (token::F);
-      }
-#else
-      static
-      symbol_type
-      make_F ()
-      {
-        return symbol_type (token::F);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_PATH ()
-      {
-        return symbol_type (token::PATH);
-      }
-#else
-      static
-      symbol_type
-      make_PATH ()
-      {
-        return symbol_type (token::PATH);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_U ()
-      {
-        return symbol_type (token::U);
-      }
-#else
-      static
-      symbol_type
-      make_U ()
-      {
-        return symbol_type (token::U);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_BF ()
-      {
-        return symbol_type (token::BF);
-      }
-#else
-      static
-      symbol_type
-      make_BF ()
-      {
-        return symbol_type (token::BF);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_FF ()
-      {
-        return symbol_type (token::FF);
-      }
-#else
-      static
-      symbol_type
-      make_FF ()
-      {
-        return symbol_type (token::FF);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_WF ()
-      {
-        return symbol_type (token::WF);
-      }
-#else
-      static
-      symbol_type
-      make_WF ()
-      {
-        return symbol_type (token::WF);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_K ()
-      {
-        return symbol_type (token::K);
-      }
-#else
-      static
-      symbol_type
-      make_K ()
-      {
-        return symbol_type (token::K);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_M ()
-      {
-        return symbol_type (token::M);
-      }
-#else
-      static
-      symbol_type
-      make_M ()
-      {
-        return symbol_type (token::M);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_RUTA ()
-      {
-        return symbol_type (token::RUTA);
-      }
-#else
-      static
-      symbol_type
-      make_RUTA ()
-      {
-        return symbol_type (token::RUTA);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_GUION ()
       {
         return symbol_type (token::GUION);
@@ -851,16 +756,181 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_NUM (float v)
+      make_NUM (std::string v)
       {
         return symbol_type (token::NUM, std::move (v));
       }
 #else
       static
       symbol_type
-      make_NUM (const float& v)
+      make_NUM (const std::string& v)
       {
         return symbol_type (token::NUM, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SIZE (std::string v)
+      {
+        return symbol_type (token::SIZE, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_SIZE (const std::string& v)
+      {
+        return symbol_type (token::SIZE, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_F (std::string v)
+      {
+        return symbol_type (token::F, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_F (const std::string& v)
+      {
+        return symbol_type (token::F, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PATH (std::string v)
+      {
+        return symbol_type (token::PATH, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_PATH (const std::string& v)
+      {
+        return symbol_type (token::PATH, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_U (std::string v)
+      {
+        return symbol_type (token::U, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_U (const std::string& v)
+      {
+        return symbol_type (token::U, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BF (std::string v)
+      {
+        return symbol_type (token::BF, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_BF (const std::string& v)
+      {
+        return symbol_type (token::BF, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FF (std::string v)
+      {
+        return symbol_type (token::FF, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_FF (const std::string& v)
+      {
+        return symbol_type (token::FF, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_WF (std::string v)
+      {
+        return symbol_type (token::WF, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_WF (const std::string& v)
+      {
+        return symbol_type (token::WF, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_K (std::string v)
+      {
+        return symbol_type (token::K, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_K (const std::string& v)
+      {
+        return symbol_type (token::K, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_M (std::string v)
+      {
+        return symbol_type (token::M, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_M (const std::string& v)
+      {
+        return symbol_type (token::M, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RUTA (std::string v)
+      {
+        return symbol_type (token::RUTA, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_RUTA (const std::string& v)
+      {
+        return symbol_type (token::RUTA, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MKDISK (std::string v)
+      {
+        return symbol_type (token::MKDISK, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_MKDISK (const std::string& v)
+      {
+        return symbol_type (token::MKDISK, v);
       }
 #endif
 
@@ -1169,10 +1239,10 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 17,     ///< Last index in yytable_.
+      yylast_ = 20,     ///< Last index in yytable_.
       yynnts_ = 9,  ///< Number of nonterminal symbols.
       yyfinal_ = 14, ///< Termination state number.
-      yyntokens_ = 17  ///< Number of tokens.
+      yyntokens_ = 18  ///< Number of tokens.
     };
 
 
@@ -1217,9 +1287,9 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16
+      15,    16,    17
     };
-    const int user_token_number_max_ = 271;
+    const int user_token_number_max_ = 272;
 
     if (t <= 0)
       return yyeof_;
@@ -1238,8 +1308,34 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 16: // "NUM"
-        value.move< float > (std::move (that.value));
+      case 21: // comando
+      case 22: // nom_com
+        value.move< Comando > (std::move (that.value));
+        break;
+
+      case 24: // parametro
+        value.move< Parametro > (std::move (that.value));
+        break;
+
+      case 5: // "NUM"
+      case 6: // "SIZE"
+      case 7: // "F"
+      case 8: // "PATH"
+      case 9: // "U"
+      case 10: // "BF"
+      case 11: // "FF"
+      case 12: // "WF"
+      case 13: // "K"
+      case 14: // "M"
+      case 15: // "RUTA"
+      case 16: // "MKDISK"
+      case 25: // nom_param
+      case 26: // atributo
+        value.move< std::string > (std::move (that.value));
+        break;
+
+      case 23: // lista_param
+        value.move< std::vector<Parametro> > (std::move (that.value));
         break;
 
       default:
@@ -1256,8 +1352,34 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 16: // "NUM"
-        value.copy< float > (YY_MOVE (that.value));
+      case 21: // comando
+      case 22: // nom_com
+        value.copy< Comando > (YY_MOVE (that.value));
+        break;
+
+      case 24: // parametro
+        value.copy< Parametro > (YY_MOVE (that.value));
+        break;
+
+      case 5: // "NUM"
+      case 6: // "SIZE"
+      case 7: // "F"
+      case 8: // "PATH"
+      case 9: // "U"
+      case 10: // "BF"
+      case 11: // "FF"
+      case 12: // "WF"
+      case 13: // "K"
+      case 14: // "M"
+      case 15: // "RUTA"
+      case 16: // "MKDISK"
+      case 25: // nom_param
+      case 26: // atributo
+        value.copy< std::string > (YY_MOVE (that.value));
+        break;
+
+      case 23: // lista_param
+        value.copy< std::vector<Parametro> > (YY_MOVE (that.value));
         break;
 
       default:
@@ -1282,8 +1404,34 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 16: // "NUM"
-        value.move< float > (YY_MOVE (s.value));
+      case 21: // comando
+      case 22: // nom_com
+        value.move< Comando > (YY_MOVE (s.value));
+        break;
+
+      case 24: // parametro
+        value.move< Parametro > (YY_MOVE (s.value));
+        break;
+
+      case 5: // "NUM"
+      case 6: // "SIZE"
+      case 7: // "F"
+      case 8: // "PATH"
+      case 9: // "U"
+      case 10: // "BF"
+      case 11: // "FF"
+      case 12: // "WF"
+      case 13: // "K"
+      case 14: // "M"
+      case 15: // "RUTA"
+      case 16: // "MKDISK"
+      case 25: // nom_param
+      case 26: // atributo
+        value.move< std::string > (YY_MOVE (s.value));
+        break;
+
+      case 23: // lista_param
+        value.move< std::vector<Parametro> > (YY_MOVE (s.value));
         break;
 
       default:
@@ -1340,7 +1488,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1344 "parser.tab.hh"
+#line 1492 "parser.tab.hh"
 
 
 

@@ -4,8 +4,7 @@
   #include "driver.h"
   #include "parser.tab.hh"
 %}
-
-
+%option case-insensitive
 %option noyywrap
 %option outfile="scanner.cc" 
 
@@ -17,30 +16,30 @@ PATH    \"?(\/([^\/\n])*)+\"?
 %%
 
 
-"MKDISK"          { return yy::Parser::make_MKDISK(); }
+"MKDISK"          { return yy::Parser::make_MKDISK(yytext); }
 
 
-"SIZE"            { return yy::Parser::make_SIZE(); }
-"F"               { return yy::Parser::make_F(); }
-"PATH"            { return yy::Parser::make_PATH(); }
-"U"               { return yy::Parser::make_U(); }
+"SIZE"            { return yy::Parser::make_SIZE(yytext); }
+"F"               { return yy::Parser::make_F(yytext); }
+"PATH"            { return yy::Parser::make_PATH(yytext); }
+"U"               { return yy::Parser::make_U(yytext); }
 
 
-{NUM}             { return yy::Parser::make_NUM(strtol (yytext, NULL, 10));}
-"BF"              { return yy::Parser::make_BF(); }
-"FF"              { return yy::Parser::make_FF(); }
-"WF"              { return yy::Parser::make_WF(); }
-"K"               { return yy::Parser::make_K(); }
-"M"               { return yy::Parser::make_M(); }
-{PATH}            { return yy::Parser::make_RUTA(); }
+{NUM}             { return yy::Parser::make_NUM(yytext);}
+"BF"              { return yy::Parser::make_BF(yytext); }
+"FF"              { return yy::Parser::make_FF(yytext); }
+"WF"              { return yy::Parser::make_WF(yytext); }
+"K"               { return yy::Parser::make_K(yytext); }
+"M"               { return yy::Parser::make_M(yytext); }
+{PATH}            { return yy::Parser::make_RUTA(yytext); }
 
 
-"-"               { return yy::Parser::make_GUION(); }
-"="               { return yy::Parser::make_IGUAL(); }
+"-"               { return yy::Parser::symbol_type(); }
+"="               { return yy::Parser::symbol_type(); }
 
 [[:blank:]]       {}
 .                 { printf("Caracter no reconocido: %s\n",yytext);}
-<<EOF>>		      {return yy::Parser::make_FIN();}
+
 %%
 
 void Driver::runScanner(){

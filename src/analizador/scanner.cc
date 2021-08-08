@@ -383,11 +383,11 @@ static const YY_CHAR yy_ec[256] =
         9,    1,    1,    1,   10,   11,    1,   12,   13,   14,
         1,   15,   16,    1,   17,    1,   18,    1,    1,   19,
         1,    1,   20,   21,   22,    1,   23,    1,    1,   24,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,   25,   26,    1,   27,
 
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+       28,   29,    1,   30,   31,    1,   32,    1,   33,    1,
+        1,   34,    1,    1,   35,   36,   37,    1,   38,    1,
+        1,   39,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -404,19 +404,20 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[25] =
+static const YY_CHAR yy_meta[40] =
     {   0,
         1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1
     } ;
 
 static const flex_int16_t yy_base[41] =
     {   0,
-        0,    0,   50,   51,   51,   51,   42,   51,   41,   19,
-       51,   33,   32,   51,   28,   34,   27,   51,   28,   34,
-       33,   31,   20,   51,   51,   26,   16,   12,   51,   27,
-       18,   18,   19,   11,   51,   51,   13,   51,   51,   28
+        0,    0,   79,   80,   80,   80,   70,   80,   69,   34,
+       80,   27,   29,   80,   27,   35,   30,   80,   33,   68,
+       67,   65,   42,   80,   80,   37,   30,   28,   80,   63,
+       37,   39,   42,   37,   80,   80,   46,   80,   80,   64
     } ;
 
 static const flex_int16_t yy_def[41] =
@@ -427,28 +428,38 @@ static const flex_int16_t yy_def[41] =
        39,   39,   39,   39,   39,   39,   39,   39,    0,   39
     } ;
 
-static const flex_int16_t yy_nxt[76] =
+static const flex_int16_t yy_nxt[120] =
     {   0,
         4,    5,    6,    7,    8,    4,    9,   10,   11,    4,
        12,    4,    4,   13,    4,    4,   14,   15,   16,   17,
-        4,   18,   19,    4,   22,   22,   23,   23,   21,   38,
-       37,   36,   35,   34,   30,   33,   32,   31,   30,   20,
-       20,   29,   28,   27,   26,   25,   24,   20,   20,   39,
-        3,   39,   39,   39,   39,   39,   39,   39,   39,   39,
+        4,   18,   19,    4,    4,   12,    4,    4,   13,    4,
+        4,   14,   15,   16,   17,    4,   18,   19,    4,   22,
+       24,   23,   25,   26,   27,   28,   29,   22,   31,   23,
+       32,   33,   34,   35,   36,   24,   37,   25,   26,   27,
+       28,   29,   38,   31,   21,   32,   33,   34,   35,   36,
+       30,   37,   30,   20,   20,   20,   20,   38,   39,    3,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   39,   39
+       39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
+
+       39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
+       39,   39,   39,   39,   39,   39,   39,   39,   39
     } ;
 
-static const flex_int16_t yy_chk[76] =
+static const flex_int16_t yy_chk[120] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,   10,   23,   10,   23,   40,   37,
-       34,   33,   32,   31,   30,   28,   27,   26,   22,   21,
-       20,   19,   17,   16,   15,   13,   12,    9,    7,    3,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,   10,
+       12,   10,   13,   15,   16,   17,   19,   23,   26,   23,
+       27,   28,   31,   32,   33,   12,   34,   13,   15,   16,
+       17,   19,   37,   26,   40,   27,   28,   31,   32,   33,
+       30,   34,   22,   21,   20,    9,    7,   37,    3,   39,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   39,   39
+
+       39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
+       39,   39,   39,   39,   39,   39,   39,   39,   39
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -471,8 +482,8 @@ char *yytext;
   #include <string>
   #include "driver.h"
   #include "parser.tab.hh"
-#line 475 "scanner.cc"
-#line 476 "scanner.cc"
+#line 486 "scanner.cc"
+#line 487 "scanner.cc"
 
 #define INITIAL 0
 
@@ -689,11 +700,11 @@ YY_DECL
 		}
 
 	{
-#line 17 "lexico.l"
+#line 16 "lexico.l"
 
 
 
-#line 697 "scanner.cc"
+#line 708 "scanner.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -726,7 +737,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 51 );
+		while ( yy_base[yy_current_state] != 80 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -752,94 +763,92 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 20 "lexico.l"
-{ return yy::Parser::make_MKDISK(); }
+#line 19 "lexico.l"
+{ return yy::Parser::make_MKDISK(yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 23 "lexico.l"
-{ return yy::Parser::make_SIZE(); }
+#line 22 "lexico.l"
+{ return yy::Parser::make_SIZE(yytext); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 24 "lexico.l"
-{ return yy::Parser::make_F(); }
+#line 23 "lexico.l"
+{ return yy::Parser::make_F(yytext); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 25 "lexico.l"
-{ return yy::Parser::make_PATH(); }
+#line 24 "lexico.l"
+{ return yy::Parser::make_PATH(yytext); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 26 "lexico.l"
-{ return yy::Parser::make_U(); }
+#line 25 "lexico.l"
+{ return yy::Parser::make_U(yytext); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 29 "lexico.l"
-{ return yy::Parser::make_NUM(strtol (yytext, NULL, 10));}
+#line 28 "lexico.l"
+{ return yy::Parser::make_NUM(yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "lexico.l"
-{ return yy::Parser::make_BF(); }
+#line 29 "lexico.l"
+{ return yy::Parser::make_BF(yytext); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 31 "lexico.l"
-{ return yy::Parser::make_FF(); }
+#line 30 "lexico.l"
+{ return yy::Parser::make_FF(yytext); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 32 "lexico.l"
-{ return yy::Parser::make_WF(); }
+#line 31 "lexico.l"
+{ return yy::Parser::make_WF(yytext); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 33 "lexico.l"
-{ return yy::Parser::make_K(); }
+#line 32 "lexico.l"
+{ return yy::Parser::make_K(yytext); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 34 "lexico.l"
-{ return yy::Parser::make_M(); }
+#line 33 "lexico.l"
+{ return yy::Parser::make_M(yytext); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 35 "lexico.l"
-{ return yy::Parser::make_RUTA(); }
+#line 34 "lexico.l"
+{ return yy::Parser::make_RUTA(yytext); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 38 "lexico.l"
-{ return yy::Parser::make_GUION(); }
+#line 37 "lexico.l"
+{ return yy::Parser::symbol_type(); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 39 "lexico.l"
-{ return yy::Parser::make_IGUAL(); }
+#line 38 "lexico.l"
+{ return yy::Parser::symbol_type(); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 41 "lexico.l"
+#line 40 "lexico.l"
 {}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 42 "lexico.l"
+#line 41 "lexico.l"
 { printf("Caracter no reconocido: %s\n",yytext);}
-	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-#line 43 "lexico.l"
-{return yy::Parser::make_FIN();}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 44 "lexico.l"
+#line 43 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 843 "scanner.cc"
+#line 850 "scanner.cc"
+case YY_STATE_EOF(INITIAL):
+	yyterminate();
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1842,7 +1851,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 44 "lexico.l"
+#line 43 "lexico.l"
 
 
 void Driver::runScanner(){

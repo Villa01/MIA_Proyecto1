@@ -1,7 +1,10 @@
 #include <string>
+
+
+#include "../Comandos/Mkdisk.h"
 #include "parser.tab.hh"
 
-#define YY_DECL \ 
+#define YY_DECL \
     yy::Parser::symbol_type yylex (Driver& driver)
 YY_DECL;
 
