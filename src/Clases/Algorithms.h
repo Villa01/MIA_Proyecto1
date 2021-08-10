@@ -3,6 +3,7 @@ using namespace std;
 
 #include <vector>
 #include <string>
+#include <string.h>
 
 
 class Algorithms {

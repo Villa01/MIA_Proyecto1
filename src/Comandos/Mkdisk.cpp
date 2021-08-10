@@ -2,28 +2,39 @@
 
 using namespace std;
 
-#include <string>
-#include <vector>
 
 #include "Mkdisk.h"
 
 Mkdisk::Mkdisk() : Comando(){
-    printf("Creando disco\n");
+    printf("\e[0;36m---Creando disco\n");
 }
 
 void Mkdisk::agregarParametros(vector<Parametro> params){
-    printf("Agregando parametros\n");
+    printf("\e[0;36m---Agregando parametros\n");
     this->setParametros(params);
 
-    string nombre = this->getNombre();
-    
-    printf("%s\n",nombre.c_str());
-
-    printf("%s\n",params[0].getNombre().c_str());
 }
 
 
 void Mkdisk::assignParameters(){
+
+    if(this->getParams().size()==0){
+        std::cout <<"\e[0;31m"<< "-- No hay suficientes parametros en el comando MKDISK" << std::endl;
+    }
+
+    // Buscar Size
+    Algorithms a;
+    int i = a.searchPosition("SIZE", this->getParamsString());
+}
+
+vector<string> Mkdisk::getParamsString(){
+    vector<Parametro> params =this->getParams();
+    vector<string> v[params.size()];
+    for (int i = params.size() - 1; i >= 0; i--)
+    {
+        string nombre = params[i].getNombre();
+       
+    }
     
 }
 

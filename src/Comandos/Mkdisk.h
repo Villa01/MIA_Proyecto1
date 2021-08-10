@@ -2,9 +2,11 @@
 
 using namespace std;
 
+
 #include <string>
 #include <vector>
-
+#include <iostream>
+#include "../Clases/Algorithms.h"
 #include "../Clases/Comando.h"
 
 class Mkdisk : public Comando {
@@ -12,6 +14,7 @@ class Mkdisk : public Comando {
     public:
         Mkdisk();
         void agregarParametros(vector<Parametro>);
+        void assignParameters();
 
         float getSize();
         string getPath();
@@ -24,8 +27,8 @@ class Mkdisk : public Comando {
         string units;
         string fit;
         bool errorFlag;
+        vector<string> getParamsString();
 
-        void assignParameters();
 
     void setSize(float);
     void setPath(string );

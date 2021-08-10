@@ -7,11 +7,10 @@ using namespace std;
 #include <vector>
 
 Comando::Comando(){
-    printf("Creando un nuevo comando\n");
+    //printf("\e[0;36m---Creando un nuevo comando\n");
 }
 
 Comando::~Comando(){
-    printf("Creando un parametro\n");
 }
 
 void Comando::agregarParametros(vector<Parametro>params){
@@ -20,7 +19,7 @@ void Comando::agregarParametros(vector<Parametro>params){
 
 
 void Comando::assignParameters(){
-    printf("Parametros del comando");
+    //printf("Parametros del comando\n");
 }
 
 // Setters & getters

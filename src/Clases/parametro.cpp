@@ -18,14 +18,17 @@ Parametro::Parametro(string nombre, string valor){
 */
 
 Parametro::Parametro(){
-    printf("Creando un parametro\n");
+    //printf("\e[0;36m---Creando un parametro\n");
 }
 
 void Parametro::setNombre(string nombre){
+    //printf("\e[0;36m---\tEl nombre es: %s\n",nombre.c_str());
     this->nombre = nombre;
 }
 
 void Parametro::setValor(string valor){
+    //printf("\e[0;36m---\tEl valor es: %s\n",valor.c_str());
+
     this->valor = valor;
 }
 

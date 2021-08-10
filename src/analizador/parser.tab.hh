@@ -369,7 +369,6 @@ namespace yy {
     union union_type
     {
       // comando
-      // nom_com
       char dummy1[sizeof (Comando)];
 
       // parametro
@@ -387,6 +386,7 @@ namespace yy {
       // "M"
       // "RUTA"
       // "MKDISK"
+      // "RMDISK"
       // nom_param
       // atributo
       char dummy3[sizeof (std::string)];
@@ -431,20 +431,22 @@ namespace yy {
     {
       enum yytokentype
       {
-        GUION = 258,
-        IGUAL = 259,
-        NUM = 260,
-        SIZE = 261,
-        F = 262,
-        PATH = 263,
-        U = 264,
-        BF = 265,
-        FF = 266,
-        WF = 267,
-        K = 268,
-        M = 269,
-        RUTA = 270,
-        MKDISK = 271
+        NUM = 258,
+        SIZE = 259,
+        F = 260,
+        PATH = 261,
+        U = 262,
+        BF = 263,
+        FF = 264,
+        WF = 265,
+        K = 266,
+        M = 267,
+        RUTA = 268,
+        MKDISK = 269,
+        RMDISK = 270,
+        GUION = 271,
+        IGUAL = 272,
+        NEXT_LINE = 273
       };
     };
 
@@ -562,8 +564,7 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 21: // comando
-      case 22: // nom_com
+      case 22: // comando
         value.template destroy< Comando > ();
         break;
 
@@ -571,18 +572,19 @@ switch (yytype)
         value.template destroy< Parametro > ();
         break;
 
-      case 5: // "NUM"
-      case 6: // "SIZE"
-      case 7: // "F"
-      case 8: // "PATH"
-      case 9: // "U"
-      case 10: // "BF"
-      case 11: // "FF"
-      case 12: // "WF"
-      case 13: // "K"
-      case 14: // "M"
-      case 15: // "RUTA"
-      case 16: // "MKDISK"
+      case 3: // "NUM"
+      case 4: // "SIZE"
+      case 5: // "F"
+      case 6: // "PATH"
+      case 7: // "U"
+      case 8: // "BF"
+      case 9: // "FF"
+      case 10: // "WF"
+      case 11: // "K"
+      case 12: // "M"
+      case 13: // "RUTA"
+      case 14: // "MKDISK"
+      case 15: // "RMDISK"
       case 25: // nom_param
       case 26: // atributo
         value.template destroy< std::string > ();
@@ -665,26 +667,26 @@ switch (yytype)
       symbol_type (int tok)
         : super_type(token_type (tok))
       {
-        YY_ASSERT (tok == 0 || tok == token::GUION || tok == token::IGUAL || tok == 272);
+        YY_ASSERT (tok == 0 || tok == token::GUION || tok == token::IGUAL || tok == token::NEXT_LINE);
       }
 #else
       symbol_type (int tok)
         : super_type(token_type (tok))
       {
-        YY_ASSERT (tok == 0 || tok == token::GUION || tok == token::IGUAL || tok == 272);
+        YY_ASSERT (tok == 0 || tok == token::GUION || tok == token::IGUAL || tok == token::NEXT_LINE);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v)
         : super_type(token_type (tok), std::move (v))
       {
-        YY_ASSERT (tok == token::NUM || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::MKDISK);
+        YY_ASSERT (tok == token::NUM || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::MKDISK || tok == token::RMDISK);
       }
 #else
       symbol_type (int tok, const std::string& v)
         : super_type(token_type (tok), v)
       {
-        YY_ASSERT (tok == token::NUM || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::MKDISK);
+        YY_ASSERT (tok == token::NUM || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::RUTA || tok == token::MKDISK || tok == token::RMDISK);
       }
 #endif
     };
@@ -723,36 +725,6 @@ switch (yytype)
     void error (const syntax_error& err);
 
     // Implementation of make_symbol for each symbol type.
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_GUION ()
-      {
-        return symbol_type (token::GUION);
-      }
-#else
-      static
-      symbol_type
-      make_GUION ()
-      {
-        return symbol_type (token::GUION);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_IGUAL ()
-      {
-        return symbol_type (token::IGUAL);
-      }
-#else
-      static
-      symbol_type
-      make_IGUAL ()
-      {
-        return symbol_type (token::IGUAL);
-      }
-#endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
@@ -931,6 +903,66 @@ switch (yytype)
       make_MKDISK (const std::string& v)
       {
         return symbol_type (token::MKDISK, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RMDISK (std::string v)
+      {
+        return symbol_type (token::RMDISK, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_RMDISK (const std::string& v)
+      {
+        return symbol_type (token::RMDISK, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_GUION ()
+      {
+        return symbol_type (token::GUION);
+      }
+#else
+      static
+      symbol_type
+      make_GUION ()
+      {
+        return symbol_type (token::GUION);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_IGUAL ()
+      {
+        return symbol_type (token::IGUAL);
+      }
+#else
+      static
+      symbol_type
+      make_IGUAL ()
+      {
+        return symbol_type (token::IGUAL);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_NEXT_LINE ()
+      {
+        return symbol_type (token::NEXT_LINE);
+      }
+#else
+      static
+      symbol_type
+      make_NEXT_LINE ()
+      {
+        return symbol_type (token::NEXT_LINE);
       }
 #endif
 
@@ -1240,9 +1272,9 @@ switch (yytype)
     {
       yyeof_ = 0,
       yylast_ = 20,     ///< Last index in yytable_.
-      yynnts_ = 9,  ///< Number of nonterminal symbols.
-      yyfinal_ = 14, ///< Termination state number.
-      yyntokens_ = 18  ///< Number of tokens.
+      yynnts_ = 8,  ///< Number of nonterminal symbols.
+      yyfinal_ = 8, ///< Termination state number.
+      yyntokens_ = 19  ///< Number of tokens.
     };
 
 
@@ -1287,9 +1319,9 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17
+      15,    16,    17,    18
     };
-    const int user_token_number_max_ = 272;
+    const int user_token_number_max_ = 273;
 
     if (t <= 0)
       return yyeof_;
@@ -1308,8 +1340,7 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 21: // comando
-      case 22: // nom_com
+      case 22: // comando
         value.move< Comando > (std::move (that.value));
         break;
 
@@ -1317,18 +1348,19 @@ switch (yytype)
         value.move< Parametro > (std::move (that.value));
         break;
 
-      case 5: // "NUM"
-      case 6: // "SIZE"
-      case 7: // "F"
-      case 8: // "PATH"
-      case 9: // "U"
-      case 10: // "BF"
-      case 11: // "FF"
-      case 12: // "WF"
-      case 13: // "K"
-      case 14: // "M"
-      case 15: // "RUTA"
-      case 16: // "MKDISK"
+      case 3: // "NUM"
+      case 4: // "SIZE"
+      case 5: // "F"
+      case 6: // "PATH"
+      case 7: // "U"
+      case 8: // "BF"
+      case 9: // "FF"
+      case 10: // "WF"
+      case 11: // "K"
+      case 12: // "M"
+      case 13: // "RUTA"
+      case 14: // "MKDISK"
+      case 15: // "RMDISK"
       case 25: // nom_param
       case 26: // atributo
         value.move< std::string > (std::move (that.value));
@@ -1352,8 +1384,7 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 21: // comando
-      case 22: // nom_com
+      case 22: // comando
         value.copy< Comando > (YY_MOVE (that.value));
         break;
 
@@ -1361,18 +1392,19 @@ switch (yytype)
         value.copy< Parametro > (YY_MOVE (that.value));
         break;
 
-      case 5: // "NUM"
-      case 6: // "SIZE"
-      case 7: // "F"
-      case 8: // "PATH"
-      case 9: // "U"
-      case 10: // "BF"
-      case 11: // "FF"
-      case 12: // "WF"
-      case 13: // "K"
-      case 14: // "M"
-      case 15: // "RUTA"
-      case 16: // "MKDISK"
+      case 3: // "NUM"
+      case 4: // "SIZE"
+      case 5: // "F"
+      case 6: // "PATH"
+      case 7: // "U"
+      case 8: // "BF"
+      case 9: // "FF"
+      case 10: // "WF"
+      case 11: // "K"
+      case 12: // "M"
+      case 13: // "RUTA"
+      case 14: // "MKDISK"
+      case 15: // "RMDISK"
       case 25: // nom_param
       case 26: // atributo
         value.copy< std::string > (YY_MOVE (that.value));
@@ -1404,8 +1436,7 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 21: // comando
-      case 22: // nom_com
+      case 22: // comando
         value.move< Comando > (YY_MOVE (s.value));
         break;
 
@@ -1413,18 +1444,19 @@ switch (yytype)
         value.move< Parametro > (YY_MOVE (s.value));
         break;
 
-      case 5: // "NUM"
-      case 6: // "SIZE"
-      case 7: // "F"
-      case 8: // "PATH"
-      case 9: // "U"
-      case 10: // "BF"
-      case 11: // "FF"
-      case 12: // "WF"
-      case 13: // "K"
-      case 14: // "M"
-      case 15: // "RUTA"
-      case 16: // "MKDISK"
+      case 3: // "NUM"
+      case 4: // "SIZE"
+      case 5: // "F"
+      case 6: // "PATH"
+      case 7: // "U"
+      case 8: // "BF"
+      case 9: // "FF"
+      case 10: // "WF"
+      case 11: // "K"
+      case 12: // "M"
+      case 13: // "RUTA"
+      case 14: // "MKDISK"
+      case 15: // "RMDISK"
       case 25: // nom_param
       case 26: // atributo
         value.move< std::string > (YY_MOVE (s.value));
@@ -1488,7 +1520,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1492 "parser.tab.hh"
+#line 1524 "parser.tab.hh"
 
 
 

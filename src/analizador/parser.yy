@@ -30,56 +30,54 @@
 
 
 /******* TERMINALES ********/
-%token GUION"GUION" IGUAL"IGUAL" 
-%token <std::string> NUM"NUM" SIZE"SIZE" F"F" PATH"PATH" U"U" BF"BF" FF"FF" WF"WF" K"K" M"M" RUTA"RUTA" MKDISK"MKDISK"
+%token <std::string> NUM"NUM" SIZE"SIZE" F"F" PATH"PATH" U"U" BF"BF" FF"FF" WF"WF" K"K" M"M" RUTA"RUTA" MKDISK"MKDISK" RMDISK"RMDISK"
+%token GUION"GUION" IGUAL"IGUAL" NEXT_LINE"NEXT_LINE"
 
 
 /******* NO TERMINALES ********/
 %start inicio;
 %type <Parametro> parametro
-%type <Comando> nom_com comando
+%type <Comando> comando
 %type <std::vector<Parametro>> lista_param
 %type <std::string> atributo nom_param
 
+
 %%
 
-   inicio : lista_comandos "\n" { //printf("Primer nivel del arbol");}
+   inicio : lista_comandos NEXT_LINE
+         { 
+            //printf("Primer nivel del arbol\n");
+         }
           ;
 
-   lista_comandos : lista_comandos comando  { //printf("Segundo nivel del arbol\n");}
-                  | comando                { //printf("Segundo nivel del arbol\n");}
+   lista_comandos : lista_comandos comando  
+                  { 
+                     //printf("Lista de comandos\n");
+                  }
+                  | comando                
+                  { 
+                     //printf("Comando individual\n");
+                  }
                   ;
 
-   comando : lista_param nom_com    
+   comando : MKDISK lista_param      
                {
-                  //printf("Tercer nivel del arbol\n");
-                  $2.agregarParametros($1);
-                  $$ = $2;
+                  //printf("Mkdisk con parametros\n");
+                  Mkdisk m;
+                  m.agregarParametros($2);
+                  m.assignParameters();
                }
-           | nom_com                
-               {
-
-                  //printf("Tercer nivel del arbol\n");
-                  $$ = $1;
-               }
-           ;
-
-   nom_com : MKDISK     
-               {
-                  //printf("Cuarto nivel del arbol\n");
-                  $$=Mkdisk();
-               }
-           ;
+            ;
    
-   lista_param : lista_param parametro    
+   lista_param :  lista_param parametro   
                   {
-                     //printf("Cuarto nivel del arbol\n");
+                     //printf("Lista de parametros\n");
                      $$=$1;
                      $$.push_back($2);
                   }
                | parametro                
                   {  
-                     //printf("Cuarto nivel del arbol\n");
+                     //printf("parametro individual\n");
                      vector<Parametro> params;
                      params.push_back($1);
                      $$ = params;
@@ -93,7 +91,6 @@
                   Parametro param;
                   param.setNombre($2);
                   param.setValor($4);
-                  printf(param.getNombre().c_str());
                   $$ = param;
                }
              ;
@@ -116,5 +113,5 @@
 %%
 
 void yy::Parser::error( const std::string& error){
-  std::cout << error << std::endl;
+  std::cout <<"\e[0;31m"<< error << std::endl;
 }

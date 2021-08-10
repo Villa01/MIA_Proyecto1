@@ -7,16 +7,18 @@
 %option case-insensitive
 %option noyywrap
 %option outfile="scanner.cc" 
+%option nodefault
 
 
 DIGIT   [0-9]
 NUM     {DIGIT}+("."{DIGIT}+)?
-PATH    \"?(\/([^\/\n])*)+\"?
+PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
 
 %%
 
 
 "MKDISK"          { return yy::Parser::make_MKDISK(yytext); }
+"RMDISK"          { return yy::Parser::make_RMDISK(yytext); }
 
 
 "SIZE"            { return yy::Parser::make_SIZE(yytext); }
@@ -34,11 +36,14 @@ PATH    \"?(\/([^\/\n])*)+\"?
 {PATH}            { return yy::Parser::make_RUTA(yytext); }
 
 
-"-"               { return yy::Parser::symbol_type(); }
-"="               { return yy::Parser::symbol_type(); }
+
+"-"               { return yy::Parser::make_GUION(); }
+"="               { return yy::Parser::make_IGUAL(); }
+"\n"              { return yy::Parser::make_NEXT_LINE();}
+
 
 [[:blank:]]       {}
-.                 { printf("Caracter no reconocido: %s\n",yytext);}
+.                 { printf("\e[0;31m---Caracter no reconocido: %s\n",yytext);}
 
 %%
 
