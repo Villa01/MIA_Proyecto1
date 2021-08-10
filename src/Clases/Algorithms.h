@@ -4,6 +4,7 @@ using namespace std;
 #include <vector>
 #include <string>
 #include <string.h>
+#include <algorithm>
 
 
 class Algorithms {

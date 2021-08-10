@@ -20,6 +20,7 @@ class Mkdisk : public Comando {
         string getPath();
         string getUnits();
         string getFit();
+        void showInfo();
 
     private:
         float size;
@@ -27,7 +28,8 @@ class Mkdisk : public Comando {
         string units;
         string fit;
         bool errorFlag;
-        vector<string> getParamsString();
+        vector<string> getParamsStringNames();
+        vector<string> getParamsStringValues();
 
 
     void setSize(float);

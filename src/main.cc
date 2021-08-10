@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         fflush(stdin);
         //getline(cin, line);
         if(line!="salir"){
-            line = "MKDISK -PATH=/home/erick/disk.dk -u=k -size=1000";
+            line = "MKDISK -u=k -PATH=/home/erick/disk.dk -F=BF  -size=1000\n";
             
             if(!line.empty()){
 
@@ -27,14 +27,6 @@ int main(int argc, char *argv[])
 				Driver driver;
 				driver.parseWithText(line);
 
-                // Algorithms a;
-                // vector<string> v;
-                // v.push_back("PATH");
-                // v.push_back("U");
-                // v.push_back("SIZE");
-                // v.push_back("HOL");
-                // int i = a.searchPosition("SIZE", v);
-                // printf("%d\n", i);
 
             }
             line = "salir";

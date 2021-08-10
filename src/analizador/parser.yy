@@ -66,6 +66,7 @@
                   Mkdisk m;
                   m.agregarParametros($2);
                   m.assignParameters();
+                  m.showInfo();
                }
             ;
    
@@ -113,5 +114,5 @@
 %%
 
 void yy::Parser::error( const std::string& error){
-  std::cout <<"\e[0;31m"<< error << std::endl;
+  std::cout <<"\e[0;31m --- ERROR:"<< error << std::endl;
 }

@@ -43,7 +43,7 @@ PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
 
 
 [[:blank:]]       {}
-.                 { printf("\e[0;31m---Caracter no reconocido: %s\n",yytext);}
+.                 { printf("\e[0;31m--- ERROR: Caracter no reconocido: %s\n",yytext);}
 
 %%
 

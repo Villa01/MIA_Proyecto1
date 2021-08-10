@@ -860,7 +860,7 @@ YY_RULE_SETUP
 case 18:
 YY_RULE_SETUP
 #line 46 "lexico.l"
-{ printf("\e[0;31m---Caracter no reconocido: %s\n",yytext);}
+{ printf("\e[0;31m--- ERROR: Caracter no reconocido: %s\n",yytext);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
