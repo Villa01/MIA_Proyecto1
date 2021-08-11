@@ -44,41 +44,30 @@
 
 %%
 
-   inicio : lista_comandos NEXT_LINE
-         { 
-            //printf("Primer nivel del arbol\n");
-         }
+   inicio : lista_comandos NEXT_LINE   {}
           ;
 
-   lista_comandos : lista_comandos comando  
-                  { 
-                     //printf("Lista de comandos\n");
-                  }
-                  | comando                
-                  { 
-                     //printf("Comando individual\n");
-                  }
+   lista_comandos : lista_comandos comando  {}
+                  | comando   {}
                   ;
 
    comando : MKDISK lista_param      
                {
-                  //printf("Mkdisk con parametros\n");
                   Mkdisk m;
                   m.agregarParametros($2);
                   m.assignParameters();
                   m.showInfo();
+                  m.createDisk();
                }
             ;
    
    lista_param :  lista_param parametro   
                   {
-                     //printf("Lista de parametros\n");
                      $$=$1;
                      $$.push_back($2);
                   }
                | parametro                
                   {  
-                     //printf("parametro individual\n");
                      vector<Parametro> params;
                      params.push_back($1);
                      $$ = params;
@@ -87,8 +76,6 @@
    
    parametro : GUION nom_param IGUAL atributo 
                {  
-
-                  //printf("Quinto nivel del arbol\n");
                   Parametro param;
                   param.setNombre($2);
                   param.setValor($4);
@@ -114,5 +101,5 @@
 %%
 
 void yy::Parser::error( const std::string& error){
-  std::cout <<"\e[0;31m --- ERROR:"<< error << std::endl;
+  std::cout <<"\e[0;31m--- ERROR:"<< error << std::endl;
 }

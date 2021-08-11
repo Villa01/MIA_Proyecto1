@@ -717,33 +717,34 @@ namespace yy {
                   m.agregarParametros(yystack_[0].value.as < std::vector<Parametro> > ());
                   m.assignParameters();
                   m.showInfo();
+                  m.createDisk();
                }
-#line 722 "parser.tab.cc"
+#line 723 "parser.tab.cc"
     break;
 
   case 6:
-#line 74 "parser.yy"
+#line 75 "parser.yy"
                   {
                      //printf("Lista de parametros\n");
                      yylhs.value.as < std::vector<Parametro> > ()=yystack_[1].value.as < std::vector<Parametro> > ();
                      yylhs.value.as < std::vector<Parametro> > ().push_back(yystack_[0].value.as < Parametro > ());
                   }
-#line 732 "parser.tab.cc"
+#line 733 "parser.tab.cc"
     break;
 
   case 7:
-#line 80 "parser.yy"
+#line 81 "parser.yy"
                   {  
                      //printf("parametro individual\n");
                      vector<Parametro> params;
                      params.push_back(yystack_[0].value.as < Parametro > ());
                      yylhs.value.as < std::vector<Parametro> > () = params;
                   }
-#line 743 "parser.tab.cc"
+#line 744 "parser.tab.cc"
     break;
 
   case 8:
-#line 89 "parser.yy"
+#line 90 "parser.yy"
                {  
 
                   //printf("Quinto nivel del arbol\n");
@@ -752,77 +753,77 @@ namespace yy {
                   param.setValor(yystack_[0].value.as < std::string > ());
                   yylhs.value.as < Parametro > () = param;
                }
-#line 756 "parser.tab.cc"
+#line 757 "parser.tab.cc"
     break;
 
   case 9:
-#line 99 "parser.yy"
+#line 100 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 762 "parser.tab.cc"
+#line 763 "parser.tab.cc"
     break;
 
   case 10:
-#line 100 "parser.yy"
+#line 101 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 768 "parser.tab.cc"
+#line 769 "parser.tab.cc"
     break;
 
   case 11:
-#line 101 "parser.yy"
+#line 102 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 774 "parser.tab.cc"
+#line 775 "parser.tab.cc"
     break;
 
   case 12:
-#line 102 "parser.yy"
+#line 103 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 780 "parser.tab.cc"
+#line 781 "parser.tab.cc"
     break;
 
   case 13:
-#line 105 "parser.yy"
+#line 106 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 786 "parser.tab.cc"
+#line 787 "parser.tab.cc"
     break;
 
   case 14:
-#line 106 "parser.yy"
+#line 107 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 792 "parser.tab.cc"
+#line 793 "parser.tab.cc"
     break;
 
   case 15:
-#line 107 "parser.yy"
+#line 108 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 798 "parser.tab.cc"
+#line 799 "parser.tab.cc"
     break;
 
   case 16:
-#line 108 "parser.yy"
+#line 109 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 804 "parser.tab.cc"
+#line 805 "parser.tab.cc"
     break;
 
   case 17:
-#line 109 "parser.yy"
+#line 110 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 810 "parser.tab.cc"
+#line 811 "parser.tab.cc"
     break;
 
   case 18:
-#line 110 "parser.yy"
+#line 111 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 816 "parser.tab.cc"
+#line 817 "parser.tab.cc"
     break;
 
   case 19:
-#line 111 "parser.yy"
+#line 112 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 822 "parser.tab.cc"
+#line 823 "parser.tab.cc"
     break;
 
 
-#line 826 "parser.tab.cc"
+#line 827 "parser.tab.cc"
 
             default:
               break;
@@ -1177,8 +1178,8 @@ namespace yy {
   const signed char
   Parser::yyrline_[] =
   {
-       0,    47,    47,    53,    57,    63,    73,    79,    88,    99,
-     100,   101,   102,   105,   106,   107,   108,   109,   110,   111
+       0,    47,    47,    53,    57,    63,    74,    80,    89,   100,
+     101,   102,   103,   106,   107,   108,   109,   110,   111,   112
   };
 
   // Print the state stack on the debug stream.
@@ -1212,9 +1213,9 @@ namespace yy {
 
 
 } // yy
-#line 1216 "parser.tab.cc"
+#line 1217 "parser.tab.cc"
 
-#line 114 "parser.yy"
+#line 115 "parser.yy"
 
 
 void yy::Parser::error( const std::string& error){

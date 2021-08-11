@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         fflush(stdin);
         //getline(cin, line);
         if(line!="salir"){
-            line = "MKDISK -u=k -PATH=/home/erick/disk.dk -F=BF  -size=1000\n";
+            line = "MKDISK -u=k -PATH=/home/erick/Desktop/disk.dk -F=BF  -size=3000\n";
             
             if(!line.empty()){
 
