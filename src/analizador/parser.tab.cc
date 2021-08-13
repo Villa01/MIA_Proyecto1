@@ -36,7 +36,7 @@
 
 
 // First part of user prologue.
-#line 21 "parser.yy"
+#line 22 "parser.yy"
 
    using namespace std;
    #include <stdio.h>
@@ -687,143 +687,142 @@ namespace yy {
             {
   case 2:
 #line 48 "parser.yy"
-         { 
-            //printf("Primer nivel del arbol\n");
-         }
-#line 694 "parser.tab.cc"
+                              {}
+#line 692 "parser.tab.cc"
     break;
 
   case 3:
-#line 54 "parser.yy"
-                  { 
-                     //printf("Lista de comandos\n");
-                  }
-#line 702 "parser.tab.cc"
+#line 51 "parser.yy"
+                                            {}
+#line 698 "parser.tab.cc"
     break;
 
   case 4:
-#line 58 "parser.yy"
-                  { 
-                     //printf("Comando individual\n");
-                  }
-#line 710 "parser.tab.cc"
+#line 52 "parser.yy"
+                              {}
+#line 704 "parser.tab.cc"
     break;
 
   case 5:
-#line 64 "parser.yy"
+#line 56 "parser.yy"
                {
-                  //printf("Mkdisk con parametros\n");
                   Mkdisk m;
                   m.agregarParametros(yystack_[0].value.as < std::vector<Parametro> > ());
                   m.assignParameters();
-                  m.showInfo();
                   m.createDisk();
                }
-#line 723 "parser.tab.cc"
+#line 715 "parser.tab.cc"
     break;
 
   case 6:
-#line 75 "parser.yy"
-                  {
-                     //printf("Lista de parametros\n");
-                     yylhs.value.as < std::vector<Parametro> > ()=yystack_[1].value.as < std::vector<Parametro> > ();
-                     yylhs.value.as < std::vector<Parametro> > ().push_back(yystack_[0].value.as < Parametro > ());
-                  }
-#line 733 "parser.tab.cc"
+#line 63 "parser.yy"
+               {
+                  Rmdisk r;
+                  r.agregarParametros(yystack_[0].value.as < std::vector<Parametro> > ());
+                  r.assignParameters();
+                  r.deleteDisk();
+               }
+#line 726 "parser.tab.cc"
     break;
 
   case 7:
-#line 81 "parser.yy"
+#line 72 "parser.yy"
+                  {
+                     yylhs.value.as < std::vector<Parametro> > ()=yystack_[1].value.as < std::vector<Parametro> > ();
+                     yylhs.value.as < std::vector<Parametro> > ().push_back(yystack_[0].value.as < Parametro > ());
+                  }
+#line 735 "parser.tab.cc"
+    break;
+
+  case 8:
+#line 77 "parser.yy"
                   {  
-                     //printf("parametro individual\n");
                      vector<Parametro> params;
                      params.push_back(yystack_[0].value.as < Parametro > ());
                      yylhs.value.as < std::vector<Parametro> > () = params;
                   }
-#line 744 "parser.tab.cc"
+#line 745 "parser.tab.cc"
     break;
 
-  case 8:
-#line 90 "parser.yy"
+  case 9:
+#line 85 "parser.yy"
                {  
-
-                  //printf("Quinto nivel del arbol\n");
                   Parametro param;
                   param.setNombre(yystack_[2].value.as < std::string > ());
                   param.setValor(yystack_[0].value.as < std::string > ());
                   yylhs.value.as < Parametro > () = param;
                }
-#line 757 "parser.tab.cc"
-    break;
-
-  case 9:
-#line 100 "parser.yy"
-                        { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 763 "parser.tab.cc"
+#line 756 "parser.tab.cc"
     break;
 
   case 10:
-#line 101 "parser.yy"
+#line 93 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 769 "parser.tab.cc"
+#line 762 "parser.tab.cc"
     break;
 
   case 11:
-#line 102 "parser.yy"
+#line 94 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 775 "parser.tab.cc"
+#line 768 "parser.tab.cc"
     break;
 
   case 12:
-#line 103 "parser.yy"
+#line 95 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 781 "parser.tab.cc"
+#line 774 "parser.tab.cc"
     break;
 
   case 13:
-#line 106 "parser.yy"
-                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 787 "parser.tab.cc"
+#line 96 "parser.yy"
+                        { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 780 "parser.tab.cc"
     break;
 
   case 14:
-#line 107 "parser.yy"
+#line 99 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 793 "parser.tab.cc"
+#line 786 "parser.tab.cc"
     break;
 
   case 15:
-#line 108 "parser.yy"
+#line 100 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 799 "parser.tab.cc"
+#line 792 "parser.tab.cc"
     break;
 
   case 16:
-#line 109 "parser.yy"
+#line 101 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 805 "parser.tab.cc"
+#line 798 "parser.tab.cc"
     break;
 
   case 17:
-#line 110 "parser.yy"
+#line 102 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 811 "parser.tab.cc"
+#line 804 "parser.tab.cc"
     break;
 
   case 18:
-#line 111 "parser.yy"
+#line 103 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 817 "parser.tab.cc"
+#line 810 "parser.tab.cc"
     break;
 
   case 19:
-#line 112 "parser.yy"
+#line 104 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 823 "parser.tab.cc"
+#line 816 "parser.tab.cc"
+    break;
+
+  case 20:
+#line 105 "parser.yy"
+                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 822 "parser.tab.cc"
     break;
 
 
-#line 827 "parser.tab.cc"
+#line 826 "parser.tab.cc"
 
             default:
               break;
@@ -1097,67 +1096,67 @@ namespace yy {
   const signed char
   Parser::yypact_[] =
   {
-     -13,   -14,     3,    -2,   -15,    13,   -14,   -15,   -15,   -15,
-     -15,   -15,   -15,   -15,   -15,    -6,   -15,    -3,   -15,   -15,
-     -15,   -15,   -15,   -15,   -15,   -15
+       1,   -14,   -14,     4,     1,   -15,     7,   -14,   -15,   -14,
+     -15,   -15,   -15,   -15,   -15,   -15,     0,   -15,    -3,   -15,
+     -15,   -15,   -15,   -15,   -15,   -15,   -15
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       0,     0,     0,     0,     4,     0,     5,     7,     1,     2,
-       3,     9,    10,    11,    12,     0,     6,     0,    13,    14,
-      15,    16,    17,    18,    19,     8
+       0,     0,     0,     0,     2,     4,     0,     5,     8,     6,
+       1,     3,    10,    11,    12,    13,     0,     7,     0,    14,
+      15,    16,    17,    18,    19,    20,     9
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -15,   -15,   -15,     1,   -15,     7,   -15,   -15
+     -15,   -15,   -15,    14,    17,    -6,   -15,   -15
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-      -1,     2,     3,     4,     6,     7,    15,    25
+      -1,     3,     4,     5,     7,     8,    16,    26
   };
 
   const signed char
   Parser::yytable_[] =
   {
-      18,     1,     5,     8,    10,    19,    20,    21,    22,    23,
-      24,    17,     1,    16,     0,     0,     9,    11,    12,    13,
-      14
+      19,    17,     6,    17,    10,    20,    21,    22,    23,    24,
+      25,    12,    13,    14,    15,     1,     2,    18,    11,     9
   };
 
   const signed char
   Parser::yycheck_[] =
   {
-       3,    14,    16,     0,     3,     8,     9,    10,    11,    12,
-      13,    17,    14,     6,    -1,    -1,    18,     4,     5,     6,
-       7
+       3,     7,    16,     9,     0,     8,     9,    10,    11,    12,
+      13,     4,     5,     6,     7,    14,    15,    17,     4,     2
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,    14,    20,    21,    22,    16,    23,    24,     0,    18,
-      22,     4,     5,     6,     7,    25,    24,    17,     3,     8,
-       9,    10,    11,    12,    13,    26
+       0,    14,    15,    20,    21,    22,    16,    23,    24,    23,
+       0,    22,     4,     5,     6,     7,    25,    24,    17,     3,
+       8,     9,    10,    11,    12,    13,    26
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    19,    20,    21,    21,    22,    23,    23,    24,    25,
-      25,    25,    25,    26,    26,    26,    26,    26,    26,    26
+       0,    19,    20,    21,    21,    22,    22,    23,    23,    24,
+      25,    25,    25,    25,    26,    26,    26,    26,    26,    26,
+      26
   };
 
   const signed char
   Parser::yyr2_[] =
   {
-       0,     2,     2,     2,     1,     2,     2,     1,     4,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1
+       0,     2,     1,     2,     1,     2,     2,     2,     1,     4,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1
   };
 
 
@@ -1178,8 +1177,9 @@ namespace yy {
   const signed char
   Parser::yyrline_[] =
   {
-       0,    47,    47,    53,    57,    63,    74,    80,    89,   100,
-     101,   102,   103,   106,   107,   108,   109,   110,   111,   112
+       0,    48,    48,    51,    52,    55,    62,    71,    76,    84,
+      93,    94,    95,    96,    99,   100,   101,   102,   103,   104,
+     105
   };
 
   // Print the state stack on the debug stream.
@@ -1215,9 +1215,9 @@ namespace yy {
 } // yy
 #line 1217 "parser.tab.cc"
 
-#line 115 "parser.yy"
+#line 108 "parser.yy"
 
 
 void yy::Parser::error( const std::string& error){
-  std::cout <<"\e[0;31m --- ERROR:"<< error << std::endl;
+  std::cout <<"\e[0;31m--- ERROR:"<< error << std::endl;
 }

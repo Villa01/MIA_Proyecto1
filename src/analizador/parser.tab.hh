@@ -50,9 +50,10 @@
    class Comando;
    class Parametro;
    class Mkdisk;
+   class Rmdisk;
 
 
-#line 56 "parser.tab.hh"
+#line 57 "parser.tab.hh"
 
 
 # include <cstdlib> // std::abort
@@ -186,7 +187,7 @@
 #endif
 
 namespace yy {
-#line 190 "parser.tab.hh"
+#line 191 "parser.tab.hh"
 
 
 
@@ -1271,9 +1272,9 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 20,     ///< Last index in yytable_.
+      yylast_ = 19,     ///< Last index in yytable_.
       yynnts_ = 8,  ///< Number of nonterminal symbols.
-      yyfinal_ = 8, ///< Termination state number.
+      yyfinal_ = 10, ///< Termination state number.
       yyntokens_ = 19  ///< Number of tokens.
     };
 
@@ -1520,7 +1521,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1524 "parser.tab.hh"
+#line 1525 "parser.tab.hh"
 
 
 

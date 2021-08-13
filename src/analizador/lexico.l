@@ -13,6 +13,7 @@
 DIGIT   [0-9]
 NUM     {DIGIT}+("."{DIGIT}+)?
 PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
+SALTO   [\n\s]
 
 %%
 
@@ -39,7 +40,7 @@ PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
 
 "-"               { return yy::Parser::make_GUION(); }
 "="               { return yy::Parser::make_IGUAL(); }
-"\n"              { return yy::Parser::make_NEXT_LINE();}
+{SALTO}           { return yy::Parser::make_NEXT_LINE();}
 
 
 [[:blank:]]       {}

@@ -367,7 +367,7 @@ struct yy_trans_info
 static const flex_int16_t yy_accept[49] =
     {   0,
         0,    0,   20,   18,   17,   16,   18,   14,   13,    7,
-       15,   18,    4,   11,   12,   18,   18,   18,    6,   18,
+       15,   18,    4,   11,   12,   18,   18,   16,    6,   18,
         0,   13,   13,    0,    7,    8,    9,    0,    0,    0,
         0,   10,    0,   13,    7,    0,    0,    0,    0,    0,
         5,    0,    3,    0,    0,    1,    2,    0
@@ -710,7 +710,7 @@ YY_DECL
 		}
 
 	{
-#line 17 "lexico.l"
+#line 18 "lexico.l"
 
 
 
@@ -773,98 +773,98 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 20 "lexico.l"
+#line 21 "lexico.l"
 { return yy::Parser::make_MKDISK(yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "lexico.l"
+#line 22 "lexico.l"
 { return yy::Parser::make_RMDISK(yytext); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 24 "lexico.l"
+#line 25 "lexico.l"
 { return yy::Parser::make_SIZE(yytext); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 25 "lexico.l"
+#line 26 "lexico.l"
 { return yy::Parser::make_F(yytext); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 26 "lexico.l"
+#line 27 "lexico.l"
 { return yy::Parser::make_PATH(yytext); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 27 "lexico.l"
+#line 28 "lexico.l"
 { return yy::Parser::make_U(yytext); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "lexico.l"
+#line 31 "lexico.l"
 { return yy::Parser::make_NUM(yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 31 "lexico.l"
+#line 32 "lexico.l"
 { return yy::Parser::make_BF(yytext); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 32 "lexico.l"
+#line 33 "lexico.l"
 { return yy::Parser::make_FF(yytext); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 33 "lexico.l"
+#line 34 "lexico.l"
 { return yy::Parser::make_WF(yytext); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 34 "lexico.l"
+#line 35 "lexico.l"
 { return yy::Parser::make_K(yytext); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 35 "lexico.l"
+#line 36 "lexico.l"
 { return yy::Parser::make_M(yytext); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 36 "lexico.l"
+#line 37 "lexico.l"
 { return yy::Parser::make_RUTA(yytext); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 40 "lexico.l"
+#line 41 "lexico.l"
 { return yy::Parser::make_GUION(); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 41 "lexico.l"
+#line 42 "lexico.l"
 { return yy::Parser::make_IGUAL(); }
 	YY_BREAK
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 42 "lexico.l"
+#line 43 "lexico.l"
 { return yy::Parser::make_NEXT_LINE();}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 45 "lexico.l"
+#line 46 "lexico.l"
 {}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 46 "lexico.l"
+#line 47 "lexico.l"
 { printf("\e[0;31m--- ERROR: Caracter no reconocido: %s\n",yytext);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 48 "lexico.l"
+#line 49 "lexico.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
 #line 871 "scanner.cc"
@@ -1872,7 +1872,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 48 "lexico.l"
+#line 49 "lexico.l"
 
 
 void Driver::runScanner(){

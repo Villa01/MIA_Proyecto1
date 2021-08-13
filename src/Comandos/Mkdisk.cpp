@@ -23,7 +23,6 @@ void Mkdisk::assignParameters(){
     }
 
 
-
     Algorithms a;
     vector<string> sparams = this->getParamsStringNames();
     vector<string> values = this->getParamsStringValues();
@@ -44,6 +43,7 @@ void Mkdisk::assignParameters(){
 
     if (posF == -1){
         std::cout <<"\e[0;33m"<< "--- WARNING: no se incluyó el parametro F, se usará el FF por defecto" << std::endl;
+        this->fit= "FF";
     } else {
 
         this->fit= a.toUpper(values[posF]);
@@ -54,6 +54,7 @@ void Mkdisk::assignParameters(){
 
     if (posU == -1){
         std::cout <<"\e[0;33m"<< "--- WARNING: no se incluyó el parametro U, se usará Megabytes por defecto" << std::endl;
+        this->units = "M";
     } else {
 
         this->units= a.toUpper(values[posU]);
@@ -84,16 +85,19 @@ void Mkdisk::createDisk(){
         std::cout <<"\e[0;31m"<< "--- ERROR: Por favor, el parametro U es incorrecto" << std::endl;
         return;
     }
-
     this->setSizeInBytes(bufferSize);
-    //char* buffer = (char*) malloc(bufferSize);
-    char buffer[bufferSize];
+    char *buffer;
 
+    buffer = (char*)malloc(bufferSize);
+
+
+    cout<< bufferSize <<endl;
     // Llenando buffer
 
     for (int i = 0; i < bufferSize-1; i++)
     {
         buffer[i]='\0';
+        //cout<<i<<endl;
     }
     
     // Abrir archivo
@@ -107,12 +111,14 @@ void Mkdisk::createDisk(){
 
     // Escribir en el disco
 
+
     for (int i = 0; i < bufferSize-1; i++)
     {
         fwrite(&buffer,1024,1,file );
     }
 
     fclose(file);
+
 
     this->asignarMbr();
     
@@ -154,29 +160,7 @@ void Mkdisk::asignarMbr(){
     }
 }
 
-vector<string> Mkdisk::getParamsStringNames(){
-    vector<Parametro> params = this->getParams();
-    vector<string> v;
-    for (int i = params.size() - 1; i >= 0; i--)
-    {
-        string nombre = params[i].getNombre();
-        v.push_back(nombre);
-    }
-    return v;   
-}
 
-vector<string> Mkdisk::getParamsStringValues(){
-    vector<Parametro> params = this->getParams();
-    vector<string> v;
-    for (int i = 0; i< params.size(); i++)
-    {
-    
-        string nombre = params[i].getValor();
-        printf("%s\n", nombre.c_str());
-        v.push_back(nombre);
-    }
-    return v;   
-}
 
 
 void Mkdisk::showInfo(){

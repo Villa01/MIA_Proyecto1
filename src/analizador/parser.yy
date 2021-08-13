@@ -16,6 +16,7 @@
    class Comando;
    class Parametro;
    class Mkdisk;
+   class Rmdisk;
 
 }
 %{
@@ -44,7 +45,7 @@
 
 %%
 
-   inicio : lista_comandos NEXT_LINE   {}
+   inicio : lista_comandos    {}
           ;
 
    lista_comandos : lista_comandos comando  {}
@@ -56,8 +57,14 @@
                   Mkdisk m;
                   m.agregarParametros($2);
                   m.assignParameters();
-                  m.showInfo();
                   m.createDisk();
+               }
+            | RMDISK lista_param 
+               {
+                  Rmdisk r;
+                  r.agregarParametros($2);
+                  r.assignParameters();
+                  r.deleteDisk();
                }
             ;
    

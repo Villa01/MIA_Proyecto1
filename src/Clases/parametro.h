@@ -1,5 +1,5 @@
-
-
+#ifndef PARAMETRO
+#define PARAMETRO
 using namespace std;
 
 #include <string>
@@ -18,3 +18,5 @@ class Parametro {
         string valor;
         string nombre;
 };
+
+#endif

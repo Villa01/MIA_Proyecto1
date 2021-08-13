@@ -33,8 +33,6 @@ class Mkdisk : public Comando {
         string fit;
         bool errorFlag;
         void asignarMbr();
-        vector<string> getParamsStringNames();
-        vector<string> getParamsStringValues();
 
 
     void setSize(float);

@@ -1,4 +1,7 @@
 
+
+#ifndef ALGORITHMS
+#define ALGORITHMS
 using namespace std;
 
 #include <vector>
@@ -19,3 +22,5 @@ class Algorithms {
         bool areEqual(string, string);
         string obtainDate();
 };
+
+#endif

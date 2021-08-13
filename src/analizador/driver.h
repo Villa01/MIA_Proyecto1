@@ -2,6 +2,7 @@
 
 
 #include "../Comandos/Mkdisk.h"
+#include "../Comandos/Rmdisk.h"
 #include "parser.tab.hh"
 
 #define YY_DECL \

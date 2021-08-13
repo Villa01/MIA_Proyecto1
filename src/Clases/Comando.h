@@ -1,4 +1,5 @@
-
+#ifndef COMANDO
+#define COMANDO
 
 using namespace std;
 
@@ -28,4 +29,9 @@ class Comando {
         void setNombre(string);
         void setParametros(vector<Parametro>);
 
+        vector<string> getParamsStringNames();
+        vector<string> getParamsStringValues();
+
 };
+
+#endif
