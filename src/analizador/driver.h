@@ -3,6 +3,7 @@
 
 #include "../Comandos/Mkdisk.h"
 #include "../Comandos/Rmdisk.h"
+#include "../Comandos/Fdisk.h"
 #include "parser.tab.hh"
 
 #define YY_DECL \

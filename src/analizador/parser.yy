@@ -17,6 +17,7 @@
    class Parametro;
    class Mkdisk;
    class Rmdisk;
+   class Fdisk;
 
 }
 %{
@@ -31,7 +32,9 @@
 
 
 /******* TERMINALES ********/
-%token <std::string> NUM"NUM" SIZE"SIZE" F"F" PATH"PATH" U"U" BF"BF" FF"FF" WF"WF" K"K" M"M" RUTA"RUTA" MKDISK"MKDISK" RMDISK"RMDISK"
+%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK"
+%token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD"
+%token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA"
 %token GUION"GUION" IGUAL"IGUAL" NEXT_LINE"NEXT_LINE"
 
 
@@ -66,6 +69,13 @@
                   r.assignParameters();
                   r.deleteDisk();
                }
+            | FDISK lista_param
+               {
+                  Fdisk f;
+                  f.agregarParametros($2);
+                  f.assignParameters();
+                  f.start_action();
+               }
             ;
    
    lista_param :  lista_param parametro   
@@ -94,6 +104,10 @@
              | F        { $$=$1; }
              | PATH     { $$=$1; }
              | U        { $$=$1; }
+             | TYPE     { $$=$1; }
+             | DELETE   { $$=$1; }
+             | NAME     { $$=$1; }
+             | ADD      { $$=$1; }
              ;
 
    atributo : NUM    { $$=$1; }
@@ -102,7 +116,14 @@
             | WF     { $$=$1; }
             | K      { $$=$1; }
             | M      { $$=$1; }
+            | B      { $$=$1; }
             | RUTA   { $$=$1; }
+            | P      { $$=$1; }
+            | E      { $$=$1; }
+            | L      { $$=$1; }
+            | FAST   { $$=$1; }
+            | FULL   { $$=$1; }
+            | CADENA { $$=$1; }
             ;
 
 %%

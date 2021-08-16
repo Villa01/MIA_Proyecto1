@@ -1,6 +1,7 @@
+#ifndef ESTRUCTURAS
+#define ESTRUCTURAS
 
 
-#include "time.h"
 #include <string>
 
 typedef struct {
@@ -11,6 +12,15 @@ typedef struct {
     int part_size;
     char part_name[16];
 }Partition;
+
+typedef struct {
+    char part_status;
+    char part_fit;
+    int part_start;
+    int part_size;
+    int part_next;
+    char part_name[16];
+}EBR;
 
 typedef struct{
     int mbr_tamano;
@@ -31,3 +41,5 @@ class Estructuras {
     public:
         Estructuras();
 };
+
+#endif

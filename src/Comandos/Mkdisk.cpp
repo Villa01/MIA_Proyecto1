@@ -90,8 +90,6 @@ void Mkdisk::createDisk(){
 
     buffer = (char*)malloc(bufferSize);
 
-
-    cout<< bufferSize <<endl;
     // Llenando buffer
 
     for (int i = 0; i < bufferSize-1; i++)

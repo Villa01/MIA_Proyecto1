@@ -11,35 +11,52 @@
 
 
 DIGIT   [0-9]
-NUM     {DIGIT}+("."{DIGIT}+)?
+NUM     -?{DIGIT}+("."{DIGIT}+)?
 PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
 SALTO   [\n\s]
+CADENA  [A-Za-z0-9]+|(\"[A-Za-z0-9]+\")
 
 %%
 
 
 "MKDISK"          { return yy::Parser::make_MKDISK(yytext); }
 "RMDISK"          { return yy::Parser::make_RMDISK(yytext); }
+"FDISK"           { return yy::Parser::make_FDISK(yytext); }
 
 
 "SIZE"            { return yy::Parser::make_SIZE(yytext); }
-"F"               { return yy::Parser::make_F(yytext); }
 "PATH"            { return yy::Parser::make_PATH(yytext); }
-"U"               { return yy::Parser::make_U(yytext); }
+"TYPE"            { return yy::Parser::make_TYPE(yytext); }
+"DELETE"          { return yy::Parser::make_DELETE(yytext); }
+"NAME"            { return yy::Parser::make_NAME(yytext); }
+"ADD"             { return yy::Parser::make_ADD(yytext); }
 
 
+"FAST"            { return yy::Parser::make_FAST(yytext); }
+"FULL"            { return yy::Parser::make_FULL(yytext); }
+{PATH}            { return yy::Parser::make_RUTA(yytext); }
 {NUM}             { return yy::Parser::make_NUM(yytext);}
+
+
 "BF"              { return yy::Parser::make_BF(yytext); }
 "FF"              { return yy::Parser::make_FF(yytext); }
 "WF"              { return yy::Parser::make_WF(yytext); }
+
 "K"               { return yy::Parser::make_K(yytext); }
 "M"               { return yy::Parser::make_M(yytext); }
-{PATH}            { return yy::Parser::make_RUTA(yytext); }
+"B"               { return yy::Parser::make_B(yytext); }
+"P"               { return yy::Parser::make_P(yytext); }
+"E"               { return yy::Parser::make_E(yytext); }
+"L"               { return yy::Parser::make_L(yytext); }
 
 
+"U"               { return yy::Parser::make_U(yytext); }
+"F"               { return yy::Parser::make_F(yytext); }
 
 "-"               { return yy::Parser::make_GUION(); }
 "="               { return yy::Parser::make_IGUAL(); }
+
+{CADENA}          { return yy::Parser::make_CADENA(yytext); }
 {SALTO}           { return yy::Parser::make_NEXT_LINE();}
 
 
