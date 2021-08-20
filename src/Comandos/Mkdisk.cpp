@@ -33,7 +33,6 @@ void Mkdisk::assignParameters(){
         std::cout <<"\e[0;31m"<< "--- ERROR: Por favor, agregue el parametro size" << std::endl;
         return;
     } else {
-        
         this->setSize(stof(values[posSize]));
     }
 
@@ -112,7 +111,7 @@ void Mkdisk::createDisk(){
 
     for (int i = 0; i < bufferSize-1; i++)
     {
-        fwrite(&buffer,1024,1,file );
+        fwrite(&buffer,1,1,file );
     }
 
     fclose(file);

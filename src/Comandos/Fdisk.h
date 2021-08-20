@@ -21,6 +21,9 @@ private:
     void create_partition();
     void delete_partition();
     void add_storage();
+    vector<Partition> sort_partition_vector(vector<Partition>);
+    int search_empty_partition(vector<Partition>);
+    void read_mbr();
 
     void set_add_num(int);
     void set_error(bool);
