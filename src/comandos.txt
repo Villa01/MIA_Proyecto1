@@ -5,4 +5,7 @@ MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 
 MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=1000
-FDISK -size =1000 -u = m -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Particion3
+FDISK -size=300 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Particion2 -type=E 
+FDISK -size =100 -u = k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica1 -type=L
+FDISK -size =100 -u = k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica2 -type=L
+FDISK -size =100 -u = k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica3 -type=L

@@ -157,9 +157,6 @@ void Mkdisk::asignarMbr(){
     }
 }
 
-
-
-
 void Mkdisk::showInfo(){
 
     printf("\x1B[32m--- INFO: El disco está alojado en %s, tiene un tamaño de %.2f %s y se asigna por medio del %s\n",

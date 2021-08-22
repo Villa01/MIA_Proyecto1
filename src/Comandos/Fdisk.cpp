@@ -34,7 +34,7 @@ void Fdisk::assignParameters(){
     if (posP == -1){
         this->set_error(true);
         std::cout <<"\e[0;31m"<< "--- ERROR: Por favor, agregue el parametro path" << std::endl;
-        return;
+        exit(1);
     } else {
         this->set_path(values[posP]);
     }
@@ -48,6 +48,7 @@ void Fdisk::assignParameters(){
         this->set_units(a.toUpper(values[posU]));
     }
 
+    
     // Asignar type
     int posType = a.searchPosition("TYPE", sparams);
     if(posType==-1){
@@ -55,12 +56,14 @@ void Fdisk::assignParameters(){
         this->set_type("P");
     } else {
         string str_type = a.toUpper(values[posType]);
-        if(a.areEqual(str_type, "E") || a.areEqual(str_type, "L") || a.areEqual(str_type, "P"))
+        if(a.areEqual(str_type, "E") || a.areEqual(str_type, "L") || a.areEqual(str_type, "P")){
             this->set_type(a.toUpper(values[posType]));
-        else 
+        }else {
             std::cout <<"\e[0;31m"<< "--- ERROR: el valor de type es inválido." << std::endl;
-            return;
+            exit(1);
+        }
     }
+
 
     // Asignar F
     int posF = a.searchPosition("F", sparams);
@@ -77,7 +80,7 @@ void Fdisk::assignParameters(){
     if(posName==-1){
         this->set_error(true);
         std::cout <<"\e[0;31m"<< "--- ERROR: Por favor, agregue el parametro name" << std::endl;
-        return;
+        exit(1);
     } else {
         this->set_name(values[posName]);
     }
@@ -96,12 +99,12 @@ void Fdisk::assignParameters(){
             } else {
                 this->set_error(true);
                 std::cout <<"\e[0;31m"<< "--- ERROR: no se incluyó el parametro path, no se puede usar Delete" << std::endl;
-                return;
+                exit(1);
             }
         } else {
             this->set_error(true);  
             std::cout <<"\e[0;31m"<< "--- ERROR: no se incluyó el parametro name, no se puede usar Delete" << std::endl;
-            return;
+            exit(1);
         }
     }
 
@@ -133,7 +136,7 @@ void Fdisk::assignParameters(){
 void Fdisk::start_action(){
 
     if(this->get_error()){
-        return;
+        exit(1);
     }
 
     switch (this->get_option())
@@ -159,21 +162,12 @@ void Fdisk::start_action(){
 }
 
 void Fdisk::create_partition(){
-    // Obtener mbr
-    FILE *file = fopen(this->get_path().c_str(),"rb+");
-
-    if(file ==NULL){
-        printf("\e[0;31m--- ERROR: No se pudo encontrar la dirección \'%s\'", this->get_path().c_str());
-        return;
-    }
-
-    fseek(file, 0, SEEK_SET);
-
-    Mbr mbr;
-
-    fread(&mbr, sizeof(mbr), 1, file);
-    fclose(file);
+    
     Algorithms a;
+
+    Mbr mbr = a.obtainMbr(this->get_path());
+
+
     int byte_size = this->get_size();
 
     // Obtener tamanio en bytes
@@ -231,49 +225,32 @@ void Fdisk::create_partition(){
         std::cout <<"\e[0;31m"<< "--- ERROR: no se puede crear una partición lógica sin una extendida." << std::endl;
         return;
     }
-    
-    // Obtener lugar de creacion de particion
 
-    int start_byte = sizeof(mbr);
-    int end_limit = mbr.mbr_tamano;
-    
-    // Recorrer todas las particiones de manera inversa
-
-    for (int i = partitions.size()- 1; i >= 0; i--)
-    {
-    // Verificar que el punto de inicio no sea -1
-        if(partitions[i].part_start == -1) {
-        // Si es -1 verificar que haya espacio suficiente
-
-            int gap = end_limit - start_byte; 
-
-             if( gap >= byte_size){
-                // Si hay espacio suficiente romper el ciclo
-                break;
-             } 
-
-            // Sino seguir con el ciclo
-
-        } else {
-        // Sino es -1 verificar si hay espacio suficiente espacio entre el final de la particion y el end_limit
-            int gap = end_limit - (start_byte + partitions[i].part_size);
-
-            if ( gap >= byte_size) {
-                // Si hay suficiente espacio poner el start_byte al final de esa particion
-                start_byte = partitions[i].part_start + partitions[i].part_size + 1;
-            } else {
-                // Sino continuar con el ciclo y poner el end_limit en el inicio de la particion
-                end_limit = partitions[i].part_start;
-            }
-
-        }
-
-        if(i == 0 && start_byte == sizeof(mbr)){
-            std::cout <<"\e[0;31m"<< "--- ERROR: No hay espacio suficiente para crear la partición." << std::endl;
-            return;
-        }
+    if(a.areEqual(this->get_type(), "L")){
+        create_l_partition(mbr, partitions, byte_size);
     }
 
+    
+    if(a.areEqual(this->get_type(), "E") || a.areEqual(this->get_type(), "P")){
+        create_p_e_partition(mbr,partitions, byte_size);
+    }
+}
+
+/*
+* Creación de particiones primarias y extendidas
+*/
+
+void Fdisk::create_p_e_partition(Mbr mbr, vector<Partition> partitions, int byte_size){
+
+    // Obtener lugar de creacion de particion
+    int start_byte = sizeof(mbr); 
+    int end_limit = mbr.mbr_tamano;
+    // Recorrer todas las particiones de manera inversa
+    first_fit(partitions, start_byte, end_limit, byte_size);
+    
+
+    cout<<this->get_name()<<endl;
+    cout<<this->get_size()<<endl;
     //Crear particion nueva
     Partition nueva;
     nueva.part_status = '1';
@@ -281,7 +258,7 @@ void Fdisk::create_partition(){
     nueva.part_fit = *(this->get_fit().c_str());
     nueva.part_start = start_byte;
     nueva.part_size = byte_size;
-    strcat(nueva.part_name, this->get_name().c_str());
+    strcpy(nueva.part_name, this->get_name().c_str());
 
     int pos = search_empty_partition(partitions);
     if (pos != -1){
@@ -306,8 +283,154 @@ void Fdisk::create_partition(){
         printf("\e[0;31m--- ERROR: No se pudo crear la partición.");
     }
     this->read_mbr();
+
 }
 
+/*
+* Creación de particiones lógicas
+*/
+void Fdisk::create_l_partition(Mbr mbr, vector<Partition> partitions, int byte_size){
+    Algorithms a;
+    // Validar que exista una particion extendida
+    int i;
+    for (i = 0; i < partitions.size(); i++)
+    {   
+        string type(1,partitions[i].part_type);
+        if(a.areEqual(type, "E")){
+            break;
+        }
+    }
+    vector<EBR> ebr_partitions = a.obtain_ebr_list(partitions[i], this->get_path());
+    
+    int start_byte = partitions[i].part_start;
+    int end_limit = partitions[i].part_start + partitions[i].part_size;
+
+    first_fit_ebr(ebr_partitions, start_byte, end_limit, byte_size);
+
+
+
+    if( ebr_partitions.size() > 0){
+        for (int i = 0; i < ebr_partitions.size(); i++)
+        {
+            if( i == ebr_partitions.size() - 1){
+                ebr_partitions[i].part_next = start_byte;
+            }
+        }
+        
+    }   
+
+    write_ebr_list(ebr_partitions);
+
+    int next_part = -1;
+    
+    // Crear EBR
+    EBR ebr;
+    ebr.part_fit = this->get_fit()[0];
+    strcpy(ebr.part_name, this->get_name().c_str());
+    ebr.part_next = -1;
+    ebr.part_size = this->get_size();
+    ebr.part_start = start_byte;
+    ebr.part_status = '1';
+
+    write_ebr(ebr);
+
+    this->read_ebr();
+}
+
+/*
+* first_fit obtiene el valor del punto de inicio siguiendo el primer ajuste. 
+*/
+int Fdisk::first_fit(vector<Partition> partitions, int &start_byte, int end_limit, int to_fit){
+
+    int first_start = start_byte;
+
+    for (int i = partitions.size()- 1; i >= 0; i--)
+    {
+    // Verificar que el punto de inicio no sea -1
+        if(partitions[i].part_start == -1) {
+        // Si es -1 verificar que haya espacio suficiente
+
+            int gap = end_limit - start_byte; 
+
+            if( gap >= to_fit){
+                // Si hay espacio suficiente romper el ciclo
+                break;
+            } 
+
+            // Sino seguir con el ciclo
+
+        } else {
+        // Sino es -1 verificar si hay espacio suficiente espacio entre el final de la particion y el end_limit
+            int gap = end_limit - (start_byte + partitions[i].part_size);
+
+            if ( gap >= to_fit) {
+                // Si hay suficiente espacio poner el start_byte al final de esa particion
+                start_byte = partitions[i].part_start + partitions[i].part_size + 1;
+            } else {
+                // Sino continuar con el ciclo y poner el end_limit en el inicio de la particion
+                end_limit = partitions[i].part_start;
+            }
+
+        }
+
+        if(i == 0 && start_byte == first_start){
+            std::cout <<"\e[0;31m"<< "--- ERROR: No hay espacio suficiente para crear la partición." << std::endl;
+            exit(1);
+        }
+    }
+
+    return start_byte;
+}
+
+/*
+* first_fit obtiene el valor del punto de inicio siguiendo el primer ajuste. 
+*/
+int Fdisk::first_fit_ebr(vector<EBR> partitions, int &start_byte, int end_limit, int to_fit){
+
+    int first_start = start_byte;
+
+    for (int i = partitions.size()- 1; i >= 0; i--)
+    {
+    // Verificar que el punto de inicio no sea -1
+
+        if(partitions[i].part_start == -1) {
+        // Si es -1 verificar que haya espacio suficiente
+
+            int gap = end_limit - start_byte; 
+
+            if( gap >= to_fit){
+                // Si hay espacio suficiente romper el ciclo
+                break;
+            } 
+
+            // Sino seguir con el ciclo
+
+        } else {
+        // Sino es -1 verificar si hay espacio suficiente espacio entre el final de la particion y el end_limit
+            int gap = end_limit - (start_byte + partitions[i].part_size);
+
+            if ( gap >= to_fit) {
+                // Si hay suficiente espacio poner el start_byte al final de esa particion
+                start_byte = partitions[i].part_start + partitions[i].part_size + 1;
+            } else {
+                // Sino continuar con el ciclo y poner el end_limit en el inicio de la particion
+                end_limit = partitions[i].part_start;
+            }
+
+        }
+
+        if(i == 0 && start_byte == first_start){
+            std::cout <<"\e[0;31m"<< "--- ERROR: No hay espacio suficiente para crear la partición." << std::endl;
+            exit(1);
+        }
+    }
+
+    return start_byte;
+}
+
+/*
+*   Imprime la información del mbr
+*/
 void Fdisk::read_mbr(){
     FILE*arch;
     arch=fopen(path.c_str(),"rb+");
@@ -320,20 +443,87 @@ void Fdisk::read_mbr(){
     fclose(arch);
 
     vector<Partition> mbr_partitions{MBR.mbr_partition1, MBR.mbr_partition2, MBR.mbr_partition3, MBR.mbr_partition4};
-    cout<<"\x1B[32m--- INFO: Nueva partición"<<endl;
+    cout<<"\x1B[32m--- INFO: Particiones"<<endl;
     for(int i=0;i<4;i++){
         if(mbr_partitions[i].part_status=='1')  {
-            std::cout << "PARTICION : "<<i << endl;
-            std::cout << "\nPARTICION STATUS : "<<mbr_partitions[i].part_status;
-            std::cout << "\nPARTICION TYPE : "<<mbr_partitions[i].part_type;
-            std::cout << "\nPARTICION FIT : "<<mbr_partitions[i].part_fit;
-            std::cout << "\nPARTICION START : "<<mbr_partitions[i].part_start;
-            std::cout << "\nPARTICION SIZE : "<<mbr_partitions[i].part_size;
-            std::cout << "\nPARTICION NAME : "<<mbr_partitions[i].part_name;
+            std::cout << "\tParticion : "<<i << endl;
+            std::cout << "\tParticion status : "<<mbr_partitions[i].part_status<<endl;
+            std::cout << "\tParticion type : "<<mbr_partitions[i].part_type<<endl;
+            std::cout << "\tParticion fit : "<<mbr_partitions[i].part_fit<<endl;
+            std::cout << "\tParticion start : "<<mbr_partitions[i].part_start<<endl;
+            std::cout << "\tParticion size : "<<mbr_partitions[i].part_size<<endl;
+            std::cout << "\tParticion name : "<<mbr_partitions[i].part_name<<endl;
         }
     }
 }
 
+/*
+*  Escribe muchos ebr
+*/
+void Fdisk::write_ebr_list(vector<EBR> ebrs){
+    for(EBR ebr : ebrs){
+        if(ebr.part_status != '0'){
+            this->write_ebr(ebr);
+        }
+    }
+}
+
+/*
+* Escribe un ebr en el disco
+*/
+
+void Fdisk::write_ebr(EBR ebr){
+    FILE *file2 = fopen(this->get_path().c_str(), "rb+");
+
+    if(file2 != NULL){
+        fseek(file2,ebr.part_start,SEEK_SET );
+        fwrite(&ebr, sizeof(ebr), 1, file2);
+        fclose(file2);
+        printf("\x1B[32m--- INFO: Se creó la partición correctamente\n");
+    } else {
+        printf("\e[0;31m--- ERROR: No se pudo crear la partición lógica.");
+    }
+}
+
+/*
+*   Imprime la información de todos los ebr
+*/
+void Fdisk::read_ebr(){
+    FILE*arch;
+    arch=fopen(path.c_str(),"rb+");
+    if(arch==NULL){
+        //return 0;
+    }
+    Mbr MBR;
+    fseek(arch, 0, SEEK_SET);
+    fread(&MBR,sizeof(Mbr),1,arch);
+    fclose(arch);
+
+    vector<Partition> partitions{MBR.mbr_partition1, MBR.mbr_partition2, MBR.mbr_partition3, MBR.mbr_partition4};
+
+    Algorithms a;
+    int i;
+    for (i = 0; i < partitions.size(); i++)
+    {   
+        string type(1,partitions[i].part_type);
+        if(a.areEqual(type, "E")){
+            break;
+        }
+    }
+
+    vector<EBR> ebr_partitions = a.obtain_ebr_list(partitions[i], this->get_path());
+
+    
+    cout<<"\x1B[32m--- INFO: Particiones"<<endl;
+    for(EBR ebr : ebr_partitions){
+        cout<<"\tNombre: "<<ebr.part_name<<endl;
+        cout<<"\tSize: "<<ebr.part_size<<endl;
+        cout<<"\tInicia: "<<ebr.part_start<<endl;
+        cout<<"\tFit: "<<ebr.part_fit<<endl;
+        cout<<"\tSiguiente ebr: "<<ebr.part_next<<endl;
+        cout<<"\tStatus: "<<ebr.part_status<<endl;
+    }
+}
 
 int Fdisk::search_empty_partition(vector<Partition> v){
     for (size_t i = 0; i < v.size(); i++)
@@ -361,14 +551,233 @@ vector<Partition> Fdisk::sort_partition_vector(vector<Partition> v){
     return v;
 }
 
+/*
+*   Eliminar particiones
+*/
 void Fdisk::delete_partition(){
 
+    Algorithms a;
+
+    // Pedir confirmación para eliminar 
+
+    std::cout <<"\e[0;33m"<< "--- WARNING: ¿Está segur@ que desea eliminar la partcion " << this->get_name()<< "? 1. Si 0. No\e[0;37m"<< std::endl;
+
+    char confirm[1];
+    cin>>confirm;
+
+    int val = (int)confirm[0];
+    int succesful;
+
+    if ( val == 49){
+    // Verificar que name y path no sean NULL
+
+        if(a.areEqual(this->get_name(), "")){
+            std::cout <<"\e[0;31m"<< "--- ERROR: nombre inválido " << std::endl;
+            exit(1);
+        } 
+
+        if(a.areEqual(this->get_path(), "")){
+            std::cout <<"\e[0;31m"<< "--- ERROR: path inválido " << std::endl;
+            exit(1);
+        } 
+
+        
+        // Verificar que la partición exista
+        if(this->check_for_partition(this->get_type(), this->get_name())){
+            // Eliminar particion
+            Mbr mbr = a.obtainMbr(this->get_path());
+
+            
+            this->delete_part(&mbr, this->get_name());
+        }
+    }
+    else if (val == 48) {
+        printf("\e[0;36m---INFO: No se ha eliminado la particion \n");
+    } else {
+        std::cout <<"\e[0;31m"<< "--- ERROR: Valor inválido " << std::endl;
+    }
+
+
+}
+
+/*
+*   Elimina una particion de un mbr
+*/
+void Fdisk::delete_part(Mbr *mbr, string name){
+    Algorithms a;
+    if(a.areEqual((*mbr).mbr_partition1.part_name, name)){
+        (*mbr).mbr_partition1.part_status = '0';
+    } else if(a.areEqual((*mbr).mbr_partition2.part_name, name)){
+        (*mbr).mbr_partition2.part_status = '0';
+    } else if(a.areEqual((*mbr).mbr_partition3.part_name, name)){
+        (*mbr).mbr_partition3.part_status = '0';
+    } else if(a.areEqual((*mbr).mbr_partition4.part_name, name)){
+        (*mbr).mbr_partition4.part_status = '0';
+    } else {
+        bool extended = false;
+        int pos_extended;
+        string p1(1,(*mbr).mbr_partition1.part_type);
+        string p2(1,(*mbr).mbr_partition1.part_type);
+        string p3(1,(*mbr).mbr_partition1.part_type);
+        string p4(1,(*mbr).mbr_partition1.part_type);
+
+        if(a.areEqual(p1, "E")){
+            extended = true;
+            pos_extended = 1;
+        } else if(a.areEqual(p2, "E")){
+            extended = true;
+            pos_extended = 2;
+        } else if(a.areEqual(p3, "E")){
+            extended = true;
+            pos_extended = 3;
+        } else if(a.areEqual(p4, "E")){
+            extended = true;
+            pos_extended = 4;
+        }
+
+        Partition *part;
+        if(extended){
+            switch (pos_extended)
+            {
+            case 1:
+                part = &(*mbr).mbr_partition1;
+                break;
+            case 2:
+                part = &(*mbr).mbr_partition2;
+                break;
+            
+            case 3:
+                part = &(*mbr).mbr_partition3;
+                break;
+
+            case 4:
+                part = &(*mbr).mbr_partition4;
+                break;
+            
+            default:
+                break;
+            }
+
+            vector<EBR> ebr_list = a.obtain_ebr_list(*part, this->get_path());
+
+            for (int i = 0; i < ebr_list.size(); i++)
+            {
+                if(a.areEqual(ebr_list[i].part_name, name)){
+                    int pos_next = (*part).part_start + (*part).part_size;
+
+                    if(i< ebr_list.size()-1){
+                        pos_next = ebr_list[i+1].part_start;
+                    }
+                    ebr_list[i-1].part_next = pos_next;
+
+                    if(a.areEqual(this->get_delete_type(), "FULL")){
+                        this->fill_with_zeros(ebr_list[i].part_start, ebr_list[i].part_size);
+                    }
+                } else {
+                    std::cout <<"\e[0;31m"<< "--- ERROR: No se encontro la particon, no se borró." << std::endl;
+                }
+            } 
+        } else {
+            std::cout <<"\e[0;31m"<< "--- ERROR: No se pudo eliminar la particion" << std::endl;
+        }
+
+    }
+}
+
+/*
+*   Llena de ceros y elimina la particion
+*/
+
+void Fdisk::fill_with_zeros(int start_byte, int bufferSize){
+
+    char *buffer;
+
+    buffer = (char*)malloc(bufferSize);
+
+    for (int i = 0; i < bufferSize-1; i++)
+    {
+        buffer[i]='\0';
+    }
+
+    FILE *file = fopen(this->get_path().c_str(), "rb+");
+
+    fseek(file, start_byte,SEEK_SET);
+    fwrite(&buffer,1,1,file);
+    fclose(file);
+}
+
+/*
+*   Verifica si una particion existe
+*/
+
+bool Fdisk::check_for_partition(string type, string name){
+    Algorithms a;
+    Mbr mbr = a.obtainMbr(this->get_path());
+
+    vector<Partition> partitions = this->get_partitions(mbr);
+
+    if(a.areEqual(type, "L")){
+        Partition extended = this->get_extended(partitions);
+
+        vector<EBR> ebr_list = a.obtain_ebr_list(extended, this->get_path());
+
+
+        if(ebr_list.size() == 0){
+            return false;
+        }
+
+        for(EBR ebr : ebr_list){
+            if(a.areEqual(ebr.part_name, name)){
+                return true;
+            }
+        }
+        return false;
+    } else {
+        for(Partition partition : partitions){
+            if(a.areEqual(partition.part_name, name)){
+                return true;
+            }
+        }
+        return true;
+    }
+    
+}
+
+/*
+*   Identificar una particion extendida
+*/
+Partition Fdisk::get_extended(vector<Partition> partitions){
+    Algorithms a;
+    // Validar que exista una particion extendida
+    int i;
+    bool found;
+    for (i = 0; i < partitions.size(); i++)
+    {   
+        string type(1,partitions[i].part_type);
+        if(a.areEqual(type, "E")){
+            found = true;
+            break;
+        }
+    }
+
+    if(found){
+        return partitions[i];
+    } else {
+        printf("\e[0;36m---INFO: No hay una particion extendida \n");
+        exit(1);
+    }
+}
+
+vector<Partition> Fdisk::get_partitions(Mbr mbr){
+    vector<Partition> partitions{mbr.mbr_partition1, mbr.mbr_partition2, mbr.mbr_partition3, mbr.mbr_partition4};
+    return partitions;
 }
 
 void Fdisk::add_storage(){
 
 }
 
+/* Setters & Getters */
 
 void Fdisk::set_add_num(int num){
     this->add_num = num;

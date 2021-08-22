@@ -41,7 +41,6 @@ vector<string> Comando::getParamsStringValues(){
     {
     
         string nombre = params[i].getValor();
-        //printf("%s\n", nombre.c_str());
         v.push_back(nombre);
     }
     return v;   

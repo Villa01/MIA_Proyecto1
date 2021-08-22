@@ -10,6 +10,7 @@ using namespace std;
 #include <algorithm>
 #include <ctime>
 #include <iostream>
+#include "Estructuras.h"
 
 
 class Algorithms {
@@ -21,6 +22,9 @@ class Algorithms {
         string toUpper(string s);
         bool areEqual(string, string);
         string obtainDate();
+        Mbr obtainMbr(string path);
+        vector<EBR> obtain_ebr_list(Partition, string);
+        EBR obtain_ebr(int, string);
 };
 
 #endif
