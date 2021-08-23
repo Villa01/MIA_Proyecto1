@@ -18,13 +18,19 @@ class Algorithms {
 
     public:
         Algorithms();
-        int searchPosition(string s, vector<string>v);
-        string toUpper(string s);
         bool areEqual(string, string);
-        string obtainDate();
-        Mbr obtainMbr(string path);
-        vector<EBR> obtain_ebr_list(Partition, string);
         EBR obtain_ebr(int, string);
+        int searchPosition(string s, vector<string>v);
+        Mbr obtainMbr(string path);
+        string obtainDate();
+        string toUpper(string s);
+        vector<EBR> obtain_ebr_list(Partition, string);
+        void writeMbr(Mbr, string);
+        void showMbrInfo(string);
+        void printPartitions(vector<Partition>, string);
+        void printPartition(Partition, string);
+        void print_ebr_list(vector<EBR>);
+        void print_ebr(EBR);
 };
 
 #endif

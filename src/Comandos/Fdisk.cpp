@@ -64,7 +64,6 @@ void Fdisk::assignParameters(){
         }
     }
 
-
     // Asignar F
     int posF = a.searchPosition("F", sparams);
     if(posF==-1){
@@ -302,6 +301,12 @@ void Fdisk::create_l_partition(Mbr mbr, vector<Partition> partitions, int byte_s
     }
     vector<EBR> ebr_partitions = a.obtain_ebr_list(partitions[i], this->get_path());
     
+
+    for(EBR ebr: ebr_partitions){
+        cout<<ebr.part_name<<endl;
+        cout<<ebr.part_start<<endl;
+    }
+
     int start_byte = partitions[i].part_start;
     int end_limit = partitions[i].part_start + partitions[i].part_size;
 
@@ -587,8 +592,9 @@ void Fdisk::delete_partition(){
             // Eliminar particion
             Mbr mbr = a.obtainMbr(this->get_path());
 
-            
             this->delete_part(&mbr, this->get_name());
+        } else {
+            std::cout <<"\e[0;31m"<< "--- ERROR: No se encontró la partición" << std::endl;
         }
     }
     else if (val == 48) {
@@ -597,7 +603,7 @@ void Fdisk::delete_partition(){
         std::cout <<"\e[0;31m"<< "--- ERROR: Valor inválido " << std::endl;
     }
 
-
+    a.showMbrInfo(this->get_path());
 }
 
 /*
@@ -605,6 +611,7 @@ void Fdisk::delete_partition(){
 */
 void Fdisk::delete_part(Mbr *mbr, string name){
     Algorithms a;
+
     if(a.areEqual((*mbr).mbr_partition1.part_name, name)){
         (*mbr).mbr_partition1.part_status = '0';
     } else if(a.areEqual((*mbr).mbr_partition2.part_name, name)){
@@ -677,11 +684,13 @@ void Fdisk::delete_part(Mbr *mbr, string name){
                     std::cout <<"\e[0;31m"<< "--- ERROR: No se encontro la particon, no se borró." << std::endl;
                 }
             } 
+            this->write_ebr_list(ebr_list);
         } else {
             std::cout <<"\e[0;31m"<< "--- ERROR: No se pudo eliminar la particion" << std::endl;
         }
 
     }
+    a.writeMbr(*mbr, this->get_path());
 }
 
 /*
