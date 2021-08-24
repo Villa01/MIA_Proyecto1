@@ -194,6 +194,7 @@ void Fdisk::create_partition(){
     int cont_prim = 0;
     for (size_t i = 0; i < partitions.size(); i++)
     {
+
         string str_type1(1, partitions[i].part_type);
         if(a.areEqual(str_type1, "E")){
             cont_ext++;
@@ -612,14 +613,47 @@ void Fdisk::delete_partition(){
 void Fdisk::delete_part(Mbr *mbr, string name){
     Algorithms a;
 
+    Partition vacia;
+    vacia.part_status='0';
+    vacia.part_type='-';
+    vacia.part_fit='-';
+    vacia.part_start=-1;
+    vacia.part_size=-1;
+    vacia.part_name[0] = '\0';
+
+    EBR vacio;
+    vacio.part_status='0';
+    vacio.part_fit= '-';
+    vacio.part_start=-1;
+    vacio.part_size=-1;
+    vacio.part_next = -1;
+    vacio.part_name[0] = '\0';
+    int delete_from;
+    int delete_until;
     if(a.areEqual((*mbr).mbr_partition1.part_name, name)){
-        (*mbr).mbr_partition1.part_status = '0';
+
+        (*mbr).mbr_partition1 = vacia;
+        delete_from = (*mbr).mbr_partition1.part_start;
+        delete_until = (*mbr).mbr_partition1.part_start + (*mbr).mbr_partition1.part_size;
+
     } else if(a.areEqual((*mbr).mbr_partition2.part_name, name)){
-        (*mbr).mbr_partition2.part_status = '0';
+
+        (*mbr).mbr_partition2 = vacia;
+        delete_from = (*mbr).mbr_partition2.part_start;
+        delete_until = (*mbr).mbr_partition2.part_start + (*mbr).mbr_partition1.part_size;
+
     } else if(a.areEqual((*mbr).mbr_partition3.part_name, name)){
-        (*mbr).mbr_partition3.part_status = '0';
+
+        (*mbr).mbr_partition3 = vacia;
+        delete_from = (*mbr).mbr_partition3.part_start;
+        delete_until = (*mbr).mbr_partition3.part_start + (*mbr).mbr_partition1.part_size;
+
     } else if(a.areEqual((*mbr).mbr_partition4.part_name, name)){
-        (*mbr).mbr_partition4.part_status = '0';
+
+        (*mbr).mbr_partition4 = vacia;
+        delete_from = (*mbr).mbr_partition4.part_start;
+        delete_until = (*mbr).mbr_partition4.part_start + (*mbr).mbr_partition1.part_size;
+
     } else {
         bool extended = false;
         int pos_extended;
@@ -677,9 +711,9 @@ void Fdisk::delete_part(Mbr *mbr, string name){
                     }
                     ebr_list[i-1].part_next = pos_next;
 
-                    if(a.areEqual(this->get_delete_type(), "FULL")){
-                        this->fill_with_zeros(ebr_list[i].part_start, ebr_list[i].part_size);
-                    }
+                    delete_from = ebr_list[i].part_start;
+                    delete_until = ebr_list[i].part_start + ebr_list[i].part_size;
+
                 } else {
                     std::cout <<"\e[0;31m"<< "--- ERROR: No se encontro la particon, no se borró." << std::endl;
                 }
@@ -689,6 +723,10 @@ void Fdisk::delete_part(Mbr *mbr, string name){
             std::cout <<"\e[0;31m"<< "--- ERROR: No se pudo eliminar la particion" << std::endl;
         }
 
+    }
+
+    if(a.areEqual(this->get_delete_type(), "FULL")){
+        this->fill_with_zeros(delete_from, delete_until);
     }
     a.writeMbr(*mbr, this->get_path());
 }

@@ -4,12 +4,21 @@ MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=1000
+MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=100000
 
-Fdisk -size = 50 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =IdaniaHermosa 
+Fdisk -size = 50000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+Fdisk -size = 10000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria2
+Fdisk -size = 10000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria3
 
-FDISK -delete =fast -name=IdaniaHermosa -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
-FDISK -size=300 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Particion2 -type=E 
+FDISK -size=30000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Particion2 -type=E 
+
+FDISK -delete =fast -name=Primaria1 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+FDISK -delete =fast -name=Primaria3 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+
+Fdisk -size = 50000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+FDISK -delete =full -name=Particion2 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+
+FDISK -size=30000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Extendida1 -type=E 
 
 FDISK -size =100 -u = k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica1 -type=L
 FDISK -delete =fast -name=Logica1 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk

@@ -51,24 +51,6 @@ void Algorithms::writeMbr(Mbr mbr, string path){
     fclose(file);
 }
 
-vector<EBR> Algorithms::obtain_ebr_list(Partition extended,string path){
-    vector<EBR> ebr_list;
-
-    int start_position = extended.part_start;
-    while(start_position != -1){
-
-        EBR ebr = this->obtain_ebr(start_position, path);
-        if(ebr.part_status == '1'){
-            start_position = ebr.part_next;
-            ebr_list.push_back(ebr);
-        } else {
-            break;
-        }
-    }
-
-
-    return ebr_list;
-}
 
 void Algorithms::showMbrInfo(string path){
     Mbr mbr = this->obtainMbr(path);
@@ -102,9 +84,30 @@ void Algorithms::printPartition(Partition partition, string path){
     cout<<"part_type: "<<partition.part_type<<endl;
     if(this->areEqual(s, "E")){
         vector<EBR> ebr_list = this->obtain_ebr_list(partition, path);
+        this->print_ebr_list(ebr_list);
     }
 
     cout<<endl;
+}
+
+
+vector<EBR> Algorithms::obtain_ebr_list(Partition extended,string path){
+    vector<EBR> ebr_list;
+
+    int start_position = extended.part_start;
+    while(start_position != -1){
+
+        EBR ebr = this->obtain_ebr(start_position, path);
+        if(ebr.part_status == '1'){
+            start_position = ebr.part_next;
+            ebr_list.push_back(ebr);
+        } else {
+            break;
+        }
+    }
+
+
+    return ebr_list;
 }
 
 void Algorithms::print_ebr_list(vector<EBR> ebr_list){
