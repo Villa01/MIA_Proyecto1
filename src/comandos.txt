@@ -4,9 +4,11 @@ MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 MKDISK -PATH=/HOME/USER/DISCO22.DK -U=K -SIZE=4000
 
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=100000
+MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=M -SIZE=25
 
-Fdisk -size = 50000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+Fdisk -size = 14 -u=M -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+FDISK -add = -4 -u = M -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name= Primaria1
+FDISK -add = 4 -u = M -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name= Primaria1
 Fdisk -size = 10000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria2
 Fdisk -size = 10000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria3
 

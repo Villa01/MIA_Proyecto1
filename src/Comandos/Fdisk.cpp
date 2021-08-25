@@ -821,7 +821,255 @@ vector<Partition> Fdisk::get_partitions(Mbr mbr){
 }
 
 void Fdisk::add_storage(){
+    Algorithms a;
+    // Obtener el mbr
+    Mbr mbr = a.obtainMbr(this->get_path());
+    // Verificar si la particion existe
+    // Buscar en el mbr
+    int partition_index = -1;
+    bool found = false;
+    if(mbr.mbr_partition1.part_status == '1' && a.areEqual(mbr.mbr_partition1.part_name, this->get_name())){
 
+        partition_index = 1;
+        found = true;
+
+    } else if(mbr.mbr_partition2.part_status == '1' && a.areEqual(mbr.mbr_partition2.part_name, this->get_name())){
+
+        partition_index = 2;
+        found = true;
+
+    } else if(mbr.mbr_partition3.part_status == '1' && a.areEqual(mbr.mbr_partition3.part_name, this->get_name())){
+
+        partition_index = 3;
+        found = true;
+
+    } else if(mbr.mbr_partition4.part_status == '1' && a.areEqual(mbr.mbr_partition4.part_name, this->get_name())){
+        partition_index = 4;
+        found = true;
+
+    } 
+
+    // Verificar si hay particion extendida
+    int extended_index;
+    bool extended = false;
+    if(mbr.mbr_partition1.part_status == '1'){
+
+        extended_index = 1;
+        string s(1, mbr.mbr_partition1.part_type);
+        if(a.areEqual(s, "E")){
+            extended = true;
+        }
+
+    } else if(mbr.mbr_partition2.part_status == '1'){
+
+        extended_index = 2;
+        string s(1, mbr.mbr_partition2.part_type);
+        if(a.areEqual(s, "E")){
+            extended = true;
+        }
+
+    } else if(mbr.mbr_partition3.part_status == '1'){
+
+        extended_index = 3;
+        string s(1, mbr.mbr_partition3.part_type);
+        if(a.areEqual(s, "E")){
+            extended = true;
+        }
+
+    } else if(mbr.mbr_partition4.part_status == '1'){
+        extended_index = 4;
+
+        string s(1, mbr.mbr_partition4.part_type);
+        if(a.areEqual(s, "E")){
+            extended = true;
+        }
+    } 
+
+    // Buscar en las ebr si es necesario
+    bool isEbr = false;
+    int ebr_index;
+    vector<EBR> ebr_list;
+    Partition *extended_partition;
+    if(extended){
+        // Obtener la particion extendida
+        switch (extended_index)
+        {
+        case 1:
+            extended_partition = &mbr.mbr_partition1;
+            break;
+        
+        case 2:
+            extended_partition = &mbr.mbr_partition2;
+            break;
+
+        case 3:
+            extended_partition = &mbr.mbr_partition3;
+            break;
+
+            
+        case 4:
+            extended_partition = &mbr.mbr_partition4;
+            break;
+            
+        }
+
+        ebr_list = a.obtain_ebr_list(*extended_partition, this->get_path());
+        int i =0;
+        for(EBR ebr : ebr_list ){
+            if(ebr.part_status == '1' && a.areEqual(ebr.part_name, this->get_name())){
+                isEbr = true;
+                found = true;
+                ebr_index = i;
+            }
+            i++;
+        }
+    }
+
+    if(!found){
+        printf("\e[0;36m---INFO: No se encontró una partición que coincida \n");
+        exit(1);
+    }
+    // Cambiar parametro size
+    int byte_size = this->get_add_num();
+    if (a.areEqual(this->get_units(), "K")){
+        byte_size *= 1024;
+    } else if(a.areEqual(this->get_units(), "M")){
+        byte_size *= 1024*1024;
+    } else { // Este error no deberia pasar nunca por el analisis léxico
+        std::cout <<"\e[0;31m"<< "--- ERROR: Por favor, el parametro U es incorrecto" << std::endl;
+        return;
+    }
+
+    bool enough_storage = false;
+    if(this->get_add_num() >= 0){
+        // Si se desea agregar, verificar que haya espacio despues
+        if(!isEbr){
+        // Verificar extendidas y primarias
+            vector<Partition> partitions = this->get_partitions(mbr);
+            this->sort_partition_vector(partitions);
+            for (int i = 0; i < partitions.size(); i++)
+            {
+                if(partitions[i].part_status == '1' && a.areEqual(partitions[i].part_name, this->get_name())){
+                    int available_storage;
+                    if( i == partitions.size()-1){
+
+                        available_storage = mbr.mbr_tamano - partitions[i].part_start - partitions[i].part_size;
+                    } else {
+
+                        if(partitions[i+1].part_start == -1){
+                            available_storage = mbr.mbr_tamano - partitions[i].part_start - partitions[i].part_size;
+                        } else {
+                            available_storage = partitions[i+1].part_start - partitions[i].part_start - partitions[i].part_size;
+                        }
+                    }
+                    cout<<"Available storage "<<available_storage<<endl;
+                    cout<<"Byte size " << byte_size<< endl;
+                    if(available_storage >= byte_size){
+                        enough_storage = true;
+                    } else {
+                        enough_storage = false;
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < ebr_list.size(); i++)
+            {
+                if(ebr_list[i].part_status == '1' && a.areEqual(ebr_list[i].part_name, this->get_name())){
+                    int available_storage;
+                    if( i == ebr_list.size()-1){
+                        available_storage =  (extended_partition->part_start +  extended_partition->part_size)- ebr_list[i].part_start - ebr_list[i].part_size;
+                    } else {
+                        available_storage = ebr_list[i+1].part_start - ebr_list[i].part_start - ebr_list[i].part_size;
+                    }
+                    if(available_storage >= byte_size){
+                        enough_storage = true;
+                    } else {
+                        enough_storage = false;
+                    }
+                }
+            }
+            
+        }
+    } else {
+    // Si se desea eliminar, verificar que la particion tenga espacio suficiente
+        if(!isEbr){
+        // Verificar extendidas y primarias
+            vector<Partition> partitions = this->get_partitions(mbr);
+            this->sort_partition_vector(partitions);
+            for (int i = 0; i < partitions.size(); i++)
+            {
+                if(partitions[i].part_status == '1' && a.areEqual(partitions[i].part_name, this->get_name())){
+                    int available_storage;
+                    available_storage = partitions[i].part_size;               
+
+                    if(available_storage >= abs(byte_size)){
+                        enough_storage = true;
+                    } else {
+                        enough_storage = false;
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < ebr_list.size(); i++)
+            {
+                if(ebr_list[i].part_status == '1' && a.areEqual(ebr_list[i].part_name, this->get_name())){
+                    int available_storage;
+
+                    available_storage = ebr_list[i].part_size;            
+
+                    if(available_storage >= abs(byte_size)){
+                        enough_storage = true;
+                    } else {
+                        enough_storage = false;
+                    }
+                }
+            }
+            
+        }
+
+    }
+
+    cout<<enough_storage<<endl;
+
+    if(enough_storage){
+
+        if(!isEbr){
+        // Cambiar en primarias y extendidas
+            vector<Partition> partitions = this->get_partitions(mbr);
+            this->sort_partition_vector(partitions);
+            for (int i = 0; i < partitions.size(); i++)
+            {
+                if(partitions[i].part_status == '1' && a.areEqual(partitions[i].part_name, this->get_name())){
+                    partitions[i].part_size += byte_size;
+                }
+            }
+
+            mbr.mbr_partition1 = partitions[0];
+            mbr.mbr_partition2 = partitions[1];
+            mbr.mbr_partition3 = partitions[2];
+            mbr.mbr_partition4 = partitions[3];
+            
+            a.writeMbr(mbr, this->get_path());
+
+        } else {
+            for (int i = 0; i < ebr_list.size(); i++)
+            {
+                if(ebr_list[i].part_status == '1' && a.areEqual(ebr_list[i].part_name, this->get_name())){
+                    ebr_list[i].part_size += this->get_add_num();
+                }
+
+                this->write_ebr_list(ebr_list);
+            }
+            
+        }
+        printf("\x1B[32m--- INFO: Se cambio el tamaño de la particion\n");
+
+    } else {
+        std::cout <<"\e[0;31m"<< "--- ERROR: No hay espacio suficiente" << std::endl;
+        exit(1);
+    }
+    a.showMbrInfo(this->get_path());
+    
 }
 
 /* Setters & Getters */
