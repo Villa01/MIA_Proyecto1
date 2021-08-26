@@ -303,11 +303,6 @@ void Fdisk::create_l_partition(Mbr mbr, vector<Partition> partitions, int byte_s
     vector<EBR> ebr_partitions = a.obtain_ebr_list(partitions[i], this->get_path());
     
 
-    for(EBR ebr: ebr_partitions){
-        cout<<ebr.part_name<<endl;
-        cout<<ebr.part_start<<endl;
-    }
-
     int start_byte = partitions[i].part_start;
     int end_limit = partitions[i].part_start + partitions[i].part_size;
 
@@ -334,7 +329,7 @@ void Fdisk::create_l_partition(Mbr mbr, vector<Partition> partitions, int byte_s
     ebr.part_fit = this->get_fit()[0];
     strcpy(ebr.part_name, this->get_name().c_str());
     ebr.part_next = -1;
-    ebr.part_size = this->get_size();
+    ebr.part_size = byte_size;
     ebr.part_start = start_byte;
     ebr.part_status = '1';
 
@@ -438,29 +433,14 @@ int Fdisk::first_fit_ebr(vector<EBR> partitions, int &start_byte, int end_limit,
 *   Imprime la información del mbr
 */
 void Fdisk::read_mbr(){
-    FILE*arch;
-    arch=fopen(path.c_str(),"rb+");
-    if(arch==NULL){
-        //return 0;
-    }
-    Mbr MBR;
-    fseek(arch, 0, SEEK_SET);
-    fread(&MBR,sizeof(Mbr),1,arch);
-    fclose(arch);
+    Algorithms a;
 
-    vector<Partition> mbr_partitions{MBR.mbr_partition1, MBR.mbr_partition2, MBR.mbr_partition3, MBR.mbr_partition4};
-    cout<<"\x1B[32m--- INFO: Particiones"<<endl;
-    for(int i=0;i<4;i++){
-        if(mbr_partitions[i].part_status=='1')  {
-            std::cout << "\tParticion : "<<i << endl;
-            std::cout << "\tParticion status : "<<mbr_partitions[i].part_status<<endl;
-            std::cout << "\tParticion type : "<<mbr_partitions[i].part_type<<endl;
-            std::cout << "\tParticion fit : "<<mbr_partitions[i].part_fit<<endl;
-            std::cout << "\tParticion start : "<<mbr_partitions[i].part_start<<endl;
-            std::cout << "\tParticion size : "<<mbr_partitions[i].part_size<<endl;
-            std::cout << "\tParticion name : "<<mbr_partitions[i].part_name<<endl;
-        }
-    }
+    Mbr MBR = a.obtainMbr(this->get_path());
+
+    vector<Partition> mbr_partitions = this->get_partitions(MBR);
+    
+    a.printPartitions(mbr_partitions, this->get_path());
+    
 }
 
 /*
@@ -890,31 +870,38 @@ void Fdisk::add_storage(){
     int ebr_index;
     vector<EBR> ebr_list;
     Partition *extended_partition;
+    cout<<"index "<<extended_index<<endl;
+    cout<<"nombre "<<*extended_partition->part_name<<endl;
     if(extended){
         // Obtener la particion extendida
         switch (extended_index)
         {
-        case 1:
+        case 0:
             extended_partition = &mbr.mbr_partition1;
+            cout<<mbr.mbr_partition1.part_name;
             break;
         
-        case 2:
+        case 1:
             extended_partition = &mbr.mbr_partition2;
             break;
 
-        case 3:
+        case 2:
             extended_partition = &mbr.mbr_partition3;
             break;
 
             
-        case 4:
+        case 3:
             extended_partition = &mbr.mbr_partition4;
             break;
             
         }
-
+        cout<<"nombre "<<*extended_partition->part_name<<endl;
         ebr_list = a.obtain_ebr_list(*extended_partition, this->get_path());
         int i =0;
+
+        for( EBR ebr : ebr_list){
+            cout<<ebr.part_name<<endl;
+        }
         for(EBR ebr : ebr_list ){
             if(ebr.part_status == '1' && a.areEqual(ebr.part_name, this->get_name())){
                 isEbr = true;
@@ -962,8 +949,6 @@ void Fdisk::add_storage(){
                             available_storage = partitions[i+1].part_start - partitions[i].part_start - partitions[i].part_size;
                         }
                     }
-                    cout<<"Available storage "<<available_storage<<endl;
-                    cout<<"Byte size " << byte_size<< endl;
                     if(available_storage >= byte_size){
                         enough_storage = true;
                     } else {
@@ -1055,11 +1040,12 @@ void Fdisk::add_storage(){
             for (int i = 0; i < ebr_list.size(); i++)
             {
                 if(ebr_list[i].part_status == '1' && a.areEqual(ebr_list[i].part_name, this->get_name())){
-                    ebr_list[i].part_size += this->get_add_num();
+                    ebr_list[i].part_size += byte_size;
                 }
 
-                this->write_ebr_list(ebr_list);
             }
+
+            this->write_ebr_list(ebr_list);
             
         }
         printf("\x1B[32m--- INFO: Se cambio el tamaño de la particion\n");

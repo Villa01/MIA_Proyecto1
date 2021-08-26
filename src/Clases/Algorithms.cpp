@@ -77,6 +77,7 @@ void Algorithms::printPartitions(vector<Partition> partitions, string path){
 
 void Algorithms::printPartition(Partition partition, string path){
     string s(1,partition.part_type);
+    cout<<"-------------------------------------------------"<<endl;
     cout<<"part_name: "<<partition.part_name<<endl;
     cout<<"part_size: "<<partition.part_size<<endl;
     cout<<"part_start: "<<partition.part_start<<endl;

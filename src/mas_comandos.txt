@@ -1,0 +1,31 @@
+
+MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=1000
+
+Fdisk -size = 100 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+FDISK -add = -4 -u = M -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name= Primaria1
+FDISK -add = 50 -u = K -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name= Particion2
+Fdisk -size = 300 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria2
+Fdisk -size = 10000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria3
+
+FDISK -size=300 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Particion2 -type=E 
+
+FDISK -delete =fast -name=Primaria1 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+FDISK -delete =fast -name=Primaria3 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+
+Fdisk -size = 50000 -u=k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+FDISK -delete =full -name=Particion2 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+
+FDISK -size=100 -u=M -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Extendida1 -type=E 
+
+FDISK -size =10 -u = M -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica1 -type=L
+FDISK -delete =fast -name=Logica1 -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk
+FDISK -size =1 -u = M -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica2 -type=L
+FDISK -size =100 -u = k -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Logica3 -type=L
+
+
+MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=1000
+
+Fdisk -size = 250 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+Fdisk -size = 100 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria2 
+Fdisk -size = 250 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria3 
+Fdisk -size = 200 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria4 

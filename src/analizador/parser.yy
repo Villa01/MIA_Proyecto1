@@ -18,6 +18,7 @@
    class Mkdisk;
    class Rmdisk;
    class Fdisk;
+   class Script;
 
 }
 %{
@@ -32,10 +33,10 @@
 
 
 /******* TERMINALES ********/
-%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK"
+%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" TSCRIPT"TSCRIPT"
 %token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD"
 %token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA"
-%token GUION"GUION" IGUAL"IGUAL" NEXT_LINE"NEXT_LINE"
+%token GUION"GUION" IGUAL"IGUAL" 
 
 
 /******* NO TERMINALES ********/
@@ -75,6 +76,11 @@
                   f.agregarParametros($2);
                   f.assignParameters();
                   f.start_action();
+               }
+            | TSCRIPT lista_param
+               { 
+                  Script s($2);
+
                }
             ;
    

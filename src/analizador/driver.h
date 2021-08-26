@@ -1,9 +1,13 @@
+#ifndef DRIVER
+#define DRIVER
+
 #include <string>
 
 
 #include "../Comandos/Mkdisk.h"
 #include "../Comandos/Rmdisk.h"
 #include "../Comandos/Fdisk.h"
+#include "../Comandos/Script.h"
 #include "parser.tab.hh"
 
 #define YY_DECL \
@@ -19,3 +23,5 @@ class Driver {
     void parseWithText(const std::string text);
     std::string file;
 };
+
+#endif

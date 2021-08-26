@@ -15,6 +15,7 @@ NUM     -?{DIGIT}+("."{DIGIT}+)?
 PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
 SALTO   [\n\s]
 CADENA  [A-Za-z0-9]+|(\"[A-Za-z0-9]+\")
+COMENTARIO #[^#\n\r]*
 
 %%
 
@@ -22,6 +23,7 @@ CADENA  [A-Za-z0-9]+|(\"[A-Za-z0-9]+\")
 "MKDISK"          { return yy::Parser::make_MKDISK(yytext); }
 "RMDISK"          { return yy::Parser::make_RMDISK(yytext); }
 "FDISK"           { return yy::Parser::make_FDISK(yytext); }
+"SCRIPT"          { return yy::Parser::make_TSCRIPT(yytext);}
 
 
 "SIZE"            { return yy::Parser::make_SIZE(yytext); }
@@ -57,7 +59,8 @@ CADENA  [A-Za-z0-9]+|(\"[A-Za-z0-9]+\")
 "="               { return yy::Parser::make_IGUAL(); }
 
 {CADENA}          { return yy::Parser::make_CADENA(yytext); }
-{SALTO}           { return yy::Parser::make_NEXT_LINE();}
+{SALTO}           { }
+{COMENTARIO}      {}
 
 
 [[:blank:]]       {}
