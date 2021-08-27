@@ -24,7 +24,9 @@ int main(int argc, char *argv[])
             if(!line.empty()){
 
                // El driver es el encargado de inicializar el interprete
+                vector<infoPart> parts;
 				Driver driver;
+                driver.parts = parts;
 				driver.parseWithText(line);
 
 

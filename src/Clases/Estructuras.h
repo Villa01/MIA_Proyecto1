@@ -35,6 +35,15 @@ typedef struct{
 }Mbr;
 
 
+typedef struct{
+    char part_name[16];
+    std::string path;
+    int part_size;
+    int part_start;
+    char part_id[5];
+}infoPart;
+
+
 
 
 class Estructuras {

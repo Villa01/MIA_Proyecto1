@@ -31,7 +31,7 @@ void Mkdisk::assignParameters(){
     int posSize = a.searchPosition("SIZE", sparams);
     if(posSize==-1){
         std::cout <<"\e[0;31m"<< "--- ERROR: Por favor, agregue el parametro size" << std::endl;
-        return;
+        exit(1);
     } else {
         this->setSize(stof(values[posSize]));
     }

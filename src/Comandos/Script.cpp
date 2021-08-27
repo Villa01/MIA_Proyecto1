@@ -24,7 +24,9 @@ void Script::readText(){
 
 void Script::executeCommands(char text[]){
 
+    vector<infoPart> parts;
     Driver driver;
+    driver.parts = parts;
 	driver.parseWithText(text);    
 }
 

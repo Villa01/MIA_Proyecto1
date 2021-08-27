@@ -31,6 +31,9 @@ class Algorithms {
         void printPartition(Partition, string);
         void print_ebr_list(vector<EBR>);
         void print_ebr(EBR);
+        static void printError(string err);
+        static void printWarning(string war);
+        static void printInfo(string info);
 };
 
 #endif

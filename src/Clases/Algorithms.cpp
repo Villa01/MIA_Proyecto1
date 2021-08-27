@@ -7,6 +7,18 @@ Algorithms::Algorithms(){
 
 }
 
+void Algorithms::printError(string err){
+    std::cout <<"\e[0;31m"<< "--- ERROR: "<<err << std::endl;
+}
+
+void Algorithms::printWarning(string war){
+    std::cout <<"\e[0;33m"<< "--- WARNING: "<<war << std::endl;
+}
+
+void Algorithms::printInfo(string info){
+    cout<<"\x1B[32m--- INFO: "<<info<<endl;
+}
+
 int Algorithms::searchPosition(string s, vector<string> v){
 
 

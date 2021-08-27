@@ -1,5 +1,18 @@
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Disk.dk -U=K -SIZE=1000
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/DISCO1.DK -U=K -SIZE=40001
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/DISCO2.DK -U=K -SIZE=40002
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/DISCO3.DK -U=K -SIZE=40003
-MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/DISCO4.DK -U=K -SIZE=40004
+MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -U=K -SIZE=1000
+# Probando comentarios
+Fdisk -size = 100 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria1 
+Fdisk -size = 100 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Primaria2 
+
+MKDISK -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -U=K -SIZE=1000
+
+Fdisk -size = 100 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -name =Primaria1 
+Fdisk -size = 100 -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -name =Primaria2 
+
+mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Primaria1
+mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Primaria2
+
+
+mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -name = Primaria1
+mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -name = Primaria2
+
+#Probando comentarios

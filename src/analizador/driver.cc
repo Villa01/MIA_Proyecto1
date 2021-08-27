@@ -8,8 +8,10 @@ void Driver::parse(const std::string& archivo){
 
   runScanner();
   yy::Parser parser(*this);
+  
   parser.set_debug_level(false);
   parser.parse();
+  
   closeFile();
 }
 

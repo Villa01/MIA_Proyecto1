@@ -13,7 +13,7 @@
 DIGIT   [0-9]
 NUM     -?{DIGIT}+("."{DIGIT}+)?
 PATH    (\"(\/([^\/\n])*)+\")|((\/([^\/\n\ ])*)+)
-SALTO   [\n\s]
+SALTO   [\n\s\r\t]
 CADENA  [A-Za-z0-9]+|(\"[A-Za-z0-9]+\")
 COMENTARIO #[^#\n\r]*
 
@@ -24,6 +24,9 @@ COMENTARIO #[^#\n\r]*
 "RMDISK"          { return yy::Parser::make_RMDISK(yytext); }
 "FDISK"           { return yy::Parser::make_FDISK(yytext); }
 "SCRIPT"          { return yy::Parser::make_TSCRIPT(yytext);}
+"MOUNT"           { return yy::Parser::make_TMOUNT(yytext);}
+"UNMOUNT"         { return yy::Parser::make_UNMOUNT(yytext);}
+
 
 
 "SIZE"            { return yy::Parser::make_SIZE(yytext); }
@@ -38,6 +41,7 @@ COMENTARIO #[^#\n\r]*
 "FULL"            { return yy::Parser::make_FULL(yytext); }
 {PATH}            { return yy::Parser::make_RUTA(yytext); }
 {NUM}             { return yy::Parser::make_NUM(yytext);}
+"ID"              { return yy::Parser::make_ID(yytext); }
 
 
 "BF"              { return yy::Parser::make_BF(yytext); }
@@ -64,7 +68,9 @@ COMENTARIO #[^#\n\r]*
 
 
 [[:blank:]]       {}
+<<EOF>>           {}
 .                 { printf("\e[0;31m--- ERROR: Caracter no reconocido: %s\n",yytext);}
+
 
 %%
 

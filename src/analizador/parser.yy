@@ -19,6 +19,7 @@
    class Rmdisk;
    class Fdisk;
    class Script;
+   class Mount;
 
 }
 %{
@@ -33,8 +34,8 @@
 
 
 /******* TERMINALES ********/
-%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" TSCRIPT"TSCRIPT"
-%token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD"
+%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" TSCRIPT"TSCRIPT" TMOUNT"TMOUNT" UNMOUNT"UNMOUNT"
+%token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD" ID"ID"
 %token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA"
 %token GUION"GUION" IGUAL"IGUAL" 
 
@@ -80,6 +81,17 @@
             | TSCRIPT lista_param
                { 
                   Script s($2);
+
+               }
+            | TMOUNT lista_param
+               {
+                  Mount m(&driver.parts);
+                  m.agregarParametros($2);
+                  m.assignParameters();
+                  m.mount();
+               }
+            | UNMOUNT lista_param
+               {
 
                }
             ;

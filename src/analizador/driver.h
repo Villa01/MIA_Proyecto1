@@ -8,6 +8,8 @@
 #include "../Comandos/Rmdisk.h"
 #include "../Comandos/Fdisk.h"
 #include "../Comandos/Script.h"
+#include "../Comandos/Mount.h"
+#include "../Clases/Estructuras.h"
 #include "parser.tab.hh"
 
 #define YY_DECL \
@@ -22,6 +24,7 @@ class Driver {
     void parse(const std::string& archivo);
     void parseWithText(const std::string text);
     std::string file;
+    vector<infoPart> parts;
 };
 
 #endif
