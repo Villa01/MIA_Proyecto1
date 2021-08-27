@@ -20,6 +20,7 @@
    class Fdisk;
    class Script;
    class Mount;
+   class Unmount;
 
 }
 %{
@@ -34,7 +35,7 @@
 
 
 /******* TERMINALES ********/
-%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" TSCRIPT"TSCRIPT" TMOUNT"TMOUNT" UNMOUNT"UNMOUNT"
+%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" TSCRIPT"TSCRIPT" TMOUNT"TMOUNT" TUNMOUNT"TUNMOUNT"
 %token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD" ID"ID"
 %token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA"
 %token GUION"GUION" IGUAL"IGUAL" 
@@ -90,8 +91,13 @@
                   m.assignParameters();
                   m.mount();
                }
-            | UNMOUNT lista_param
-               {
+            | TUNMOUNT lista_param
+               {  
+                  printf("Unmount\n");
+                  Unmount m(&driver.parts);
+                  m.agregarParametros($2);
+                  m.assignParameters();
+                  m.unmount();
 
                }
             ;
@@ -126,6 +132,7 @@
              | DELETE   { $$=$1; }
              | NAME     { $$=$1; }
              | ADD      { $$=$1; }
+             | ID       { $$=$1; }
              ;
 
    atributo : NUM    { $$=$1; }

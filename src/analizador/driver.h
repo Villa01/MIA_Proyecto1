@@ -9,6 +9,7 @@
 #include "../Comandos/Fdisk.h"
 #include "../Comandos/Script.h"
 #include "../Comandos/Mount.h"
+#include "../Comandos/Unmount.h"
 #include "../Clases/Estructuras.h"
 #include "parser.tab.hh"
 

@@ -25,7 +25,7 @@ COMENTARIO #[^#\n\r]*
 "FDISK"           { return yy::Parser::make_FDISK(yytext); }
 "SCRIPT"          { return yy::Parser::make_TSCRIPT(yytext);}
 "MOUNT"           { return yy::Parser::make_TMOUNT(yytext);}
-"UNMOUNT"         { return yy::Parser::make_UNMOUNT(yytext);}
+"UNMOUNT"         { return yy::Parser::make_TUNMOUNT(yytext);}
 
 
 
@@ -68,7 +68,6 @@ COMENTARIO #[^#\n\r]*
 
 
 [[:blank:]]       {}
-<<EOF>>           {}
 .                 { printf("\e[0;31m--- ERROR: Caracter no reconocido: %s\n",yytext);}
 
 

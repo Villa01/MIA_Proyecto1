@@ -15,4 +15,6 @@ mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name = Pri
 mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -name = Primaria1
 mount -path= /home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk2.dk -name = Primaria2
 
+unmount -id=071B
+
 #Probando comentarios
