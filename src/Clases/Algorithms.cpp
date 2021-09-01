@@ -53,7 +53,7 @@ void Algorithms::writeMbr(Mbr mbr, string path){
     FILE *file = fopen(path.c_str(),"rb+");
 
     if(file ==NULL){
-        printf("\e[0;31m--- ERROR: No se pudos escribir el mbr");
+        this->printError("No se pudos escribir el mbr");
         exit(1);
     }
 

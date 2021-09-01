@@ -55,9 +55,10 @@
    class Script;
    class Mount;
    class Unmount;
+   class Mkfs;
 
 
-#line 61 "parser.tab.hh"
+#line 62 "parser.tab.hh"
 
 
 # include <cstdlib> // std::abort
@@ -191,7 +192,7 @@
 #endif
 
 namespace yy {
-#line 195 "parser.tab.hh"
+#line 196 "parser.tab.hh"
 
 
 
@@ -382,9 +383,10 @@ namespace yy {
       // "MKDISK"
       // "RMDISK"
       // "FDISK"
-      // "TSCRIPT"
+      // "EXEC"
       // "TMOUNT"
       // "TUNMOUNT"
+      // "MKFS"
       // "SIZE"
       // "F"
       // "PATH"
@@ -394,6 +396,7 @@ namespace yy {
       // "NAME"
       // "ADD"
       // "ID"
+      // "FS"
       // "NUM"
       // "BF"
       // "FF"
@@ -408,6 +411,8 @@ namespace yy {
       // "FAST"
       // "FULL"
       // "CADENA"
+      // "DOSFS"
+      // "TRESFS"
       // nom_param
       // atributo
       char dummy3[sizeof (std::string)];
@@ -455,34 +460,38 @@ namespace yy {
         MKDISK = 258,
         RMDISK = 259,
         FDISK = 260,
-        TSCRIPT = 261,
+        EXEC = 261,
         TMOUNT = 262,
         TUNMOUNT = 263,
-        SIZE = 264,
-        F = 265,
-        PATH = 266,
-        U = 267,
-        TYPE = 268,
-        DELETE = 269,
-        NAME = 270,
-        ADD = 271,
-        ID = 272,
-        NUM = 273,
-        BF = 274,
-        FF = 275,
-        WF = 276,
-        K = 277,
-        M = 278,
-        B = 279,
-        RUTA = 280,
-        P = 281,
-        E = 282,
-        L = 283,
-        FAST = 284,
-        FULL = 285,
-        CADENA = 286,
-        GUION = 287,
-        IGUAL = 288
+        MKFS = 264,
+        SIZE = 265,
+        F = 266,
+        PATH = 267,
+        U = 268,
+        TYPE = 269,
+        DELETE = 270,
+        NAME = 271,
+        ADD = 272,
+        ID = 273,
+        FS = 274,
+        NUM = 275,
+        BF = 276,
+        FF = 277,
+        WF = 278,
+        K = 279,
+        M = 280,
+        B = 281,
+        RUTA = 282,
+        P = 283,
+        E = 284,
+        L = 285,
+        FAST = 286,
+        FULL = 287,
+        CADENA = 288,
+        DOSFS = 289,
+        TRESFS = 290,
+        GUION = 291,
+        IGUAL = 292
       };
     };
 
@@ -600,49 +609,53 @@ namespace yy {
         // Type destructor.
 switch (yytype)
     {
-      case 37: // comando
+      case 41: // comando
         value.template destroy< Comando > ();
         break;
 
-      case 39: // parametro
+      case 43: // parametro
         value.template destroy< Parametro > ();
         break;
 
       case 3: // "MKDISK"
       case 4: // "RMDISK"
       case 5: // "FDISK"
-      case 6: // "TSCRIPT"
+      case 6: // "EXEC"
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
-      case 9: // "SIZE"
-      case 10: // "F"
-      case 11: // "PATH"
-      case 12: // "U"
-      case 13: // "TYPE"
-      case 14: // "DELETE"
-      case 15: // "NAME"
-      case 16: // "ADD"
-      case 17: // "ID"
-      case 18: // "NUM"
-      case 19: // "BF"
-      case 20: // "FF"
-      case 21: // "WF"
-      case 22: // "K"
-      case 23: // "M"
-      case 24: // "B"
-      case 25: // "RUTA"
-      case 26: // "P"
-      case 27: // "E"
-      case 28: // "L"
-      case 29: // "FAST"
-      case 30: // "FULL"
-      case 31: // "CADENA"
-      case 40: // nom_param
-      case 41: // atributo
+      case 9: // "MKFS"
+      case 10: // "SIZE"
+      case 11: // "F"
+      case 12: // "PATH"
+      case 13: // "U"
+      case 14: // "TYPE"
+      case 15: // "DELETE"
+      case 16: // "NAME"
+      case 17: // "ADD"
+      case 18: // "ID"
+      case 19: // "FS"
+      case 20: // "NUM"
+      case 21: // "BF"
+      case 22: // "FF"
+      case 23: // "WF"
+      case 24: // "K"
+      case 25: // "M"
+      case 26: // "B"
+      case 27: // "RUTA"
+      case 28: // "P"
+      case 29: // "E"
+      case 30: // "L"
+      case 31: // "FAST"
+      case 32: // "FULL"
+      case 33: // "CADENA"
+      case 34: // "DOSFS"
+      case 35: // "TRESFS"
+      case 44: // nom_param
+      case 45: // atributo
         value.template destroy< std::string > ();
         break;
 
-      case 38: // lista_param
+      case 42: // lista_param
         value.template destroy< std::vector<Parametro> > ();
         break;
 
@@ -732,13 +745,13 @@ switch (yytype)
       symbol_type (int tok, std::string v)
         : super_type(token_type (tok), std::move (v))
       {
-        YY_ASSERT (tok == token::MKDISK || tok == token::RMDISK || tok == token::FDISK || tok == token::TSCRIPT || tok == token::TMOUNT || tok == token::TUNMOUNT || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::TYPE || tok == token::DELETE || tok == token::NAME || tok == token::ADD || tok == token::ID || tok == token::NUM || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::B || tok == token::RUTA || tok == token::P || tok == token::E || tok == token::L || tok == token::FAST || tok == token::FULL || tok == token::CADENA);
+        YY_ASSERT (tok == token::MKDISK || tok == token::RMDISK || tok == token::FDISK || tok == token::EXEC || tok == token::TMOUNT || tok == token::TUNMOUNT || tok == token::MKFS || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::TYPE || tok == token::DELETE || tok == token::NAME || tok == token::ADD || tok == token::ID || tok == token::FS || tok == token::NUM || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::B || tok == token::RUTA || tok == token::P || tok == token::E || tok == token::L || tok == token::FAST || tok == token::FULL || tok == token::CADENA || tok == token::DOSFS || tok == token::TRESFS);
       }
 #else
       symbol_type (int tok, const std::string& v)
         : super_type(token_type (tok), v)
       {
-        YY_ASSERT (tok == token::MKDISK || tok == token::RMDISK || tok == token::FDISK || tok == token::TSCRIPT || tok == token::TMOUNT || tok == token::TUNMOUNT || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::TYPE || tok == token::DELETE || tok == token::NAME || tok == token::ADD || tok == token::ID || tok == token::NUM || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::B || tok == token::RUTA || tok == token::P || tok == token::E || tok == token::L || tok == token::FAST || tok == token::FULL || tok == token::CADENA);
+        YY_ASSERT (tok == token::MKDISK || tok == token::RMDISK || tok == token::FDISK || tok == token::EXEC || tok == token::TMOUNT || tok == token::TUNMOUNT || tok == token::MKFS || tok == token::SIZE || tok == token::F || tok == token::PATH || tok == token::U || tok == token::TYPE || tok == token::DELETE || tok == token::NAME || tok == token::ADD || tok == token::ID || tok == token::FS || tok == token::NUM || tok == token::BF || tok == token::FF || tok == token::WF || tok == token::K || tok == token::M || tok == token::B || tok == token::RUTA || tok == token::P || tok == token::E || tok == token::L || tok == token::FAST || tok == token::FULL || tok == token::CADENA || tok == token::DOSFS || tok == token::TRESFS);
       }
 #endif
     };
@@ -825,16 +838,16 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_TSCRIPT (std::string v)
+      make_EXEC (std::string v)
       {
-        return symbol_type (token::TSCRIPT, std::move (v));
+        return symbol_type (token::EXEC, std::move (v));
       }
 #else
       static
       symbol_type
-      make_TSCRIPT (const std::string& v)
+      make_EXEC (const std::string& v)
       {
-        return symbol_type (token::TSCRIPT, v);
+        return symbol_type (token::EXEC, v);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -865,6 +878,21 @@ switch (yytype)
       make_TUNMOUNT (const std::string& v)
       {
         return symbol_type (token::TUNMOUNT, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MKFS (std::string v)
+      {
+        return symbol_type (token::MKFS, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_MKFS (const std::string& v)
+      {
+        return symbol_type (token::MKFS, v);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1000,6 +1028,21 @@ switch (yytype)
       make_ID (const std::string& v)
       {
         return symbol_type (token::ID, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FS (std::string v)
+      {
+        return symbol_type (token::FS, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_FS (const std::string& v)
+      {
+        return symbol_type (token::FS, v);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1210,6 +1253,36 @@ switch (yytype)
       make_CADENA (const std::string& v)
       {
         return symbol_type (token::CADENA, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DOSFS (std::string v)
+      {
+        return symbol_type (token::DOSFS, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_DOSFS (const std::string& v)
+      {
+        return symbol_type (token::DOSFS, v);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_TRESFS (std::string v)
+      {
+        return symbol_type (token::TRESFS, std::move (v));
+      }
+#else
+      static
+      symbol_type
+      make_TRESFS (const std::string& v)
+      {
+        return symbol_type (token::TRESFS, v);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1548,10 +1621,10 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 43,     ///< Last index in yytable_.
+      yylast_ = 49,     ///< Last index in yytable_.
       yynnts_ = 8,  ///< Number of nonterminal symbols.
-      yyfinal_ = 18, ///< Termination state number.
-      yyntokens_ = 34  ///< Number of tokens.
+      yyfinal_ = 20, ///< Termination state number.
+      yyntokens_ = 38  ///< Number of tokens.
     };
 
 
@@ -1597,9 +1670,10 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37
     };
-    const int user_token_number_max_ = 288;
+    const int user_token_number_max_ = 292;
 
     if (t <= 0)
       return yyeof_;
@@ -1618,49 +1692,53 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 37: // comando
+      case 41: // comando
         value.move< Comando > (std::move (that.value));
         break;
 
-      case 39: // parametro
+      case 43: // parametro
         value.move< Parametro > (std::move (that.value));
         break;
 
       case 3: // "MKDISK"
       case 4: // "RMDISK"
       case 5: // "FDISK"
-      case 6: // "TSCRIPT"
+      case 6: // "EXEC"
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
-      case 9: // "SIZE"
-      case 10: // "F"
-      case 11: // "PATH"
-      case 12: // "U"
-      case 13: // "TYPE"
-      case 14: // "DELETE"
-      case 15: // "NAME"
-      case 16: // "ADD"
-      case 17: // "ID"
-      case 18: // "NUM"
-      case 19: // "BF"
-      case 20: // "FF"
-      case 21: // "WF"
-      case 22: // "K"
-      case 23: // "M"
-      case 24: // "B"
-      case 25: // "RUTA"
-      case 26: // "P"
-      case 27: // "E"
-      case 28: // "L"
-      case 29: // "FAST"
-      case 30: // "FULL"
-      case 31: // "CADENA"
-      case 40: // nom_param
-      case 41: // atributo
+      case 9: // "MKFS"
+      case 10: // "SIZE"
+      case 11: // "F"
+      case 12: // "PATH"
+      case 13: // "U"
+      case 14: // "TYPE"
+      case 15: // "DELETE"
+      case 16: // "NAME"
+      case 17: // "ADD"
+      case 18: // "ID"
+      case 19: // "FS"
+      case 20: // "NUM"
+      case 21: // "BF"
+      case 22: // "FF"
+      case 23: // "WF"
+      case 24: // "K"
+      case 25: // "M"
+      case 26: // "B"
+      case 27: // "RUTA"
+      case 28: // "P"
+      case 29: // "E"
+      case 30: // "L"
+      case 31: // "FAST"
+      case 32: // "FULL"
+      case 33: // "CADENA"
+      case 34: // "DOSFS"
+      case 35: // "TRESFS"
+      case 44: // nom_param
+      case 45: // atributo
         value.move< std::string > (std::move (that.value));
         break;
 
-      case 38: // lista_param
+      case 42: // lista_param
         value.move< std::vector<Parametro> > (std::move (that.value));
         break;
 
@@ -1678,49 +1756,53 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 37: // comando
+      case 41: // comando
         value.copy< Comando > (YY_MOVE (that.value));
         break;
 
-      case 39: // parametro
+      case 43: // parametro
         value.copy< Parametro > (YY_MOVE (that.value));
         break;
 
       case 3: // "MKDISK"
       case 4: // "RMDISK"
       case 5: // "FDISK"
-      case 6: // "TSCRIPT"
+      case 6: // "EXEC"
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
-      case 9: // "SIZE"
-      case 10: // "F"
-      case 11: // "PATH"
-      case 12: // "U"
-      case 13: // "TYPE"
-      case 14: // "DELETE"
-      case 15: // "NAME"
-      case 16: // "ADD"
-      case 17: // "ID"
-      case 18: // "NUM"
-      case 19: // "BF"
-      case 20: // "FF"
-      case 21: // "WF"
-      case 22: // "K"
-      case 23: // "M"
-      case 24: // "B"
-      case 25: // "RUTA"
-      case 26: // "P"
-      case 27: // "E"
-      case 28: // "L"
-      case 29: // "FAST"
-      case 30: // "FULL"
-      case 31: // "CADENA"
-      case 40: // nom_param
-      case 41: // atributo
+      case 9: // "MKFS"
+      case 10: // "SIZE"
+      case 11: // "F"
+      case 12: // "PATH"
+      case 13: // "U"
+      case 14: // "TYPE"
+      case 15: // "DELETE"
+      case 16: // "NAME"
+      case 17: // "ADD"
+      case 18: // "ID"
+      case 19: // "FS"
+      case 20: // "NUM"
+      case 21: // "BF"
+      case 22: // "FF"
+      case 23: // "WF"
+      case 24: // "K"
+      case 25: // "M"
+      case 26: // "B"
+      case 27: // "RUTA"
+      case 28: // "P"
+      case 29: // "E"
+      case 30: // "L"
+      case 31: // "FAST"
+      case 32: // "FULL"
+      case 33: // "CADENA"
+      case 34: // "DOSFS"
+      case 35: // "TRESFS"
+      case 44: // nom_param
+      case 45: // atributo
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
-      case 38: // lista_param
+      case 42: // lista_param
         value.copy< std::vector<Parametro> > (YY_MOVE (that.value));
         break;
 
@@ -1746,49 +1828,53 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 37: // comando
+      case 41: // comando
         value.move< Comando > (YY_MOVE (s.value));
         break;
 
-      case 39: // parametro
+      case 43: // parametro
         value.move< Parametro > (YY_MOVE (s.value));
         break;
 
       case 3: // "MKDISK"
       case 4: // "RMDISK"
       case 5: // "FDISK"
-      case 6: // "TSCRIPT"
+      case 6: // "EXEC"
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
-      case 9: // "SIZE"
-      case 10: // "F"
-      case 11: // "PATH"
-      case 12: // "U"
-      case 13: // "TYPE"
-      case 14: // "DELETE"
-      case 15: // "NAME"
-      case 16: // "ADD"
-      case 17: // "ID"
-      case 18: // "NUM"
-      case 19: // "BF"
-      case 20: // "FF"
-      case 21: // "WF"
-      case 22: // "K"
-      case 23: // "M"
-      case 24: // "B"
-      case 25: // "RUTA"
-      case 26: // "P"
-      case 27: // "E"
-      case 28: // "L"
-      case 29: // "FAST"
-      case 30: // "FULL"
-      case 31: // "CADENA"
-      case 40: // nom_param
-      case 41: // atributo
+      case 9: // "MKFS"
+      case 10: // "SIZE"
+      case 11: // "F"
+      case 12: // "PATH"
+      case 13: // "U"
+      case 14: // "TYPE"
+      case 15: // "DELETE"
+      case 16: // "NAME"
+      case 17: // "ADD"
+      case 18: // "ID"
+      case 19: // "FS"
+      case 20: // "NUM"
+      case 21: // "BF"
+      case 22: // "FF"
+      case 23: // "WF"
+      case 24: // "K"
+      case 25: // "M"
+      case 26: // "B"
+      case 27: // "RUTA"
+      case 28: // "P"
+      case 29: // "E"
+      case 30: // "L"
+      case 31: // "FAST"
+      case 32: // "FULL"
+      case 33: // "CADENA"
+      case 34: // "DOSFS"
+      case 35: // "TRESFS"
+      case 44: // nom_param
+      case 45: // atributo
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
-      case 38: // lista_param
+      case 42: // lista_param
         value.move< std::vector<Parametro> > (YY_MOVE (s.value));
         break;
 
@@ -1846,7 +1932,7 @@ switch (yytype)
   }
 
 } // yy
-#line 1850 "parser.tab.hh"
+#line 1936 "parser.tab.hh"
 
 
 

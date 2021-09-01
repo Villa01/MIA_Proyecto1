@@ -23,9 +23,10 @@ COMENTARIO #[^#\n\r]*
 "MKDISK"          { return yy::Parser::make_MKDISK(yytext); }
 "RMDISK"          { return yy::Parser::make_RMDISK(yytext); }
 "FDISK"           { return yy::Parser::make_FDISK(yytext); }
-"SCRIPT"          { return yy::Parser::make_TSCRIPT(yytext);}
+"EXEC"            { return yy::Parser::make_EXEC(yytext);}
 "MOUNT"           { return yy::Parser::make_TMOUNT(yytext);}
 "UNMOUNT"         { return yy::Parser::make_TUNMOUNT(yytext);}
+"MKFS"            { return yy::Parser::make_MKFS(yytext);}
 
 
 
@@ -37,11 +38,15 @@ COMENTARIO #[^#\n\r]*
 "ADD"             { return yy::Parser::make_ADD(yytext); }
 
 
+
+"3FS"             { return yy::Parser::make_TRESFS(yytext); }
+"2FS"             { return yy::Parser::make_DOSFS(yytext); }
 "FAST"            { return yy::Parser::make_FAST(yytext); }
 "FULL"            { return yy::Parser::make_FULL(yytext); }
 {PATH}            { return yy::Parser::make_RUTA(yytext); }
 {NUM}             { return yy::Parser::make_NUM(yytext);}
 "ID"              { return yy::Parser::make_ID(yytext); }
+"FS"              { return yy::Parser::make_FS(yytext); }
 
 
 "BF"              { return yy::Parser::make_BF(yytext); }
@@ -64,7 +69,7 @@ COMENTARIO #[^#\n\r]*
 
 {CADENA}          { return yy::Parser::make_CADENA(yytext); }
 {SALTO}           { }
-{COMENTARIO}      {}
+{COMENTARIO}      { cout<<"\e[0;36m"<<yytext<<endl;}
 
 
 [[:blank:]]       {}

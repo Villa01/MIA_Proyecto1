@@ -20,7 +20,7 @@ private:
 
     bool check_for_partition(string, string);
     int first_fit_ebr(vector<EBR>, int &start_byte, int end_limit, int to_fit);
-    int first_fit(vector<Partition>, int &start_byte, int end_limit, int to_fit);
+    int first_fit(vector<Partition>, int &start_byte, int &end_limit, int to_fit);
     int search_empty_partition(vector<Partition>);
     Partition get_extended(vector<Partition>);
     vector<EBR> obtain_ebr(Partition extended);

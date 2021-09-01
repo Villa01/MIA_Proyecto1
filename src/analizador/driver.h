@@ -10,6 +10,7 @@
 #include "../Comandos/Script.h"
 #include "../Comandos/Mount.h"
 #include "../Comandos/Unmount.h"
+#include "../Comandos/Mkfs.h"
 #include "../Clases/Estructuras.h"
 #include "parser.tab.hh"
 

@@ -6,7 +6,6 @@ using namespace std;
 #include "Mkdisk.h"
 
 Mkdisk::Mkdisk() : Comando(){
-    printf("\e[0;36m---INFO: Creando disco\n");
 }
 
 void Mkdisk::agregarParametros(vector<Parametro> params){

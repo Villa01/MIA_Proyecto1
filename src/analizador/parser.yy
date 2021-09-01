@@ -21,6 +21,7 @@
    class Script;
    class Mount;
    class Unmount;
+   class Mkfs;
 
 }
 %{
@@ -35,9 +36,9 @@
 
 
 /******* TERMINALES ********/
-%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" TSCRIPT"TSCRIPT" TMOUNT"TMOUNT" TUNMOUNT"TUNMOUNT"
-%token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD" ID"ID"
-%token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA"
+%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" EXEC"EXEC" TMOUNT"TMOUNT" TUNMOUNT"TUNMOUNT" MKFS"MKFS"
+%token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD" ID"ID" FS"FS"
+%token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA" DOSFS"DOSFS" TRESFS"TRESFS"
 %token GUION"GUION" IGUAL"IGUAL" 
 
 
@@ -79,7 +80,7 @@
                   f.assignParameters();
                   f.start_action();
                }
-            | TSCRIPT lista_param
+            | EXEC lista_param
                { 
                   Script s($2);
 
@@ -93,13 +94,20 @@
                }
             | TUNMOUNT lista_param
                {  
-                  printf("Unmount\n");
                   Unmount m(&driver.parts);
                   m.agregarParametros($2);
                   m.assignParameters();
                   m.unmount();
 
                }
+            | MKFS lista_param
+               {
+                  Mkfs f(&driver.parts);
+                  f.agregarParametros($2);
+                  f.assignParameters();
+                  f.format();
+               }
+            
             ;
    
    lista_param :  lista_param parametro   
@@ -125,6 +133,7 @@
              ;
 
    nom_param : SIZE     { $$=$1; }
+             | FS       { $$=$1; }
              | F        { $$=$1; }
              | PATH     { $$=$1; }
              | U        { $$=$1; }
@@ -136,6 +145,8 @@
              ;
 
    atributo : NUM    { $$=$1; }
+            | DOSFS  { $$=$1; }
+            | TRESFS { $$=$1; }
             | BF     { $$=$1; }
             | FF     { $$=$1; }
             | WF     { $$=$1; }

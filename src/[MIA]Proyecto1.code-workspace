@@ -30,7 +30,28 @@
 			"array": "cpp",
 			"initializer_list": "cpp",
 			"utility": "cpp",
-			"typeinfo": "cpp"
+			"typeinfo": "cpp",
+			"bit": "cpp",
+			"cctype": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"ctime": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp",
+			"exception": "cpp",
+			"algorithm": "cpp",
+			"memory": "cpp",
+			"numeric": "cpp",
+			"random": "cpp",
+			"type_traits": "cpp",
+			"iosfwd": "cpp",
+			"limits": "cpp",
+			"cinttypes": "cpp"
 		}
 	}
 }

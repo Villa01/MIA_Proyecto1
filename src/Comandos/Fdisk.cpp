@@ -248,9 +248,6 @@ void Fdisk::create_p_e_partition(Mbr mbr, vector<Partition> partitions, int byte
     // Recorrer todas las particiones de manera inversa
     first_fit(partitions, start_byte, end_limit, byte_size);
     
-
-    cout<<this->get_name()<<endl;
-    cout<<this->get_size()<<endl;
     //Crear particion nueva
     Partition nueva;
     nueva.part_status = '1';
@@ -341,10 +338,10 @@ void Fdisk::create_l_partition(Mbr mbr, vector<Partition> partitions, int byte_s
 /*
 * first_fit obtiene el valor del punto de inicio siguiendo el primer ajuste. 
 */
-int Fdisk::first_fit(vector<Partition> partitions, int &start_byte, int end_limit, int to_fit){
-
+int Fdisk::first_fit(vector<Partition> partitions, int &start_byte, int &end_limit, int to_fit){
     int first_start = start_byte;
-
+    
+    // Recorre las particiones desde la ultima hasta la primera
     for (int i = partitions.size()- 1; i >= 0; i--)
     {
     // Verificar que el punto de inicio no sea -1
@@ -352,7 +349,6 @@ int Fdisk::first_fit(vector<Partition> partitions, int &start_byte, int end_limi
         // Si es -1 verificar que haya espacio suficiente
 
             int gap = end_limit - start_byte; 
-
             if( gap >= to_fit){
                 // Si hay espacio suficiente romper el ciclo
                 break;
@@ -362,11 +358,11 @@ int Fdisk::first_fit(vector<Partition> partitions, int &start_byte, int end_limi
 
         } else {
         // Sino es -1 verificar si hay espacio suficiente espacio entre el final de la particion y el end_limit
-            int gap = end_limit - (start_byte + partitions[i].part_size);
-
+            int gap = end_limit - (partitions[i].part_start + partitions[i].part_size);
             if ( gap >= to_fit) {
                 // Si hay suficiente espacio poner el start_byte al final de esa particion
                 start_byte = partitions[i].part_start + partitions[i].part_size + 1;
+                break;
             } else {
                 // Sino continuar con el ciclo y poner el end_limit en el inicio de la particion
                 end_limit = partitions[i].part_start;
@@ -408,11 +404,12 @@ int Fdisk::first_fit_ebr(vector<EBR> partitions, int &start_byte, int end_limit,
 
         } else {
         // Sino es -1 verificar si hay espacio suficiente espacio entre el final de la particion y el end_limit
-            int gap = end_limit - (start_byte + partitions[i].part_size);
+            int gap = end_limit - (partitions[i].part_start + partitions[i].part_size);
 
             if ( gap >= to_fit) {
                 // Si hay suficiente espacio poner el start_byte al final de esa particion
                 start_byte = partitions[i].part_start + partitions[i].part_size + 1;
+                break;
             } else {
                 // Sino continuar con el ciclo y poner el end_limit en el inicio de la particion
                 end_limit = partitions[i].part_start;
