@@ -727,6 +727,7 @@ void Fdisk::fill_with_zeros(int start_byte, int bufferSize){
 
     fseek(file, start_byte,SEEK_SET);
     fwrite(&buffer,1,1,file);
+    free(buffer);
     fclose(file);
 }
 

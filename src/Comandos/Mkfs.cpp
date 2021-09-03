@@ -126,8 +126,29 @@ void Mkfs::format(){
     char bmInodos[numInodos];
     char bmBloques[3*numInodos];
 
+    // Conseguir el inicio dependiendo del sistema de archivos
     int inicioInodos;
-    
+
+    if(a.areEqual(this->getFs(), "3FS")){
+        inicioInodos = seleccionada.part_start + sizeof(SuperBloque) + 100*sizeof(Journal);
+    } else if(a.areEqual(this->getFs(), "2FS")){
+        inicioInodos = seleccionada.part_start + sizeof(SuperBloque);
+    }
+
+
+    // Se llena el bitmap de inodos y bloques
+    for(int i=0;i<numInodos;i++){
+        bmInodos[i]='0'; 
+        bmBloques[i]='0';
+    }
+
+    // Escritura de carpeta root
+
+    bmBloques[0]= '1';
+    bmBloques[1]= '2';
+
+    fseek(file,iniciobloques, SEEK_SET);
+    fwrite(&bibloques,sizeof(bibloques),1,arch);
     // formateo ext2
 
     // formateo ext3

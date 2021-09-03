@@ -114,7 +114,7 @@ void Mkdisk::createDisk(){
     {
         fwrite(&buffer,1,1,file );
     }
-
+    free(buffer);
     fclose(file);
 
 

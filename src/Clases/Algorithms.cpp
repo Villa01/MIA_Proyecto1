@@ -202,5 +202,6 @@ void Algorithms::fillWithZeros(int start, int size, string path){
 
     fseek(file, start,SEEK_SET);
     fwrite(&buffer,1,1,file);
+    free(buffer);
     fclose(file);
 }
