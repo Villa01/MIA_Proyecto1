@@ -34,7 +34,5 @@ class Mkfs: public Comando {
         string getId(){ return this->id;}
         string getFs(){ return this->fs;}
 
-        void ext2_format();
-        void ext3_format();
 
 };

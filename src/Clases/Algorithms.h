@@ -19,6 +19,7 @@ class Algorithms {
     public:
         Algorithms();
         bool areEqual(string, string);
+        bool areEqualCI(string, string);
         EBR obtain_ebr(int, string);
         int searchPosition(string s, vector<string>v);
         Mbr obtainMbr(string path);

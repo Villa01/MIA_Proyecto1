@@ -74,13 +74,12 @@ void Mount::mount(){
     }
 
     int cont = (this->parts)->size();
-    string num = to_string(cont);
+    string num = to_string(cont+ 1) ;
     char letra = cont + 65;
     string id = "07" + num + letra;
     char ID[5];
     strcpy(ID,id.c_str());
 
-    cout<<"numero de particiones "<<activePartitions.size()<<endl;
     // Llenar un vector de informacion de las particiones
     for(Partition part : activePartitions){
         infoPart ip;
@@ -115,7 +114,6 @@ void Mount::mount(){
             strcpy(ID,id.c_str());
         }
     }
-    cout<<"Size "<<(this->parts->size())<<endl;
 
     Algorithms::printInfo("Particiones montadas");
     for(infoPart info : *(this->parts)){

@@ -176,6 +176,14 @@ bool Algorithms::areEqual(string s, string d){
     
 }
 
+bool Algorithms::areEqualCI(string s, string d){
+    if(strcmp(this->toUpper(s).c_str(),this->toUpper(d).c_str())==0){
+        return true;
+    }
+    return false;
+    
+}
+
 string Algorithms::obtainDate(){
     time_t time = std::time(0);
     tm* now = localtime(&time);
