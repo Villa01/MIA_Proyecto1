@@ -75,14 +75,17 @@ void Mkfs::format(){
     if(a.areEqual(this->getFs(), "3FS")){
         Algorithms::fillWithZeros(seleccionada.part_start, seleccionada.part_size, seleccionada.path);
     }
+    int systemType;
 
         // Calcular numero de inodos
     int numInodos;
     if(a.areEqual(this->getFs(), "3FS")){
         float n = (seleccionada.part_size - sizeof(SuperBloque) -100*sizeof(Journal))/(4 + sizeof(INodo) + 3*sizeof(BloqueArchivos));
+        systemType = 3;
         numInodos = floor(n);
     } else if(a.areEqual(this->getFs(), "2FS")){
         float n = (seleccionada.part_size - sizeof(SuperBloque))/(4 + sizeof(INodo) + 3*sizeof(BloqueArchivos));
+        systemType = 2;
         numInodos = floor(n);
     } else {
         Algorithms::printError("No existe el formateo seleccionado. ");
@@ -93,7 +96,7 @@ void Mkfs::format(){
     // Crear superbloque
 
     SuperBloque superBloque;
-    superBloque.s_filesystem_type = 3;
+    superBloque.s_filesystem_type = systemType;
     superBloque.s_inodes_count = numInodos;
     superBloque.s_blocks_count = 3*numInodos;
     superBloque.s_free_blocks_count = 3*numInodos;

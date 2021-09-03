@@ -96,11 +96,11 @@ typedef struct {
 }content;
 
 typedef struct {
-    content b_content[64];
+    content b_content[4];
 }BloqueCarpeta;
 
 typedef struct {
-    content b_content[64];
+    char b_content[64];
 }BloqueArchivos;
 
 typedef struct {
