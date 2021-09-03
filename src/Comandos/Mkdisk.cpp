@@ -84,6 +84,8 @@ void Mkdisk::createDisk(){
         return;
     }
     this->setSizeInBytes(bufferSize);
+
+    
     char *buffer;
 
     buffer = (char*)malloc(bufferSize);

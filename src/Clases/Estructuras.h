@@ -44,6 +44,16 @@ typedef struct{
 }infoPart;
 
 
+typedef struct{
+    char journal_tipo_operacion[10] ; 
+    char journal_tipo; 
+    char journal_nombre[200]; 
+    char journal_contenido[200]; 
+    char journal_fecha[16]; 
+    char journal_propietario[10]; 
+    int journal_permisos; 
+}Journal;
+
 
 typedef struct {
    int s_filesystem_type;
@@ -64,7 +74,7 @@ typedef struct {
    int s_inode_start;
    int s_block_start;
 
-}superBloque;
+}SuperBloque;
 
 typedef struct {
     int i_uid;
@@ -78,7 +88,7 @@ typedef struct {
     int i_perm;
 
 
-}iNodo;
+}INodo;
 
 typedef struct {
     char b_name[12];
@@ -87,15 +97,15 @@ typedef struct {
 
 typedef struct {
     content b_content[64];
-}bloqueCarpeta;
+}BloqueCarpeta;
 
 typedef struct {
     content b_content[64];
-}bloqueArchivos;
+}BloqueArchivos;
 
 typedef struct {
     int b_pointers[16];
-}bloqueApuntadores;
+}BloqueApuntadores;
 
 
 

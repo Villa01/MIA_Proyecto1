@@ -6,6 +6,8 @@
 #include "../Clases/Estructuras.h"
 #include "../Clases/Algorithms.h"
 
+#include <cmath>
+
 class Mkfs: public Comando {
 
     public:
@@ -31,5 +33,8 @@ class Mkfs: public Comando {
         string getType(){ return this->type;}
         string getId(){ return this->id;}
         string getFs(){ return this->fs;}
+
+        void ext2_format();
+        void ext3_format();
 
 };

@@ -181,9 +181,26 @@ string Algorithms::obtainDate(){
     tm* now = localtime(&time);
     return  to_string(now->tm_mday) + "/" +
                    to_string(now->tm_mon) + "/" +
-                   to_string(now->tm_mday) + " " +
+                   to_string(now->tm_year) + " " +
                    to_string(now->tm_hour) + ":" +
                    to_string(now->tm_min) + ":" + 
                    to_string(now->tm_sec);
 
+}
+
+void Algorithms::fillWithZeros(int start, int size, string path){
+    char *buffer;
+
+    buffer = (char*)malloc(size);
+
+    for (int i = 0; i < size-1; i++)
+    {
+        buffer[i]='\0';
+    }
+
+    FILE *file = fopen(path.c_str(), "rb+");
+
+    fseek(file, start,SEEK_SET);
+    fwrite(&buffer,1,1,file);
+    fclose(file);
 }
