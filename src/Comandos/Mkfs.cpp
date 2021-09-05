@@ -142,6 +142,7 @@ void Mkfs::format(){
     SuperBloque superBloque;
     superBloque.s_filesystem_type = systemType;
     superBloque.s_inodes_count = numInodos;
+    superBloque.s_free_inodes_count = numInodos;
     superBloque.s_blocks_count = 3*numInodos;
     superBloque.s_free_blocks_count = 3*numInodos;
     strcpy(superBloque.s_mtime,a.obtainDate().c_str());
@@ -264,6 +265,13 @@ void Mkfs::format(){
     BloqueArchivos ba;
 
     stpcpy(ba.b_content,"1,G,root\n1,U,root,123\n"); 
+
     
     Algorithms::writeBlockArchivos(inicioBloques, inicioBmBloques, 1, seleccionada.path, ba);
+
+    Algorithms::showSBInfo(seleccionada.path, seleccionada.part_start);
+
+    //Algorithms::printInodo(seleccionada.path, superBloque.s_inode_start, 0);
+    //Algorithms::printInodo(seleccionada.path, superBloque.s_inode_start, 1);
+    
 }

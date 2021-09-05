@@ -16,7 +16,7 @@ void Algorithms::printWarning(string war){
 }
 
 void Algorithms::printInfo(string info){
-    cout<<"\x1B[32m--- INFO: "<<info<<endl;
+    cout<<"\e[0;36m--- INFO: "<<info<<endl;
 }
 
 int Algorithms::searchPosition(string s, vector<string> v){
@@ -325,3 +325,83 @@ void Algorithms::writeBlockApuntador(int inicioBloques, int inicioBitmap, int nu
     fclose(file);
 }
 
+void Algorithms::showSBInfo(string path, int start){
+    SuperBloque sb = Algorithms::obtainSB(path, start);
+
+    Algorithms::printInfo("Resumen SuperBloque: \n");
+    cout<<"s_block_size: "<< sb.s_block_size <<endl;
+    cout<<"s_block_start: "<< sb.s_block_start <<endl;
+    cout<<"s_blocks_count: "<< sb.s_blocks_count <<endl;
+    cout<<"s_bm_inode_start: "<< sb.s_bm_inode_start <<endl;
+    cout<<"s_filesystem_type: "<< sb.s_filesystem_type <<endl;
+    cout<<"s_first_blo: "<< sb.s_first_blo <<endl;
+    cout<<"s_first_ino: "<< sb.s_first_ino <<endl;
+    cout<<"s_free_blocks_count: "<< sb.s_free_blocks_count <<endl;
+    cout<<"s_free_inodes_count: "<< sb.s_free_inodes_count <<endl;
+    cout<<"s_inode_size: "<< sb.s_inode_size <<endl;
+    cout<<"s_inode_start: "<< sb.s_inode_start <<endl;
+    cout<<"s_inodes_count: "<< sb.s_inodes_count <<endl;
+    cout<<"s_magic: "<< sb.s_magic <<endl;
+    cout<<"s_mnt_count: "<< sb.s_mnt_count <<endl;
+    cout<<"s_mtime: "<< sb.s_mtime <<endl;
+    cout<<"s_umtime: "<< sb.s_umtime <<endl;
+}
+    
+
+SuperBloque Algorithms::obtainSB(string path, int start){
+    FILE *file = fopen(path.c_str(),"rb+");
+
+    if(file ==NULL){
+        printf("\e[0;31m--- ERROR: No se pudo encontrar la dirección \'%s\'", path.c_str());
+        exit(1);
+    }
+
+    fseek(file, start, SEEK_SET);
+
+    SuperBloque sb;
+
+    fread(&sb, sizeof(SuperBloque), 1, file);
+    fclose(file);
+    return sb;
+}
+
+void Algorithms::printBm(char bm[]){
+    string c;
+    for (size_t i = 0; i < strlen(bm); i++)
+    {
+        c.push_back(bm[i]);
+    }
+    cout<<c<<endl;
+}
+
+
+
+void Algorithms::printInodo(string path, int inicioInodo, int numInodo){
+    INodo inodo = Algorithms::obtainInodo(path, inicioInodo, numInodo);
+    Algorithms::printInfo("Resumen Inodo");
+    cout<<"i_atime: "<< inodo.i_atime <<endl;
+    cout<<"i_block: "<< inodo.i_block <<endl;
+    cout<<"i_ctime: "<< inodo.i_ctime <<endl;
+    cout<<"i_gid: "<< inodo.i_gid <<endl;
+    cout<<"i_mtime: "<< inodo.i_mtime <<endl;
+    cout<<"i_perm: "<< inodo.i_perm <<endl;
+    cout<<"i_size: "<< inodo.i_size <<endl;
+    cout<<"i_type: "<< inodo.i_type <<endl;
+    cout<<"i_uid: "<< inodo.i_uid <<endl;
+}
+
+INodo Algorithms::obtainInodo(string path, int inicioInodo, int numInodo){
+    FILE *file = fopen(path.c_str(), "rb+");
+    if(file == NULL){
+        Algorithms::printError("No se pudo abrir el archivo para encontrar el inodo.");
+        exit(1);
+    }
+
+    int start = sizeof(INodo)*numInodo + inicioInodo;
+
+    INodo inodo;
+    fseek(file, start, SEEK_SET);
+    fread(&inodo, sizeof(INodo), 1, file);
+    fclose(file);
+    return inodo;
+}

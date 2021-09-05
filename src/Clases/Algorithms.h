@@ -42,7 +42,11 @@ class Algorithms {
         static void writeBlockArchivos(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueArchivos bloque);
         static void writeBlockCarpeta(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueCarpeta bloque);
         static void writeBlockApuntador(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueApuntadores bloque);
-
+        static void showSBInfo(string path, int inicioSB);
+        static SuperBloque obtainSB(string path, int inicioSB);
+        static void printBm(char bm[]);
+        static void printInodo(string path, int inicioInodo, int numInodo);
+        static INodo obtainInodo(string path, int inicioInodo, int numInodo);
     
 };
 
