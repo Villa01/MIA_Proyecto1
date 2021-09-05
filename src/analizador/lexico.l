@@ -25,8 +25,9 @@ COMENTARIO #[^#\n\r]*
 "FDISK"           { return yy::Parser::make_FDISK(yytext); }
 "EXEC"            { return yy::Parser::make_EXEC(yytext);}
 "MOUNT"           { return yy::Parser::make_TMOUNT(yytext);}
-"UNMOUNT"         { return yy::Parser::make_TUNMOUNT(yytext);}
+"UMOUNT"         { return yy::Parser::make_TUNMOUNT(yytext);}
 "MKFS"            { return yy::Parser::make_MKFS(yytext);}
+"REP"            { return yy::Parser::make_REP(yytext);}
 
 
 
@@ -36,9 +37,12 @@ COMENTARIO #[^#\n\r]*
 "DELETE"          { return yy::Parser::make_DELETE(yytext); }
 "NAME"            { return yy::Parser::make_NAME(yytext); }
 "ADD"             { return yy::Parser::make_ADD(yytext); }
+"ROOT"            { return yy::Parser::make_ROOT(yytext); }
 
 
-
+"MBR"             { return yy::Parser::make_MBR(yytext); }
+"RUTA"             { return yy::Parser::make_REPRUTA(yytext); }
+"DISK"            { return yy::Parser::make_DISK(yytext); }
 "3FS"             { return yy::Parser::make_TRESFS(yytext); }
 "2FS"             { return yy::Parser::make_DOSFS(yytext); }
 "FAST"            { return yy::Parser::make_FAST(yytext); }

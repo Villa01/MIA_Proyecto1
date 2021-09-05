@@ -233,11 +233,11 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 41: // comando
+      case 46: // comando
         value.YY_MOVE_OR_COPY< Comando > (YY_MOVE (that.value));
         break;
 
-      case 43: // parametro
+      case 48: // parametro
         value.YY_MOVE_OR_COPY< Parametro > (YY_MOVE (that.value));
         break;
 
@@ -248,38 +248,43 @@ namespace yy {
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
       case 9: // "MKFS"
-      case 10: // "SIZE"
-      case 11: // "F"
-      case 12: // "PATH"
-      case 13: // "U"
-      case 14: // "TYPE"
-      case 15: // "DELETE"
-      case 16: // "NAME"
-      case 17: // "ADD"
-      case 18: // "ID"
-      case 19: // "FS"
-      case 20: // "NUM"
-      case 21: // "BF"
-      case 22: // "FF"
-      case 23: // "WF"
-      case 24: // "K"
-      case 25: // "M"
-      case 26: // "B"
-      case 27: // "RUTA"
-      case 28: // "P"
-      case 29: // "E"
-      case 30: // "L"
-      case 31: // "FAST"
-      case 32: // "FULL"
-      case 33: // "CADENA"
-      case 34: // "DOSFS"
-      case 35: // "TRESFS"
-      case 44: // nom_param
-      case 45: // atributo
+      case 10: // "REP"
+      case 11: // "SIZE"
+      case 12: // "F"
+      case 13: // "PATH"
+      case 14: // "U"
+      case 15: // "TYPE"
+      case 16: // "DELETE"
+      case 17: // "NAME"
+      case 18: // "ADD"
+      case 19: // "ID"
+      case 20: // "FS"
+      case 21: // "ROOT"
+      case 22: // "NUM"
+      case 23: // "BF"
+      case 24: // "FF"
+      case 25: // "WF"
+      case 26: // "K"
+      case 27: // "M"
+      case 28: // "B"
+      case 29: // "RUTA"
+      case 30: // "P"
+      case 31: // "E"
+      case 32: // "L"
+      case 33: // "FAST"
+      case 34: // "FULL"
+      case 35: // "CADENA"
+      case 36: // "DOSFS"
+      case 37: // "TRESFS"
+      case 38: // "MBR"
+      case 39: // "DISK"
+      case 40: // "REPRUTA"
+      case 49: // nom_param
+      case 50: // atributo
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
-      case 42: // lista_param
+      case 47: // lista_param
         value.YY_MOVE_OR_COPY< std::vector<Parametro> > (YY_MOVE (that.value));
         break;
 
@@ -298,11 +303,11 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 41: // comando
+      case 46: // comando
         value.move< Comando > (YY_MOVE (that.value));
         break;
 
-      case 43: // parametro
+      case 48: // parametro
         value.move< Parametro > (YY_MOVE (that.value));
         break;
 
@@ -313,38 +318,43 @@ namespace yy {
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
       case 9: // "MKFS"
-      case 10: // "SIZE"
-      case 11: // "F"
-      case 12: // "PATH"
-      case 13: // "U"
-      case 14: // "TYPE"
-      case 15: // "DELETE"
-      case 16: // "NAME"
-      case 17: // "ADD"
-      case 18: // "ID"
-      case 19: // "FS"
-      case 20: // "NUM"
-      case 21: // "BF"
-      case 22: // "FF"
-      case 23: // "WF"
-      case 24: // "K"
-      case 25: // "M"
-      case 26: // "B"
-      case 27: // "RUTA"
-      case 28: // "P"
-      case 29: // "E"
-      case 30: // "L"
-      case 31: // "FAST"
-      case 32: // "FULL"
-      case 33: // "CADENA"
-      case 34: // "DOSFS"
-      case 35: // "TRESFS"
-      case 44: // nom_param
-      case 45: // atributo
+      case 10: // "REP"
+      case 11: // "SIZE"
+      case 12: // "F"
+      case 13: // "PATH"
+      case 14: // "U"
+      case 15: // "TYPE"
+      case 16: // "DELETE"
+      case 17: // "NAME"
+      case 18: // "ADD"
+      case 19: // "ID"
+      case 20: // "FS"
+      case 21: // "ROOT"
+      case 22: // "NUM"
+      case 23: // "BF"
+      case 24: // "FF"
+      case 25: // "WF"
+      case 26: // "K"
+      case 27: // "M"
+      case 28: // "B"
+      case 29: // "RUTA"
+      case 30: // "P"
+      case 31: // "E"
+      case 32: // "L"
+      case 33: // "FAST"
+      case 34: // "FULL"
+      case 35: // "CADENA"
+      case 36: // "DOSFS"
+      case 37: // "TRESFS"
+      case 38: // "MBR"
+      case 39: // "DISK"
+      case 40: // "REPRUTA"
+      case 49: // nom_param
+      case 50: // atributo
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
-      case 42: // lista_param
+      case 47: // lista_param
         value.move< std::vector<Parametro> > (YY_MOVE (that.value));
         break;
 
@@ -363,11 +373,11 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 41: // comando
+      case 46: // comando
         value.copy< Comando > (that.value);
         break;
 
-      case 43: // parametro
+      case 48: // parametro
         value.copy< Parametro > (that.value);
         break;
 
@@ -378,38 +388,43 @@ namespace yy {
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
       case 9: // "MKFS"
-      case 10: // "SIZE"
-      case 11: // "F"
-      case 12: // "PATH"
-      case 13: // "U"
-      case 14: // "TYPE"
-      case 15: // "DELETE"
-      case 16: // "NAME"
-      case 17: // "ADD"
-      case 18: // "ID"
-      case 19: // "FS"
-      case 20: // "NUM"
-      case 21: // "BF"
-      case 22: // "FF"
-      case 23: // "WF"
-      case 24: // "K"
-      case 25: // "M"
-      case 26: // "B"
-      case 27: // "RUTA"
-      case 28: // "P"
-      case 29: // "E"
-      case 30: // "L"
-      case 31: // "FAST"
-      case 32: // "FULL"
-      case 33: // "CADENA"
-      case 34: // "DOSFS"
-      case 35: // "TRESFS"
-      case 44: // nom_param
-      case 45: // atributo
+      case 10: // "REP"
+      case 11: // "SIZE"
+      case 12: // "F"
+      case 13: // "PATH"
+      case 14: // "U"
+      case 15: // "TYPE"
+      case 16: // "DELETE"
+      case 17: // "NAME"
+      case 18: // "ADD"
+      case 19: // "ID"
+      case 20: // "FS"
+      case 21: // "ROOT"
+      case 22: // "NUM"
+      case 23: // "BF"
+      case 24: // "FF"
+      case 25: // "WF"
+      case 26: // "K"
+      case 27: // "M"
+      case 28: // "B"
+      case 29: // "RUTA"
+      case 30: // "P"
+      case 31: // "E"
+      case 32: // "L"
+      case 33: // "FAST"
+      case 34: // "FULL"
+      case 35: // "CADENA"
+      case 36: // "DOSFS"
+      case 37: // "TRESFS"
+      case 38: // "MBR"
+      case 39: // "DISK"
+      case 40: // "REPRUTA"
+      case 49: // nom_param
+      case 50: // atributo
         value.copy< std::string > (that.value);
         break;
 
-      case 42: // lista_param
+      case 47: // lista_param
         value.copy< std::vector<Parametro> > (that.value);
         break;
 
@@ -426,11 +441,11 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 41: // comando
+      case 46: // comando
         value.move< Comando > (that.value);
         break;
 
-      case 43: // parametro
+      case 48: // parametro
         value.move< Parametro > (that.value);
         break;
 
@@ -441,38 +456,43 @@ namespace yy {
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
       case 9: // "MKFS"
-      case 10: // "SIZE"
-      case 11: // "F"
-      case 12: // "PATH"
-      case 13: // "U"
-      case 14: // "TYPE"
-      case 15: // "DELETE"
-      case 16: // "NAME"
-      case 17: // "ADD"
-      case 18: // "ID"
-      case 19: // "FS"
-      case 20: // "NUM"
-      case 21: // "BF"
-      case 22: // "FF"
-      case 23: // "WF"
-      case 24: // "K"
-      case 25: // "M"
-      case 26: // "B"
-      case 27: // "RUTA"
-      case 28: // "P"
-      case 29: // "E"
-      case 30: // "L"
-      case 31: // "FAST"
-      case 32: // "FULL"
-      case 33: // "CADENA"
-      case 34: // "DOSFS"
-      case 35: // "TRESFS"
-      case 44: // nom_param
-      case 45: // atributo
+      case 10: // "REP"
+      case 11: // "SIZE"
+      case 12: // "F"
+      case 13: // "PATH"
+      case 14: // "U"
+      case 15: // "TYPE"
+      case 16: // "DELETE"
+      case 17: // "NAME"
+      case 18: // "ADD"
+      case 19: // "ID"
+      case 20: // "FS"
+      case 21: // "ROOT"
+      case 22: // "NUM"
+      case 23: // "BF"
+      case 24: // "FF"
+      case 25: // "WF"
+      case 26: // "K"
+      case 27: // "M"
+      case 28: // "B"
+      case 29: // "RUTA"
+      case 30: // "P"
+      case 31: // "E"
+      case 32: // "L"
+      case 33: // "FAST"
+      case 34: // "FULL"
+      case 35: // "CADENA"
+      case 36: // "DOSFS"
+      case 37: // "TRESFS"
+      case 38: // "MBR"
+      case 39: // "DISK"
+      case 40: // "REPRUTA"
+      case 49: // nom_param
+      case 50: // atributo
         value.move< std::string > (that.value);
         break;
 
-      case 42: // lista_param
+      case 47: // lista_param
         value.move< std::vector<Parametro> > (that.value);
         break;
 
@@ -721,11 +741,11 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 41: // comando
+      case 46: // comando
         yylhs.value.emplace< Comando > ();
         break;
 
-      case 43: // parametro
+      case 48: // parametro
         yylhs.value.emplace< Parametro > ();
         break;
 
@@ -736,38 +756,43 @@ namespace yy {
       case 7: // "TMOUNT"
       case 8: // "TUNMOUNT"
       case 9: // "MKFS"
-      case 10: // "SIZE"
-      case 11: // "F"
-      case 12: // "PATH"
-      case 13: // "U"
-      case 14: // "TYPE"
-      case 15: // "DELETE"
-      case 16: // "NAME"
-      case 17: // "ADD"
-      case 18: // "ID"
-      case 19: // "FS"
-      case 20: // "NUM"
-      case 21: // "BF"
-      case 22: // "FF"
-      case 23: // "WF"
-      case 24: // "K"
-      case 25: // "M"
-      case 26: // "B"
-      case 27: // "RUTA"
-      case 28: // "P"
-      case 29: // "E"
-      case 30: // "L"
-      case 31: // "FAST"
-      case 32: // "FULL"
-      case 33: // "CADENA"
-      case 34: // "DOSFS"
-      case 35: // "TRESFS"
-      case 44: // nom_param
-      case 45: // atributo
+      case 10: // "REP"
+      case 11: // "SIZE"
+      case 12: // "F"
+      case 13: // "PATH"
+      case 14: // "U"
+      case 15: // "TYPE"
+      case 16: // "DELETE"
+      case 17: // "NAME"
+      case 18: // "ADD"
+      case 19: // "ID"
+      case 20: // "FS"
+      case 21: // "ROOT"
+      case 22: // "NUM"
+      case 23: // "BF"
+      case 24: // "FF"
+      case 25: // "WF"
+      case 26: // "K"
+      case 27: // "M"
+      case 28: // "B"
+      case 29: // "RUTA"
+      case 30: // "P"
+      case 31: // "E"
+      case 32: // "L"
+      case 33: // "FAST"
+      case 34: // "FULL"
+      case 35: // "CADENA"
+      case 36: // "DOSFS"
+      case 37: // "TRESFS"
+      case 38: // "MBR"
+      case 39: // "DISK"
+      case 40: // "REPRUTA"
+      case 49: // nom_param
+      case 50: // atributo
         yylhs.value.emplace< std::string > ();
         break;
 
-      case 42: // lista_param
+      case 47: // lista_param
         yylhs.value.emplace< std::vector<Parametro> > ();
         break;
 
@@ -788,19 +813,19 @@ namespace yy {
   case 2:
 #line 55 "parser.yy"
                               {}
-#line 792 "parser.tab.cc"
+#line 817 "parser.tab.cc"
     break;
 
   case 3:
 #line 58 "parser.yy"
                                             {}
-#line 798 "parser.tab.cc"
+#line 823 "parser.tab.cc"
     break;
 
   case 4:
 #line 59 "parser.yy"
                               {}
-#line 804 "parser.tab.cc"
+#line 829 "parser.tab.cc"
     break;
 
   case 5:
@@ -811,7 +836,7 @@ namespace yy {
                   m.assignParameters();
                   m.createDisk();
                }
-#line 815 "parser.tab.cc"
+#line 840 "parser.tab.cc"
     break;
 
   case 6:
@@ -822,7 +847,7 @@ namespace yy {
                   r.assignParameters();
                   r.deleteDisk();
                }
-#line 826 "parser.tab.cc"
+#line 851 "parser.tab.cc"
     break;
 
   case 7:
@@ -833,7 +858,7 @@ namespace yy {
                   f.assignParameters();
                   f.start_action();
                }
-#line 837 "parser.tab.cc"
+#line 862 "parser.tab.cc"
     break;
 
   case 8:
@@ -842,7 +867,7 @@ namespace yy {
                   Script s(yystack_[0].value.as < std::vector<Parametro> > ());
 
                }
-#line 846 "parser.tab.cc"
+#line 871 "parser.tab.cc"
     break;
 
   case 9:
@@ -853,7 +878,7 @@ namespace yy {
                   m.assignParameters();
                   m.mount();
                }
-#line 857 "parser.tab.cc"
+#line 882 "parser.tab.cc"
     break;
 
   case 10:
@@ -865,7 +890,7 @@ namespace yy {
                   m.unmount();
 
                }
-#line 869 "parser.tab.cc"
+#line 894 "parser.tab.cc"
     break;
 
   case 11:
@@ -876,197 +901,229 @@ namespace yy {
                   f.assignParameters();
                   f.format();
                }
-#line 880 "parser.tab.cc"
+#line 905 "parser.tab.cc"
     break;
 
   case 12:
-#line 114 "parser.yy"
+#line 111 "parser.yy"
+               {
+                  printf("Generando reporte");
+               }
+#line 913 "parser.tab.cc"
+    break;
+
+  case 13:
+#line 117 "parser.yy"
                   {
                      yylhs.value.as < std::vector<Parametro> > ()=yystack_[1].value.as < std::vector<Parametro> > ();
                      yylhs.value.as < std::vector<Parametro> > ().push_back(yystack_[0].value.as < Parametro > ());
                   }
-#line 889 "parser.tab.cc"
+#line 922 "parser.tab.cc"
     break;
 
-  case 13:
-#line 119 "parser.yy"
+  case 14:
+#line 122 "parser.yy"
                   {  
                      vector<Parametro> params;
                      params.push_back(yystack_[0].value.as < Parametro > ());
                      yylhs.value.as < std::vector<Parametro> > () = params;
                   }
-#line 899 "parser.tab.cc"
+#line 932 "parser.tab.cc"
     break;
 
-  case 14:
-#line 127 "parser.yy"
+  case 15:
+#line 130 "parser.yy"
                {  
                   Parametro param;
                   param.setNombre(yystack_[2].value.as < std::string > ());
                   param.setValor(yystack_[0].value.as < std::string > ());
                   yylhs.value.as < Parametro > () = param;
                }
-#line 910 "parser.tab.cc"
-    break;
-
-  case 15:
-#line 135 "parser.yy"
-                        { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 916 "parser.tab.cc"
+#line 943 "parser.tab.cc"
     break;
 
   case 16:
-#line 136 "parser.yy"
+#line 138 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 922 "parser.tab.cc"
+#line 949 "parser.tab.cc"
     break;
 
   case 17:
-#line 137 "parser.yy"
+#line 139 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 928 "parser.tab.cc"
+#line 955 "parser.tab.cc"
     break;
 
   case 18:
-#line 138 "parser.yy"
+#line 140 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 934 "parser.tab.cc"
+#line 961 "parser.tab.cc"
     break;
 
   case 19:
-#line 139 "parser.yy"
+#line 141 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 940 "parser.tab.cc"
+#line 967 "parser.tab.cc"
     break;
 
   case 20:
-#line 140 "parser.yy"
+#line 142 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 946 "parser.tab.cc"
+#line 973 "parser.tab.cc"
     break;
 
   case 21:
-#line 141 "parser.yy"
+#line 143 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 952 "parser.tab.cc"
+#line 979 "parser.tab.cc"
     break;
 
   case 22:
-#line 142 "parser.yy"
+#line 144 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 958 "parser.tab.cc"
+#line 985 "parser.tab.cc"
     break;
 
   case 23:
-#line 143 "parser.yy"
+#line 145 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 964 "parser.tab.cc"
+#line 991 "parser.tab.cc"
     break;
 
   case 24:
-#line 144 "parser.yy"
+#line 146 "parser.yy"
                         { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 970 "parser.tab.cc"
+#line 997 "parser.tab.cc"
     break;
 
   case 25:
 #line 147 "parser.yy"
-                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 976 "parser.tab.cc"
+                        { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1003 "parser.tab.cc"
     break;
 
   case 26:
 #line 148 "parser.yy"
-                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 982 "parser.tab.cc"
+                        { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1009 "parser.tab.cc"
     break;
 
   case 27:
 #line 149 "parser.yy"
-                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 988 "parser.tab.cc"
+                        { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1015 "parser.tab.cc"
     break;
 
   case 28:
-#line 150 "parser.yy"
+#line 152 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 994 "parser.tab.cc"
+#line 1021 "parser.tab.cc"
     break;
 
   case 29:
-#line 151 "parser.yy"
+#line 153 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1000 "parser.tab.cc"
+#line 1027 "parser.tab.cc"
     break;
 
   case 30:
-#line 152 "parser.yy"
+#line 154 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1006 "parser.tab.cc"
+#line 1033 "parser.tab.cc"
     break;
 
   case 31:
-#line 153 "parser.yy"
+#line 155 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1012 "parser.tab.cc"
+#line 1039 "parser.tab.cc"
     break;
 
   case 32:
-#line 154 "parser.yy"
+#line 156 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1018 "parser.tab.cc"
+#line 1045 "parser.tab.cc"
     break;
 
   case 33:
-#line 155 "parser.yy"
+#line 157 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1024 "parser.tab.cc"
+#line 1051 "parser.tab.cc"
     break;
 
   case 34:
-#line 156 "parser.yy"
+#line 158 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1030 "parser.tab.cc"
+#line 1057 "parser.tab.cc"
     break;
 
   case 35:
-#line 157 "parser.yy"
+#line 159 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1036 "parser.tab.cc"
+#line 1063 "parser.tab.cc"
     break;
 
   case 36:
-#line 158 "parser.yy"
+#line 160 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1042 "parser.tab.cc"
+#line 1069 "parser.tab.cc"
     break;
 
   case 37:
-#line 159 "parser.yy"
+#line 161 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1048 "parser.tab.cc"
+#line 1075 "parser.tab.cc"
     break;
 
   case 38:
-#line 160 "parser.yy"
+#line 162 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1054 "parser.tab.cc"
+#line 1081 "parser.tab.cc"
     break;
 
   case 39:
-#line 161 "parser.yy"
+#line 163 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1060 "parser.tab.cc"
+#line 1087 "parser.tab.cc"
     break;
 
   case 40:
-#line 162 "parser.yy"
+#line 164 "parser.yy"
                      { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
-#line 1066 "parser.tab.cc"
+#line 1093 "parser.tab.cc"
+    break;
+
+  case 41:
+#line 165 "parser.yy"
+                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1099 "parser.tab.cc"
+    break;
+
+  case 42:
+#line 166 "parser.yy"
+                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1105 "parser.tab.cc"
+    break;
+
+  case 43:
+#line 167 "parser.yy"
+                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1111 "parser.tab.cc"
+    break;
+
+  case 44:
+#line 168 "parser.yy"
+                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1117 "parser.tab.cc"
+    break;
+
+  case 45:
+#line 169 "parser.yy"
+                     { yylhs.value.as < std::string > ()=yystack_[0].value.as < std::string > (); }
+#line 1123 "parser.tab.cc"
     break;
 
 
-#line 1070 "parser.tab.cc"
+#line 1127 "parser.tab.cc"
 
             default:
               break;
@@ -1333,93 +1390,95 @@ namespace yy {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -21;
+  const signed char Parser::yypact_ninf_ = -30;
 
   const signed char Parser::yytable_ninf_ = -1;
 
   const signed char
   Parser::yypact_[] =
   {
-      31,    -9,    -9,    -9,    -9,    -9,    -9,    -9,    47,    31,
-     -21,     6,    -9,   -21,    -9,    -9,    -9,    -9,    -9,    -9,
-     -21,   -21,   -21,   -21,   -21,   -21,   -21,   -21,   -21,   -21,
-     -21,   -21,    11,   -21,   -20,   -21,   -21,   -21,   -21,   -21,
-     -21,   -21,   -21,   -21,   -21,   -21,   -21,   -21,   -21,   -21,
-     -21,   -21
+      17,   -29,   -29,   -29,   -29,   -29,   -29,   -29,   -29,    28,
+      17,   -30,   -11,   -29,   -30,   -29,   -29,   -29,   -29,   -29,
+     -29,   -29,   -30,   -30,   -30,   -30,   -30,   -30,   -30,   -30,
+     -30,   -30,   -30,   -30,   -30,   -30,    13,   -30,     8,   -30,
+     -30,   -30,   -30,   -30,   -30,   -30,   -30,   -30,   -30,   -30,
+     -30,   -30,   -30,   -30,   -30,   -30,   -30,   -30
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     2,
-       4,     0,     5,    13,     6,     7,     8,     9,    10,    11,
-       1,     3,    15,    17,    18,    19,    20,    21,    22,    23,
-      24,    16,     0,    12,     0,    25,    28,    29,    30,    31,
-      32,    33,    34,    35,    36,    37,    38,    39,    40,    26,
-      27,    14
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       2,     4,     0,     5,    14,     6,     7,     8,     9,    10,
+      11,    12,     1,     3,    16,    18,    19,    20,    21,    22,
+      23,    24,    25,    17,    27,    26,     0,    13,     0,    28,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,    29,    30,    44,    45,    15
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -21,   -21,   -21,    40,    39,    14,   -21,   -21
+     -30,   -30,   -30,    47,    46,    -2,   -30,   -30
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-      -1,     8,     9,    10,    12,    13,    32,    51
+      -1,     9,    10,    11,    13,    14,    36,    57
   };
 
   const signed char
   Parser::yytable_[] =
   {
-      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    22,    23,    24,    25,
-      26,    27,    28,    29,    30,    31,    33,    11,    33,    33,
-      33,    33,    33,    33,     1,     2,     3,     4,     5,     6,
-       7,    14,    15,    16,    17,    18,    19,    20,    34,    21
+      24,    25,    26,    27,    28,    29,    30,    31,    32,    33,
+      34,    37,    12,    37,    37,    37,    37,    37,    37,    37,
+       1,     2,     3,     4,     5,     6,     7,     8,    22,    35,
+      39,    40,    41,    42,    43,    44,    45,    46,    47,    48,
+      49,    50,    51,    52,    53,    54,    55,    56,    15,    16,
+      17,    18,    19,    20,    21,    38,     0,    23
   };
 
   const signed char
   Parser::yycheck_[] =
   {
-      20,    21,    22,    23,    24,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    34,    35,    10,    11,    12,    13,
-      14,    15,    16,    17,    18,    19,    12,    36,    14,    15,
-      16,    17,    18,    19,     3,     4,     5,     6,     7,     8,
-       9,     2,     3,     4,     5,     6,     7,     0,    37,     9
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    13,    41,    15,    16,    17,    18,    19,    20,    21,
+       3,     4,     5,     6,     7,     8,     9,    10,     0,    40,
+      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
+      32,    33,    34,    35,    36,    37,    38,    39,     2,     3,
+       4,     5,     6,     7,     8,    42,    -1,    10
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,     3,     4,     5,     6,     7,     8,     9,    39,    40,
-      41,    36,    42,    43,    42,    42,    42,    42,    42,    42,
-       0,    41,    10,    11,    12,    13,    14,    15,    16,    17,
-      18,    19,    44,    43,    37,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    45
+       0,     3,     4,     5,     6,     7,     8,     9,    10,    44,
+      45,    46,    41,    47,    48,    47,    47,    47,    47,    47,
+      47,    47,     0,    46,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    40,    49,    48,    42,    22,
+      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
+      33,    34,    35,    36,    37,    38,    39,    50
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    38,    39,    40,    40,    41,    41,    41,    41,    41,
-      41,    41,    42,    42,    43,    44,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    45,    45,    45,    45,    45,
-      45,    45,    45,    45,    45,    45,    45,    45,    45,    45,
-      45
+       0,    43,    44,    45,    45,    46,    46,    46,    46,    46,
+      46,    46,    46,    47,    47,    48,    49,    49,    49,    49,
+      49,    49,    49,    49,    49,    49,    49,    49,    50,    50,
+      50,    50,    50,    50,    50,    50,    50,    50,    50,    50,
+      50,    50,    50,    50,    50,    50
   };
 
   const signed char
   Parser::yyr2_[] =
   {
        0,     2,     1,     2,     1,     2,     2,     2,     2,     2,
-       2,     2,     2,     1,     4,     1,     1,     1,     1,     1,
+       2,     2,     2,     2,     1,     4,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1
+       1,     1,     1,     1,     1,     1
   };
 
 
@@ -1430,11 +1489,12 @@ namespace yy {
   const Parser::yytname_[] =
   {
   "$end", "error", "$undefined", "\"MKDISK\"", "\"RMDISK\"", "\"FDISK\"",
-  "\"EXEC\"", "\"TMOUNT\"", "\"TUNMOUNT\"", "\"MKFS\"", "\"SIZE\"",
-  "\"F\"", "\"PATH\"", "\"U\"", "\"TYPE\"", "\"DELETE\"", "\"NAME\"",
-  "\"ADD\"", "\"ID\"", "\"FS\"", "\"NUM\"", "\"BF\"", "\"FF\"", "\"WF\"",
-  "\"K\"", "\"M\"", "\"B\"", "\"RUTA\"", "\"P\"", "\"E\"", "\"L\"",
-  "\"FAST\"", "\"FULL\"", "\"CADENA\"", "\"DOSFS\"", "\"TRESFS\"",
+  "\"EXEC\"", "\"TMOUNT\"", "\"TUNMOUNT\"", "\"MKFS\"", "\"REP\"",
+  "\"SIZE\"", "\"F\"", "\"PATH\"", "\"U\"", "\"TYPE\"", "\"DELETE\"",
+  "\"NAME\"", "\"ADD\"", "\"ID\"", "\"FS\"", "\"ROOT\"", "\"NUM\"",
+  "\"BF\"", "\"FF\"", "\"WF\"", "\"K\"", "\"M\"", "\"B\"", "\"RUTA\"",
+  "\"P\"", "\"E\"", "\"L\"", "\"FAST\"", "\"FULL\"", "\"CADENA\"",
+  "\"DOSFS\"", "\"TRESFS\"", "\"MBR\"", "\"DISK\"", "\"REPRUTA\"",
   "\"GUION\"", "\"IGUAL\"", "$accept", "inicio", "lista_comandos",
   "comando", "lista_param", "parametro", "nom_param", "atributo", YY_NULLPTR
   };
@@ -1444,10 +1504,10 @@ namespace yy {
   Parser::yyrline_[] =
   {
        0,    55,    55,    58,    59,    62,    69,    76,    83,    88,
-      95,   103,   113,   118,   126,   135,   136,   137,   138,   139,
-     140,   141,   142,   143,   144,   147,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,   158,   159,   160,   161,
-     162
+      95,   103,   110,   116,   121,   129,   138,   139,   140,   141,
+     142,   143,   144,   145,   146,   147,   148,   149,   152,   153,
+     154,   155,   156,   157,   158,   159,   160,   161,   162,   163,
+     164,   165,   166,   167,   168,   169
   };
 
   // Print the state stack on the debug stream.
@@ -1481,9 +1541,9 @@ namespace yy {
 
 
 } // yy
-#line 1485 "parser.tab.cc"
+#line 1545 "parser.tab.cc"
 
-#line 165 "parser.yy"
+#line 172 "parser.yy"
 
 
 void yy::Parser::error( const std::string& error){

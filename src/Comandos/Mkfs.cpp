@@ -269,7 +269,7 @@ void Mkfs::format(){
     
     Algorithms::writeBlockArchivos(inicioBloques, inicioBmBloques, 1, seleccionada.path, ba);
 
-    Algorithms::showSBInfo(seleccionada.path, seleccionada.part_start);
+    //Algorithms::showSBInfo(seleccionada.path, seleccionada.part_start);
 
     //Algorithms::printInodo(seleccionada.path, superBloque.s_inode_start, 0);
     //Algorithms::printInodo(seleccionada.path, superBloque.s_inode_start, 1);
