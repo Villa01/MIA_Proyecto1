@@ -170,9 +170,9 @@ void Mkfs::format(){
 
     fseek(file, seleccionada.part_start, SEEK_SET);
     fwrite(&superBloque, sizeof(superBloque), 1, file);
-
+    
     if(esExt3){
-        // Escribir Journal
+        // Escribir Journals
         Journal journal;
         journal.journal_tipo_operacion[0]='-';
         journal.journal_tipo='-';
@@ -193,8 +193,8 @@ void Mkfs::format(){
 
     // Se llena el bitmap de inodos y bloques
     for(int i=0;i<numInodos;i++){
-        bmInodos[i]='0'; 
-        bmBloques[i]='0';
+        bmInodos[i]='\0'; 
+        bmBloques[i]='\0';
     }
 
     // Escribir bitmap de inodos en el archivo
@@ -210,4 +210,60 @@ void Mkfs::format(){
 
     fclose(file);
 
+    // Crear inodo de carpeta Raiz
+
+    INodo inodo;
+    inodo.i_uid = 1;
+    inodo.i_gid = 1;
+    inodo.i_size = 0;
+    stpcpy(inodo.i_atime, a.obtainDate().c_str());
+    stpcpy(inodo.i_ctime, a.obtainDate().c_str());
+    stpcpy(inodo.i_mtime, a.obtainDate().c_str());
+    for (size_t i = 0; i < 15; i++)
+    {
+        inodo.i_block[i] = -1;
+    }
+    inodo.i_block[0] = 0;
+    inodo.i_type = '0';
+    inodo.i_perm = 001001664;
+    
+    Algorithms::writeInode(inicioInodos, inicioBmInodos, 0, seleccionada.path, inodo);
+
+    // Se crea el bloque de la carpeta '/'
+    BloqueCarpeta b;
+    Content cont; 
+    for (size_t i = 0; i < 4; i++)
+    {
+        b.b_content[i] = cont;
+    }
+    // Se apunta hacia el inodo del users.txt
+    stpcpy(b.b_content->b_name, "users.txt");
+    b.b_content->b_inodo = 1;
+
+    Algorithms::writeBlockCarpeta(inicioBloques, inicioBmBloques, 0, seleccionada.path, b);
+
+    // Crear inodo de carpeta Raiz
+
+    INodo inodo1;
+    inodo1.i_uid = 1;
+    inodo1.i_gid = 1;
+    inodo1.i_size = 22;
+    stpcpy(inodo1.i_atime, a.obtainDate().c_str());
+    stpcpy(inodo1.i_ctime, a.obtainDate().c_str());
+    stpcpy(inodo1.i_mtime, a.obtainDate().c_str());
+    for (size_t i = 0; i < 15; i++)
+    {
+        inodo1.i_block[i] = -1;
+    }
+    inodo1.i_block[0] = 0;
+    inodo1.i_type = '1';
+    inodo1.i_perm = 001001664;
+    
+    Algorithms::writeInode(inicioInodos, inicioBmInodos, 1, seleccionada.path, inodo1);
+
+    BloqueArchivos ba;
+
+    stpcpy(ba.b_content,"1,G,root\n1,U,root,123\n"); 
+    
+    Algorithms::writeBlockArchivos(inicioBloques, inicioBmBloques, 1, seleccionada.path, ba);
 }

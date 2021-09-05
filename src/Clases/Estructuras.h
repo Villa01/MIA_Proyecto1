@@ -86,17 +86,15 @@ typedef struct {
     int i_block[15];
     char i_type;
     int i_perm;
-
-
 }INodo;
 
 typedef struct {
     char b_name[12];
     int b_inodo;
-}content;
+}Content;
 
 typedef struct {
-    content b_content[4];
+    Content b_content[4];
 }BloqueCarpeta;
 
 typedef struct {

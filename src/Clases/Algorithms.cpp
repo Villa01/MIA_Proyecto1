@@ -213,3 +213,115 @@ void Algorithms::fillWithZeros(int start, int size, string path){
     free(buffer);
     fclose(file);
 }
+
+void Algorithms::writeJournal(Journal journal, int inicioJournals, string path){
+
+    // Buscar en los journals hasta que haya un espacio vacío
+    int inicio = inicioJournals;
+
+    FILE *file = fopen(path.c_str(), "rb+");
+    Journal temp;
+    do {
+        fseek(file, inicio, SEEK_SET);
+        fread(&temp, sizeof(Journal), 1, file);
+        inicio += sizeof(Journal);
+        
+    } while (temp.journal_nombre[0]!='\0' && inicio < (100*sizeof(Journal)));
+
+    if(inicio > (100*sizeof(Journal))){
+        Algorithms::printError("No se pudo escribir el journal");
+        exit(1);
+    }
+
+    fwrite(&journal, sizeof(Journal), 1, file);
+
+    fclose(file);
+}
+
+SuperBloque Algorithms:: obtainSuperBloque(int start, string path){
+    FILE *file = fopen(path.c_str(), "rb+");
+
+    SuperBloque superb;
+    fseek(file, start, SEEK_SET);
+    fread(&superb, sizeof(SuperBloque), 1, file);
+
+    fclose(file);
+
+    return superb;
+}
+
+void Algorithms::writeInode(int inicioInodos, int inicioBitmap, int numInodo, string path, INodo inodo){
+    int start = sizeof(INodo)*numInodo + inicioInodos;
+    int bmStart = inicioBitmap + numInodo;
+
+    FILE *file = fopen(path.c_str(), "rb+");
+
+
+    // Escribe el inodo
+    fseek(file, start, SEEK_SET);
+    fwrite(&inodo, sizeof(INodo), 1, file);
+
+    char i = '1';
+    // Escribe lo sustituye en el bitmap
+    fseek(file, bmStart, SEEK_SET);
+    fwrite(&i, sizeof(char), 1, file);
+
+    fclose(file);
+}
+
+void Algorithms::writeBlockArchivos(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueArchivos bloque){
+    int start = sizeof(BloqueArchivos)*numBloque + inicioBloques;
+    int bmStart = inicioBitmap + numBloque;
+
+    FILE *file = fopen(path.c_str(), "rb+");
+
+
+    fseek(file, start, SEEK_SET);
+    fwrite(&bloque, sizeof(BloqueArchivos), 1, file);
+
+    char i = '1';
+    // Escribe lo sustituye en el bitmap
+    fseek(file, bmStart, SEEK_SET);
+    fwrite(&i, sizeof(char), 1, file);
+
+    fclose(file);
+}
+
+
+void Algorithms::writeBlockCarpeta(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueCarpeta bloque){
+    int start = sizeof(BloqueCarpeta)*numBloque + inicioBloques;
+    int bmStart = inicioBitmap + numBloque;
+
+    FILE *file = fopen(path.c_str(), "rb+");
+
+
+    fseek(file, start, SEEK_SET);
+    fwrite(&bloque, sizeof(BloqueCarpeta), 1, file);
+
+    char i = '2';
+    // Escribe lo sustituye en el bitmap
+    fseek(file, bmStart, SEEK_SET);
+    fwrite(&i, sizeof(char), 1, file);
+
+    fclose(file);
+}
+
+
+void Algorithms::writeBlockApuntador(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueApuntadores bloque){
+    int start = sizeof(BloqueApuntadores)*numBloque + inicioBloques;
+    int bmStart = inicioBitmap + numBloque;
+
+    FILE *file = fopen(path.c_str(), "rb+");
+
+
+    fseek(file, start, SEEK_SET);
+    fwrite(&bloque, sizeof(BloqueApuntadores), 1, file);
+
+    char i = '3';
+    // Escribe lo sustituye en el bitmap
+    fseek(file, bmStart, SEEK_SET);
+    fwrite(&i, sizeof(char), 1, file);
+
+    fclose(file);
+}
+

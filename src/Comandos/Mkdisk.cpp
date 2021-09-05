@@ -9,7 +9,6 @@ Mkdisk::Mkdisk() : Comando(){
 }
 
 void Mkdisk::agregarParametros(vector<Parametro> params){
-    //printf("\e[0;36m---Agregando parametros\n");
     this->setParametros(params);
 
 }

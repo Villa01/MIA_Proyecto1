@@ -32,10 +32,18 @@ class Algorithms {
         void printPartition(Partition, string);
         void print_ebr_list(vector<EBR>);
         void print_ebr(EBR);
+        static void writeJournal(Journal journal, int inicioJournals, string path);
         static void fillWithZeros(int start, int size, string path);
         static void printError(string err);
         static void printWarning(string war);
         static void printInfo(string info);
+        static SuperBloque obtainSuperBloque(int start, string path);
+        static void writeInode(int inicioInodos, int inicioBitmap, int numInodo, string path, INodo inodo);
+        static void writeBlockArchivos(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueArchivos bloque);
+        static void writeBlockCarpeta(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueCarpeta bloque);
+        static void writeBlockApuntador(int inicioBloques, int inicioBitmap, int numBloque, string path, BloqueApuntadores bloque);
+
+    
 };
 
 #endif
