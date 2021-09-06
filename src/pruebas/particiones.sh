@@ -17,3 +17,4 @@ Fdisk -size = 100 -type = L -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/P
 Fdisk -size = 100 -type = L -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Logica3
 # Creando cuarta logica
 Fdisk -size = 100 -type = L -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name =Logica4
+
