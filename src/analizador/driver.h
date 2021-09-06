@@ -4,6 +4,7 @@
 #include <string>
 
 
+#include "../Comandos/Rep.h"
 #include "../Comandos/Mkdisk.h"
 #include "../Comandos/Rmdisk.h"
 #include "../Comandos/Fdisk.h"

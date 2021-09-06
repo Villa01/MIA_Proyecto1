@@ -56,9 +56,10 @@
    class Mount;
    class Unmount;
    class Mkfs;
+   class Rep;
 
 
-#line 62 "parser.tab.hh"
+#line 63 "parser.tab.hh"
 
 
 # include <cstdlib> // std::abort
@@ -192,7 +193,7 @@
 #endif
 
 namespace yy {
-#line 196 "parser.tab.hh"
+#line 197 "parser.tab.hh"
 
 
 
@@ -2037,7 +2038,7 @@ switch (yytype)
   }
 
 } // yy
-#line 2041 "parser.tab.hh"
+#line 2042 "parser.tab.hh"
 
 
 

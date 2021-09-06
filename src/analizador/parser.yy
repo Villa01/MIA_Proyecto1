@@ -22,6 +22,7 @@
    class Mount;
    class Unmount;
    class Mkfs;
+   class Rep;
 
 }
 %{
@@ -109,7 +110,10 @@
                }
             | REP lista_param
                {
-                  printf("Generando reporte");
+                  Rep r(&driver.parts);
+                  r.agregarParametros($2);
+                  r.assignParameters();
+                  r.selectReport();
                }
             ;
    
