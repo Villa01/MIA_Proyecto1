@@ -74,7 +74,9 @@ void Rep:: selectReport(){
         this->generateDot(s, this->getPathDestino());
         this->executeCommand();
     } else if(a.areEqualCI(this->getName(),"DISK")){
+        string s = this->writeDiskReport();
         cout<<"Reporte disk"<<endl;
+        cout<<s<<endl;
     }
 }
 
@@ -104,7 +106,7 @@ string Rep:: writeMbrReport(){
 
     string s = "digraph grafo{\n\trankdir=\"TB\"\n\tnode [shape = record fontname=Arial];\n\ta [label=\"MBR ";
     Mbr mbr = a.obtainMbr(seleccionada.path);
-    s += nombre + "\"]\n\ttablaMbr [\n\t\t shape=plaintext\n\t\tlabel=<\n\t\t\t<table>\n\t\t\t\t";
+    s += nombre + "\"]\n\ttablaMbr [\n\t\t shape=plaintext\n\t\tlabel=<\n\t\t\t<table border='0' cellborder='1'>\n\t\t\t\t";
     s += "<tr>\n\t\t\t\t\t<td>Nombre</td>\n\t\t\t\t\t<td>Valor</td>\n\t\t\t\t</tr>";
     s += "\n\t\t\t\t<tr>\n\t\t\t\t\t<td>mbr_tamaño</td>\n\t\t\t\t\t<td>"+to_string(mbr.mbr_tamano)+"</td>\n\t\t\t\t</tr>";
     string temp(mbr.mbr_fecha_creacion);
@@ -145,6 +147,65 @@ string Rep:: writeMbrReport(){
         }
     }
     s += "\n\t\t\t</table>\n\t\t>\n\t];\n\ta->tablaMbr[style=invis];\n}";
+
+    return s;
+}
+
+string Rep:: writeDiskReport(){
+    Algorithms a;
+    // Obtener informacion de la particion
+    vector<infoPart> parts = *(this->getInfoParts());
+    infoPart seleccionada;
+    bool encontrada = false;
+    for(infoPart inf: parts){
+        if(a.areEqualCI(inf.part_id, this->getId())){
+            seleccionada = inf;
+            encontrada = true;
+        }
+    }
+
+    if(!encontrada){
+        Algorithms::printError("No se encontró la particion para generar el reporte. ");
+        exit(0);
+    }
+
+    string str= seleccionada.path;  
+    int num = str.find_last_of("/");  
+    string nombre = str.substr(num+1, str.length()-1);
+
+    obtenerInfoReportes(seleccionada.path, this->getPath());
+
+    string s = "digraph grafo{\n\trankdir=\"TB\"\n\tnode [shape = record fontname=Arial];\n\ta [label=\"";
+    Mbr mbr = a.obtainMbr(seleccionada.path);
+    s += nombre + "\"]\n\ttablaDisk [\n\t\t shape=plaintext\n\t\tlabel=<\n\t\t\t<table border='0' cellborder='1'>\n\t\t\t\t";
+    s += "<tr>\n\t\t\t\t\t<td>MBR</td>";
+
+    vector<Partition> partitions = {mbr.mbr_partition1, mbr.mbr_partition2, mbr.mbr_partition3, mbr.mbr_partition4};
+
+    for (int i = 0; i < partitions.size(); i++)
+    {
+        if(partitions[i].part_status == '0'){
+            continue;
+        }
+        string c(1,partitions[i].part_type);
+        string name(partitions[i].part_name);
+        if(a.areEqualCI(c, "E")){
+            // Es una particion extendida
+            vector <EBR> ebr_list = a.obtain_ebr_list(partitions[i], seleccionada.path);
+            s+= "\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<table border='0' cellborder='1'>";
+            s += "\n\t\t\t\t\t<tr><td colspan=\""+to_string(ebr_list.size())+"\">" + name + "</td></tr>\n\t\t\t\t\t\t\t<tr>";
+            for (int j = 0; j < ebr_list.size(); j++)
+            {
+                string name2(ebr_list[j].part_name);
+                s += "\n\t\t\t\t\t\t\t<td>" + name2 + "</td>";
+            }
+            s+= "\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</td>";
+        } else {
+
+            s += "\n\t\t\t\t\t<td>" + name + "</td>";
+        }
+    }
+    s += "\n\t\t\t\t</tr>\n\t\t\t</table>\n\t\t>\n\t];\n\ta->tablaDisk[style=invis];\n}";
 
     return s;
 }

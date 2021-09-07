@@ -33,8 +33,11 @@ class Rep: public Comando {
         string extension;
 
         string writeMbrReport();
+        string writeDiskReport();
         void executeCommand();
         void obtenerInfoReportes(string strOrigen, string strDestino);
+
+        // Setters & Getters
 
         void setInfoParts(vector<infoPart> *infoParts){ this->infoParts = infoParts;}
         void setName(string name){this->name = name;}
