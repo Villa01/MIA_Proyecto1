@@ -28,6 +28,7 @@ class Driver {
     void parseWithText(const std::string text);
     std::string file;
     vector<infoPart> parts;
+    int diskNumber;
 };
 
 #endif

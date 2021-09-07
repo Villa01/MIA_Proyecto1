@@ -21,6 +21,7 @@ Fdisk -size = 100 -type = L -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/P
 
 mount -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name=Primaria1 #071a
 
+
 pause
 
 REP -name=disk -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/disk.svg -id =071a -ruta=/home/erick/archivos/fase2/reportes
