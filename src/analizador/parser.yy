@@ -37,7 +37,7 @@
 
 
 /******* TERMINALES ********/
-%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" EXEC"EXEC" TMOUNT"TMOUNT" TUNMOUNT"TUNMOUNT" MKFS"MKFS" REP"REP"
+%token <std::string> MKDISK"MKDISK" RMDISK"RMDISK" FDISK"FDISK" EXEC"EXEC" TMOUNT"TMOUNT" TUNMOUNT"TUNMOUNT" MKFS"MKFS" REP"REP" PAUSE"PAUSE"
 %token <std::string> SIZE"SIZE" F"F" PATH"PATH" U"U"  TYPE"TYPE" DELETE"DELETE" NAME"NAME" ADD"ADD" ID"ID" FS"FS" ROOT"ROOT"
 %token <std::string> NUM"NUM" BF"BF" FF"FF" WF"WF" K"K" M"M" B"B" RUTA"RUTA" P"P" E"E" L"L" FAST"FAST" FULL"FULL" CADENA"CADENA" DOSFS"DOSFS" TRESFS"TRESFS" MBR"MBR" DISK"DISK" REPRUTA"REPRUTA"
 %token GUION"GUION" IGUAL"IGUAL" 
@@ -114,6 +114,11 @@
                   r.agregarParametros($2);
                   r.assignParameters();
                   r.selectReport();
+               }
+            | PAUSE
+               {
+                  cout<<"\e[0;31m Presione cualquier letra para continuar..."<<endl;
+                  cin.ignore();
                }
             ;
    
