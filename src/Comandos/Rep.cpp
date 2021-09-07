@@ -70,13 +70,15 @@ void Rep::assignParameters(){
 void Rep:: selectReport(){
     Algorithms a;
     if(a.areEqualCI(this->getName(),"MBR")){
-        this->writeMbrReport();
+        string s = this->writeMbrReport();
+        this->generateDot(s, this->getPathDestino());
+        this->executeCommand();
     } else if(a.areEqualCI(this->getName(),"DISK")){
         cout<<"Reporte disk"<<endl;
     }
 }
 
-void Rep:: writeMbrReport(){
+string Rep:: writeMbrReport(){
     Algorithms a;
     // Obtener informacion de la particion
     vector<infoPart> parts = *(this->getInfoParts());
@@ -99,7 +101,6 @@ void Rep:: writeMbrReport(){
     string nombre = str.substr(num+1, str.length()-1);
 
     obtenerInfoReportes(seleccionada.path, this->getPath());
-    cout<<"Nombre r2"<<this->getNombreReporte()<<endl;
 
     string s = "digraph grafo{\n\trankdir=\"TB\"\n\tnode [shape = record fontname=Arial];\n\ta [label=\"MBR ";
     Mbr mbr = a.obtainMbr(seleccionada.path);
@@ -145,7 +146,7 @@ void Rep:: writeMbrReport(){
     }
     s += "\n\t\t\t</table>\n\t\t>\n\t];\n\ta->tablaMbr[style=invis];\n}";
 
-    this->executeCommand();
+    return s;
 }
 
 void Rep::obtenerInfoReportes(string strOrigen, string strDestino){
@@ -202,11 +203,18 @@ void Rep::obtenerInfoReportes(string strOrigen, string strDestino){
 }
 
 void Rep::generateDot(string content, string path){
+    string newPath = path + this->getNombreReporte() + ".dot";
+    
+    ofstream file;
+    file.open(newPath);
+    file<<content<<endl;
+    file.close();
 
 }
 
 void Rep::executeCommand(){
     string comando = "dot -T" + this->getExtension() + " " + this->getPathDestino()+ this->getNombreReporte() + ".dot -o " + this->getPathDestino() + this->getNombreReporte() + "."+ this->getExtension() + "\n";
-    cout<<"Ejecute el comando: "<<comando<<endl;
+    string s = "Reporte generado, si no se generó la imagen, por favor, ejecute este comando " + comando;
+    Algorithms::printInfo(s);
     system(comando.c_str());
 }

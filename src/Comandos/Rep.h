@@ -1,10 +1,11 @@
 
 #include <vector>
 #include <string>
-
+#include <fstream>
 #include "../Clases/Comando.h"
 #include "../Clases/Estructuras.h"
 #include "../Clases/Algorithms.h"
+
 
 
 class Rep: public Comando {
@@ -31,7 +32,7 @@ class Rep: public Comando {
         string nombreReporte;
         string extension;
 
-        void writeMbrReport();
+        string writeMbrReport();
         void executeCommand();
         void obtenerInfoReportes(string strOrigen, string strDestino);
 
