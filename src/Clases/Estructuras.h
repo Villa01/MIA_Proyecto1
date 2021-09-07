@@ -38,6 +38,8 @@ typedef struct{
 typedef struct{
     char part_name[16];
     std::string path;
+    int disk;
+    char letter;
     int part_size;
     int part_start;
     char part_id[5];

@@ -25,9 +25,10 @@ COMENTARIO #[^#\n\r]*
 "FDISK"           { return yy::Parser::make_FDISK(yytext); }
 "EXEC"            { return yy::Parser::make_EXEC(yytext);}
 "MOUNT"           { return yy::Parser::make_TMOUNT(yytext);}
-"UMOUNT"         { return yy::Parser::make_TUNMOUNT(yytext);}
+"UMOUNT"          { return yy::Parser::make_TUNMOUNT(yytext);}
 "MKFS"            { return yy::Parser::make_MKFS(yytext);}
-"REP"            { return yy::Parser::make_REP(yytext);}
+"REP"             { return yy::Parser::make_REP(yytext);}
+"PAUSE"           { return yy::Parser::make_PAUSE(yytext);}
 
 
 

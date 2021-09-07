@@ -50,8 +50,7 @@ void Rep::assignParameters(){
     int posRuta = a.searchPosition("RUTA", names);
 
     if (posRuta == -1){
-        a.printError("No se incluyó el parametro ruta");
-        exit(1);
+        a.printWarning("No se incluyó el parametro ruta");
     } else {
         this->setRuta(values[posRuta]);
     }

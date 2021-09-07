@@ -20,13 +20,18 @@ class Mount: Comando {
     private: 
         string path;
         string name;
-        vector<infoPart> *parts;
+        vector<infoPart> *parts;    
+        
+        int obtainDiskNumber();
+        char obtainPartLetter();
 
         void setPath(string path);
         string getPath();
 
         void setName(string name);
         string getName();
+
+        
 };
 
 #endif
