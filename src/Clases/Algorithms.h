@@ -47,6 +47,8 @@ class Algorithms {
         static void printBm(char bm[]);
         static void printInodo(string path, int inicioInodo, int numInodo);
         static INodo obtainInodo(string path, int inicioInodo, int numInodo);
+        static vector<Partition> sort_partition_vector(vector<Partition> v);
+        static vector<EBR> sort_ebr_vector(vector<EBR> v);
     
 };
 

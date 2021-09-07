@@ -69,15 +69,17 @@ void Rep::assignParameters(){
 
 void Rep:: selectReport(){
     Algorithms a;
+    string s;
     if(a.areEqualCI(this->getName(),"MBR")){
-        string s = this->writeMbrReport();
+        s = this->writeMbrReport();
+    } else if(a.areEqualCI(this->getName(),"DISK")){
+        s = this->writeDiskReport();
         this->generateDot(s, this->getPathDestino());
         this->executeCommand();
-    } else if(a.areEqualCI(this->getName(),"DISK")){
-        string s = this->writeDiskReport();
-        cout<<"Reporte disk"<<endl;
-        cout<<s<<endl;
     }
+
+    this->generateDot(s, this->getPathDestino());
+    this->executeCommand();
 }
 
 string Rep:: writeMbrReport(){
@@ -181,7 +183,7 @@ string Rep:: writeDiskReport(){
     s += "<tr>\n\t\t\t\t\t<td>MBR</td>";
 
     vector<Partition> partitions = {mbr.mbr_partition1, mbr.mbr_partition2, mbr.mbr_partition3, mbr.mbr_partition4};
-
+    partitions = Algorithms::sort_partition_vector(partitions);
     for (int i = 0; i < partitions.size(); i++)
     {
         if(partitions[i].part_status == '0'){
@@ -189,20 +191,72 @@ string Rep:: writeDiskReport(){
         }
         string c(1,partitions[i].part_type);
         string name(partitions[i].part_name);
+        
         if(a.areEqualCI(c, "E")){
             // Es una particion extendida
             vector <EBR> ebr_list = a.obtain_ebr_list(partitions[i], seleccionada.path);
-            s+= "\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<table border='0' cellborder='1'>";
-            s += "\n\t\t\t\t\t<tr><td colspan=\""+to_string(ebr_list.size())+"\">" + name + "</td></tr>\n\t\t\t\t\t\t\t<tr>";
+            ebr_list = Algorithms::sort_ebr_vector(ebr_list);
+            
+            string e; 
+            s += "\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<table border='0' cellborder='1'>";
+            int contador = 0;
             for (int j = 0; j < ebr_list.size(); j++)
-            {
+            {   
+                int inicio = ebr_list[j].part_start + ebr_list[j].part_size;
+                int fin;
+                if(j>ebr_list.size()-2){
+                    fin = partitions[i].part_start + partitions[i].part_size;
+                } else {
+                    fin = ebr_list[j+1].part_start;
+                }
                 string name2(ebr_list[j].part_name);
-                s += "\n\t\t\t\t\t\t\t<td>" + name2 + "</td>";
-            }
-            s+= "\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</td>";
-        } else {
+                float size_total = ebr_list[j].part_size;
+                float porc = (size_total/partitions[i].part_size)*100;
+                string porcentaje = to_string(porc);
+                porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
+                e += "\n\t\t\t\t\t\t\t\t<td>" + name2 + "<br/>"+ porcentaje + "%</td>";
+                
+                if(fin - inicio > 1){
 
-            s += "\n\t\t\t\t\t<td>" + name + "</td>";
+                    float size_real = fin - inicio;
+                    float total = partitions[i].part_size;
+                    float porc = (size_real/total)*100;
+                    string porcentaje = to_string(porc);
+                    porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
+                    e+= "\n\t\t\t\t\t\t\t\t<td>Espacio libre: <br/>"+porcentaje+"%</td>";
+                    contador++;
+                }
+            }
+            contador += ebr_list.size();
+            s += "\n\t\t\t\t\t<tr><td colspan=\""+to_string(contador)+"\">" + name + "</td></tr>\n\t\t\t\t\t\t\t<tr>";
+            s+= e;
+            s+= "\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</td>";
+
+            
+        } else {
+            
+            float size_real = partitions[i].part_start + partitions[i].part_size;
+            float total = mbr.mbr_tamano;
+            float porc = (size_real/total)*100;
+            string porcentaje = to_string(porc);
+            porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
+            s += "\n\t\t\t\t\t<td>" + name + "<br/>"+ porcentaje+ "%</td>";
+        }
+        int inicio = partitions[i].part_start + partitions[i].part_size;
+        int fin;
+        if(i>partitions.size()-2){
+            fin = mbr.mbr_tamano;
+        } else {
+            fin = partitions[i+1].part_start;
+        }
+        
+        if(fin - inicio > 1){
+            float size_real = fin - inicio;
+            float total = mbr.mbr_tamano;
+            float porc = (size_real/total)*100;
+            string porcentaje = to_string(porc);
+            porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
+            s+= "\n\t\t\t\t<td>Espacio libre: <br/>"+porcentaje+"%</td>";
         }
     }
     s += "\n\t\t\t\t</tr>\n\t\t\t</table>\n\t\t>\n\t];\n\ta->tablaDisk[style=invis];\n}";

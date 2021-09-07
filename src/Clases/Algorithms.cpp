@@ -405,3 +405,35 @@ INodo Algorithms::obtainInodo(string path, int inicioInodo, int numInodo){
     fclose(file);
     return inodo;
 }
+
+vector<Partition> Algorithms::sort_partition_vector(vector<Partition> v){
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        for (size_t j = 0; j < v.size()-1; j++)
+        {
+            if(v[j].part_start > v[j+1].part_start) {
+                Partition temp = v[j];
+                v[j] = v[j+1];
+                v[j+1] = temp;
+            }
+        }   
+    }
+
+    return v;
+}
+
+vector<EBR> Algorithms::sort_ebr_vector(vector<EBR> v){
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        for (size_t j = 0; j < v.size()-1; j++)
+        {
+            if(v[j].part_start > v[j+1].part_start) {
+                EBR temp = v[j];
+                v[j] = v[j+1];
+                v[j+1] = temp;
+            }
+        }   
+    }
+
+    return v;
+}
