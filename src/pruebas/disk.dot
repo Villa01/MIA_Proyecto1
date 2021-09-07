@@ -1,0 +1,32 @@
+digraph grafo{
+	rankdir="TB"
+	node [shape = record fontname=Arial];
+	a [label="Disk.dk"]
+	tablaDisk [
+		 shape=plaintext
+		label=<
+			<table border='0' cellborder='1'>
+				<tr>
+					<td>MBR</td>
+					<td>Primaria1<br/>10.01%</td>
+					<td>Primaria2<br/>20.01%</td>
+					<td>Primaria3<br/>30.01%</td>
+					<td>
+						<table border='0' cellborder='1'>
+					<tr><td colspan="5">Extendida1</td></tr>
+							<tr>
+								<td>Logica1<br/>20.00%</td>
+								<td>Logica2<br/>20.00%</td>
+								<td>Logica3<br/>20.00%</td>
+								<td>Logica4<br/>20.00%</td>
+								<td>Espacio libre: <br/>19.99%</td>
+							</tr>
+						</table>
+					</td>
+				<td>Espacio libre: <br/>19.98%</td>
+				</tr>
+			</table>
+		>
+	];
+	a->tablaDisk[style=invis];
+}
