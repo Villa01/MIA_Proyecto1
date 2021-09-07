@@ -21,4 +21,4 @@ Fdisk -size = 100 -type = L -u=K -PATH=/home/erick/Clases/Archivos/Laboratorio/P
 
 mount -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -name=Primaria1 #071a
 
-REP -name=MBR -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/Disk.dk -id =071a -ruta=/home/erick/archivos/fase2/reportes
+REP -name=MBR -path=/home/erick/Clases/Archivos/Laboratorio/Pruebas/mbr.png -id =071a -ruta=/home/erick/archivos/fase2/reportes

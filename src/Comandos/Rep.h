@@ -17,6 +17,7 @@ class Rep: public Comando {
         void assignParameters();
         void repMbr();
         void selectReport();
+        void generateDot(string content, string path);
 
     private:
         vector<infoPart> *infoParts;
@@ -28,9 +29,10 @@ class Rep: public Comando {
         string pathOrigen;
         string pathDestino;
         string nombreReporte;
+        string extension;
 
         void writeMbrReport();
-        void generateDot();
+        void executeCommand();
         void obtenerInfoReportes(string strOrigen, string strDestino);
 
         void setInfoParts(vector<infoPart> *infoParts){ this->infoParts = infoParts;}
@@ -38,8 +40,9 @@ class Rep: public Comando {
         void setPath(string path){this->path = path;}
         void setPathOrigen(string path){this->pathOrigen = path;}
         void setPathDestino(string path){this->pathDestino = path;}
-        void setNombreReporte(string n){this->nombreReporte = nombreReporte;}
+        void setNombreReporte(string n){this->nombreReporte = n;}
         void setRuta(string ruta){this->ruta = ruta;}
+        void setExtension(string ext){this->extension = ext;}
         void setRoot(int root){this->root = root;}
         void setId(string id){this->id = id;}
 
@@ -50,6 +53,7 @@ class Rep: public Comando {
         string getPathDestino(){return this->pathDestino;}
         string getNombreReporte(){return this->nombreReporte;}
         string getRuta(){return this->ruta;}
+        string getExtension(){return this->extension;}
         int getRoot(){return this->root;}
         string getId(){ return this->id;}
 

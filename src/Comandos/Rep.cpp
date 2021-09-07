@@ -98,6 +98,9 @@ void Rep:: writeMbrReport(){
     int num = str.find_last_of("/");  
     string nombre = str.substr(num+1, str.length()-1);
 
+    obtenerInfoReportes(seleccionada.path, this->getPath());
+    cout<<"Nombre r2"<<this->getNombreReporte()<<endl;
+
     string s = "digraph grafo{\n\trankdir=\"TB\"\n\tnode [shape = record fontname=Arial];\n\ta [label=\"MBR ";
     Mbr mbr = a.obtainMbr(seleccionada.path);
     s += nombre + "\"]\n\ttablaMbr [\n\t\t shape=plaintext\n\t\tlabel=<\n\t\t\t<table>\n\t\t\t\t";
@@ -142,7 +145,7 @@ void Rep:: writeMbrReport(){
     }
     s += "\n\t\t\t</table>\n\t\t>\n\t];\n\ta->tablaMbr[style=invis];\n}";
 
-    cout<<s<<endl;
+    this->executeCommand();
 }
 
 void Rep::obtenerInfoReportes(string strOrigen, string strDestino){
@@ -162,7 +165,7 @@ void Rep::obtenerInfoReportes(string strOrigen, string strDestino){
     int num2 = strDestino.find_last_of("/");
     string nombre = strDestino.substr(num2+1, strDestino.length()-1);
     string pathDest = strDestino.substr(0,num2+1);
-    int pos = 0;
+    pos = 0;
     // Eliminar espacios en blanco
     while(pathDest.find(' ', pos)!=-1){
         pos = pathDest.find(' ', pos);
@@ -184,10 +187,26 @@ void Rep::obtenerInfoReportes(string strOrigen, string strDestino){
     if(!nombre.find("\"")==-1){
         nombre.replace(nombre.find("\""), 1, "");
     }
+
+    if(nombre.find(".")!= -1){
+        string extension = nombre.substr(nombre.find_last_of(".")+1, nombre.length()-1);
+        this->setExtension(extension);
+    } else {
+        Algorithms::printError("Nombre inválido");
+        exit(1);
+    }
     
+    string n = nombre.substr(0,nombre.length()-4);
     this->setPathDestino(pathDest);
-    this->setNombreReporte(nombre);
+    this->setNombreReporte(n);
 }
 
-void Rep::generateDot(){
+void Rep::generateDot(string content, string path){
+
+}
+
+void Rep::executeCommand(){
+    string comando = "dot -T" + this->getExtension() + " " + this->getPathDestino()+ this->getNombreReporte() + ".dot -o " + this->getPathDestino() + this->getNombreReporte() + "."+ this->getExtension() + "\n";
+    cout<<"Ejecute el comando: "<<comando<<endl;
+    system(comando.c_str());
 }
