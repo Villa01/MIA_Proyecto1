@@ -10,8 +10,18 @@ Algorithms::Algorithms(){
 void Algorithms::createFolder(string path){
     // Dejar solo las carpetas
     path = path.substr(0, path.find_last_of("/")+1);
-    string comando = "mkdir -p " + path;
+    string comando = "sudo mkdir -p " + path;
     system(comando.c_str());
+    string s = "Carpeta " + path + "creada correctamente";
+    Algorithms::printInfo(s);
+}
+
+void Algorithms::createFile(string path){
+    // Dejar solo las carpetas
+    string comando = "sudo touch " + path;
+    system(comando.c_str());
+    string s = "Archivo " + path + "creado correctamente";
+    Algorithms::printInfo(s);
 }
 
 void Algorithms::printError(string err){

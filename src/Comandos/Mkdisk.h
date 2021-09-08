@@ -6,6 +6,7 @@ using namespace std;
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include "../Clases/Algorithms.h"
 #include "../Clases/Comando.h"
 #include"../Clases/Estructuras.h"

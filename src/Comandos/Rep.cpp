@@ -73,8 +73,6 @@ void Rep:: selectReport(){
         s = this->writeMbrReport();
     } else if(a.areEqualCI(this->getName(),"DISK")){
         s = this->writeDiskReport();
-        this->generateDot(s, this->getPathDestino());
-        this->executeCommand();
     }
 
     this->generateDot(s, this->getPathDestino());
@@ -101,8 +99,8 @@ string Rep:: writeMbrReport(){
 
     string str= seleccionada.path;  
     int num = str.find_last_of("/");  
-    string nombre = str.substr(num+1, str.length()-1);
-
+    string nombre = str.substr(num+1, str.length()-1)+ "_mbr";
+    this->setNombreReporte(nombre);
     obtenerInfoReportes(seleccionada.path, this->getPath());
 
     string s = "digraph grafo{\n\trankdir=\"TB\"\n\tnode [shape = record fontname=Arial];\n\ta [label=\"MBR ";
@@ -172,8 +170,8 @@ string Rep:: writeDiskReport(){
 
     string str= seleccionada.path;  
     int num = str.find_last_of("/");  
-    string nombre = str.substr(num+1, str.length()-1);
-
+    string nombre = str.substr(num+1, str.length()-1) + "_disk";
+    this->setNombreReporte(nombre);
     obtenerInfoReportes(seleccionada.path, this->getPath());
 
     string s = "digraph grafo{\n\trankdir=\"TB\"\n\tnode [shape = record fontname=Arial];\n\ta [label=\"";
@@ -195,43 +193,52 @@ string Rep:: writeDiskReport(){
             // Es una particion extendida
             vector <EBR> ebr_list = a.obtain_ebr_list(partitions[i], seleccionada.path);
             ebr_list = Algorithms::sort_ebr_vector(ebr_list);
-            
-            string e; 
-            s += "\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<table border='0' cellborder='1'>";
-            int contador = 0;
-            for (int j = 0; j < ebr_list.size(); j++)
-            {   
-                int inicio = ebr_list[j].part_start + ebr_list[j].part_size;
-                int fin;
-                if(j>ebr_list.size()-2){
-                    fin = partitions[i].part_start + partitions[i].part_size;
-                } else {
-                    fin = ebr_list[j+1].part_start;
-                }
-                string name2(ebr_list[j].part_name);
-                float size_total = ebr_list[j].part_size;
-                float porc = (size_total/partitions[i].part_size)*100;
-                string porcentaje = to_string(porc);
-                porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
-                e += "\n\t\t\t\t\t\t\t\t<td>" + name2 + "<br/>"+ porcentaje + "%</td>";
-                
-                if(fin - inicio > 1){
-
-                    float size_real = fin - inicio;
-                    float total = partitions[i].part_size;
-                    float porc = (size_real/total)*100;
+            if(ebr_list.size()>0){
+                string e; 
+                s += "\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<table border='0' cellborder='1'>";
+                int contador = 0;
+                for (int j = 0; j < ebr_list.size(); j++)
+                {   
+                    int inicio = ebr_list[j].part_start + ebr_list[j].part_size;
+                    int fin;
+                    if(j>ebr_list.size()-2){
+                        fin = partitions[i].part_start + partitions[i].part_size;
+                    } else {
+                        fin = ebr_list[j+1].part_start;
+                    }
+                    string name2(ebr_list[j].part_name);
+                    float size_total = ebr_list[j].part_size;
+                    float porc = (size_total/partitions[i].part_size)*100;
                     string porcentaje = to_string(porc);
                     porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
-                    e+= "\n\t\t\t\t\t\t\t\t<td>Espacio libre: <br/>"+porcentaje+"%</td>";
-                    contador++;
-                }
-            }
-            contador += ebr_list.size();
-            s += "\n\t\t\t\t\t<tr><td colspan=\""+to_string(contador)+"\">" + name + "</td></tr>\n\t\t\t\t\t\t\t<tr>";
-            s+= e;
-            s+= "\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</td>";
+                    e += "\n\t\t\t\t\t\t\t\t<td>" + name2 + "<br/>"+ porcentaje + "%</td>";
+                    
+                    if(fin - inicio > 1){
 
-            
+                        float size_real = fin - inicio;
+                        float total = partitions[i].part_size;
+                        float porc = (size_real/total)*100;
+                        string porcentaje = to_string(porc);
+                        porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
+                        e+= "\n\t\t\t\t\t\t\t\t<td>Espacio libre: <br/>"+porcentaje+"%</td>";
+                        contador++;
+                    }
+                }
+                contador += ebr_list.size();
+                if(contador>0){
+                    s += "\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td colspan=\""+to_string(contador)+"\">" + name + "</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t<tr>";
+                    s+= e;
+                    s+= "\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t</td>";
+                } 
+                
+            }else {
+                float size_real = partitions[i].part_start + partitions[i].part_size;
+                float total = mbr.mbr_tamano;
+                float porc = (size_real/total)*100;
+                string porcentaje = to_string(porc);
+                porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
+                s += "\n\t\t\t\t\t<td>" + name + "<br/>"+ porcentaje+ "%</td>";
+            }
         } else {
             
             float size_real = partitions[i].part_start + partitions[i].part_size;
@@ -255,7 +262,7 @@ string Rep:: writeDiskReport(){
             float porc = (size_real/total)*100;
             string porcentaje = to_string(porc);
             porcentaje = porcentaje.substr(0, porcentaje.find(".")+3);
-            s+= "\n\t\t\t\t<td>Espacio libre: <br/>"+porcentaje+"%</td>";
+            s+= "\n\t\t\t\t\t<td>Espacio libre: <br/>"+porcentaje+"%</td>";
         }
     }
     s += "\n\t\t\t\t</tr>\n\t\t\t</table>\n\t\t>\n\t];\n\ta->tablaDisk[style=invis];\n}";
@@ -318,8 +325,9 @@ void Rep::obtenerInfoReportes(string strOrigen, string strDestino){
 
 void Rep::generateDot(string content, string path){
     string newPath = path + this->getNombreReporte() + ".dot";
-    
+    Algorithms::createFolder(path);
     ofstream file;
+    
     file.open(newPath);
     file<<content<<endl;
     file.close();

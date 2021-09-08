@@ -98,7 +98,13 @@ void Mkdisk::createDisk(){
     }
     
     // Abrir archivo
-
+    Algorithms::createFolder(this->getPath());
+    string newPath = path + this->getPath();
+    /*
+    ofstream f;
+    f.open(newPath);
+    f.close();
+    */
     FILE *file = fopen(this->getPath().c_str(),"wb");
 
     if(file ==NULL){
