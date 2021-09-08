@@ -8,6 +8,7 @@ using namespace std;
 int p;
 int main(int argc, char *argv[])
 {   
+    
     string line;
 
     for (int i = 1; i < argc; i++)

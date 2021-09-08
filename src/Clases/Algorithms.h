@@ -32,6 +32,7 @@ class Algorithms {
         void printPartition(Partition, string);
         void print_ebr_list(vector<EBR>);
         void print_ebr(EBR);
+        static void createFolder(string path );
         static void writeJournal(Journal journal, int inicioJournals, string path);
         static void fillWithZeros(int start, int size, string path);
         static void printError(string err);

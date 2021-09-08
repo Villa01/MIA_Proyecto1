@@ -7,6 +7,13 @@ Algorithms::Algorithms(){
 
 }
 
+void Algorithms::createFolder(string path){
+    // Dejar solo las carpetas
+    path = path.substr(0, path.find_last_of("/")+1);
+    string comando = "mkdir -p " + path;
+    system(comando.c_str());
+}
+
 void Algorithms::printError(string err){
     std::cout <<"\e[0;31m"<< "--- ERROR: "<<err << std::endl;
 }
