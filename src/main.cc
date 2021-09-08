@@ -3,12 +3,11 @@ using namespace std;
 #include <iostream>
 #include "./analizador/driver.h"
 
-
 //extern int yyparse(); 
 
 int p;
 int main(int argc, char *argv[])
-{
+{   
     string line;
 
     for (int i = 1; i < argc; i++)
