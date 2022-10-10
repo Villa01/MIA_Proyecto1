@@ -1,45 +1,42 @@
-# MIA_Proyecto1
-**Desarrollado por:<br/>** 
-Erick José André Villatoro Revolorio<br/>
-201900907
+# File System Simulation
 
-El proyecto consta de una aplicación de comandos por consola que permite la simulación de un sistema de archivos EXT2 y EXT3, desde la creación de un disco duro, hasta la creación de archivos y carpetas. 
+Console command application that allows the simulation of an EXT2 and EXT3 file system, from the creation of a hard disk, to the creation of files and folders.
 
-## Sintáxis de comandos
-El proyecto es case insensitive y no importa el orden en el que se escriban los parámetros de los comandos.
-### Comando sin parametros
- [Comando] 
-### Comando con parametros
- [Comando] [Lista de parametros]
+## Command syntax
+The project is case insensitive and the order in which the command parameters are written does not matter.
+### Command without parameters
+ [Command] 
+### Command with parameters
+ [Command] [parameters list]
 
-### Lista de parametros
-[lista de parametros] [parametro] 
-<br/>| [parametro]
+### Parameters list
+[Parameters list] [parameter] 
+<br/>| [parameter]
 
-### Parametro 
--[nombre del parametro] = [atributo]
+### parameter 
+-[parameter name] = [attribute]
 
-Toda la aplicación tienen una lista de comandos predefinidos que pueden tener argumentos. 
+All the application have a list of predefined commands that can have arguments. 
 
-## Lista de Comandos
-### Mkdisk
-Este comando crea un archivo binario que simula un disco duro, estos archivos binarios tienen la extensión dk y su contenido al inicio será 0. Cada archivo ocupa físicamente el tamaño indicado por los parámetros. Recibirá el nombre del archivo que simulará el disco duro y tendrá los siguientes parámetros:
+## Command list
+### mkdisk
+This command creates a binary file that simulates a hard disk, these binary files have the extension dk and its content at the beginning will be 0. Each file physically occupies the size indicated by the parameters. It will receive the name of the file that will simulate the hard disk and will have the following parameters:
 
-| Parámetro | Categoría | Atributos | Valor por defecto|
+| Parameter | Category | Attirbutes | Default value |
 |-----------|-----------|-------------|------------------|
-| Size      | Obligatorio | Indica el tamaño del disco a crear. Debe ser positivo y mayor que cero. |
-| f| Opcional| Indica el tipo de ajuste que se usa para crear las particiones del disco. Y puede contener los valores: 1. BF: Best Fit 2. WF: Worst Fit3. FF: Fisrt Fit.| FF |
-| u | Opcional | Indica las unidades que utiliza para el parametro size. Sus valores pueden ser: 1. K: Kylobytes 2. M: Megabytes. | K | 
-| Path | Obligatorio | Contiene la ruta en donde se crea el archivo binario que representa al disco. | 
+| Size      | Mandatory | Indicates the size of the disk to create. It must be positive and greater than zero. |
+| f | Optional | Indicates the type of fit that is used to create disk partitions. BF: Best Fit 2. WF: Worst Fit 3. FF: Fisrt Fit.| FF |
+| u | Optional | Indicates the units used for the size parameter. K: Kylobytes 2. M: Megabytes. | K | 
+| Path | Mandatory | Contains the path where the binary file representing the disk is created. | 
 
-#### Ejemplos de uso
->Mkdisk -Size=3000 –u=K -path=/home/user/Disco1.dk
+#### Use Examples
+>Mkdisk -Size=3000 –u=K -path=/home/user/Disk1.dk
 >
->mkdisk –size=5 –u=M –path="/home/mis discos/Disco3.dk"
+>mkdisk –size=5 –u=M –path="/home/my_disks/Disk3.dk"
 ### Rmdisk
 Este comando elimina el archivo binario que representa el disco duro. Tendrá los siguientes parámetros:
 
-| Parámetro | Categoría | Atributos | Valor por defecto|
+| Parameter | Category | Attirbutes | Default value |
 |-----------|-----------|-------------|------------------|
 | Path | Obligatorio | Contiene la ruta en donde se crea el archivo binario que representa al disco. | 
 
